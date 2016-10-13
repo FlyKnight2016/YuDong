@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <!-- 主题颜色 -->
+    <color name="themeColor">#26C88F</color>
+
     <!-- 基本颜色 -->
     <color name="white">#FFFFFF</color>
     <color name="dark">#000000</color>
