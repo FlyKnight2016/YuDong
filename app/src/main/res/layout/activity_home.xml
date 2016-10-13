@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="net.zgyejy.yudong.activity.HomeActivity"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="5dp">
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="0"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/tv_home_show"
+            style="@style/Style_HomeGuideText"
+            android:text="秀一秀"/>
+        <TextView
+            android:id="@+id/tv_home_study"
+            style="@style/Style_HomeGuideText"
+            android:text="学习园地"/>
+        <TextView
+            android:id="@+id/tv_home_video"
+            style="@style/Style_HomeGuideText"
+            android:text="视频"/>
+        <TextView
+            android:id="@+id/tv_home_act"
+            style="@style/Style_HomeGuideText"
+            android:text="活动"/>
+        <TextView
+            android:id="@+id/tv_home_user"
+            style="@style/Style_HomeGuideText"
+            android:text="我"/>
+
+    </LinearLayout>
+</LinearLayout>
