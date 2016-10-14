@@ -5,24 +5,53 @@
               android:orientation="vertical"
               tools:context="net.zgyejy.yudong.fragment.VideoFragment">
 
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
-            <TextView
-                style="@style/Style_VideoGuideText"
-                android:text="五一"/>
-            <TextView
-                style="@style/Style_VideoGuideText"
-                android:text="收费"/>
-            <TextView
-                style="@style/Style_VideoGuideText"
-                android:text="公益"/>
-        </LinearLayout>
-    </RelativeLayout>
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+            <ImageView
+                android:id="@+id/iv_scan"
+                android:adjustViewBounds="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/scan"/>
+        </RelativeLayout>
+
+
+        <TextView
+            style="@style/Style_VideoGuideText"
+            android:text="五个一"/>
+
+        <TextView
+            style="@style/Style_VideoGuideText"
+            android:text="免费"/>
+
+        <TextView
+            style="@style/Style_VideoGuideText"
+            android:text="VIP"/>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+            <ImageView
+                android:id="@+id/iv_search"
+                android:adjustViewBounds="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/search"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
 
 </LinearLayout>
