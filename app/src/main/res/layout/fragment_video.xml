@@ -60,18 +60,14 @@
 
     </LinearLayout>
 
-    <GridView
-        android:id="@+id/gv_video_51"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_home_video"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:numColumns="2"
-        android:horizontalSpacing="10dp"
-        android:verticalSpacing="8dp">
-    </GridView>
-
+        android:layout_marginRight="40dp">
+    </android.support.v4.view.ViewPager>
 
 </LinearLayout>
