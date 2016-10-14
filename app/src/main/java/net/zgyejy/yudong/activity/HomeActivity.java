@@ -83,6 +83,17 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    public int getThemeColor() {
+        return themeColor;
+    }
+
+    public void setThemeColor(int themeColor) {
+        this.themeColor = themeColor;
+    }
+
+    public int getDefaultColor() {
+        return defaultColor;
+    }
 
     private void loadVideoFragment() {
         videoFragment = new VideoFragment();

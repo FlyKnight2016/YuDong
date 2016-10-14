@@ -27,15 +27,21 @@
 
 
         <TextView
+            android:id="@+id/tv_video_51"
             style="@style/Style_VideoGuideText"
-            android:text="五个一"/>
+            android:text="五个一"
+            android:background="@drawable/text_view_border_51"/>
 
         <TextView
+            android:id="@+id/tv_video_free"
             style="@style/Style_VideoGuideText"
+            android:background="@drawable/text_view_border_free"
             android:text="免费"/>
 
         <TextView
+            android:id="@+id/tv_video_vip"
             style="@style/Style_VideoGuideText"
+            android:background="@drawable/text_view_border_vip"
             android:text="VIP"/>
         <RelativeLayout
             android:layout_width="0dp"
