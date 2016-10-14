@@ -2,12 +2,12 @@ package net.zgyejy.yudong.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.zgyejy.yudong.R;
+import net.zgyejy.yudong.base.MyBaseActivity;
 import net.zgyejy.yudong.fragment.ActFragment;
 import net.zgyejy.yudong.fragment.ShowFragment;
 import net.zgyejy.yudong.fragment.StudyFragment;
@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends MyBaseActivity {
     @BindView(R.id.tv_home_show)
     TextView tv_home_show;
     @BindView(R.id.tv_home_study)
