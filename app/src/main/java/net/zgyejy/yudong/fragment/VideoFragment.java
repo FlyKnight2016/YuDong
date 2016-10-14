@@ -2,7 +2,6 @@ package net.zgyejy.yudong.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,8 +40,8 @@ public class VideoFragment extends Fragment {
 
     private List<Book> listBook;//五个一教材列表
 
-    private GestureDetector gesture;//手势识别
-    private int tag;//当前页面标识
+    private int tag = 0;//当前页面标识
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,52 +55,57 @@ public class VideoFragment extends Fragment {
         ButterKnife.bind(this, view);
         initVideo51();
 
-        //根据父窗体getActivity()为fragment设置手势识别
-        gesture = new GestureDetector(this.getActivity(), new MyOnGestureListener());
-        //为fragment添加OnTouchListener监听器
-        view.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return gesture.onTouchEvent(event);//返回手势识别触发的事件
-            }
-        });
+        view.setOnTouchListener(onTouchListener);
 
         return view;
     }
 
-    //设置手势识别监听器
-    private class MyOnGestureListener extends GestureDetector.SimpleOnGestureListener {
-        @Override//此方法必须重写且返回真，否则onFling不起效
-        public boolean onDown(MotionEvent e) {
-            return true;
-        }
+    private View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+        private float startX, startY, offsetX, offsetY;
 
         @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            if ((e1.getX() - e2.getX() > 50) && Math.abs(velocityX) > 50) {
-                //左划
-                switch (tag) {
-                    case 1:
-                        showVideo51();
-                        break;
-                    case 2:
-                        showVideoFree();
-                        break;
-                }
-                return true;
-            } else if ((e2.getX() - e1.getX() > 120) && Math.abs(velocityX) > 200) {
-                //右划
-                switch (tag) {
-                    case 0:
-                        showVideoFree();
-                        break;
-                    case 1:
-                        showVideoVip();
-                        break;
-                }
-                return true;
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    startX = event.getX();
+                    startY = event.getY();
+                    break;
+                case MotionEvent.ACTION_UP:
+                    offsetX = event.getX() - startX;
+                    offsetY = event.getY() - startY;
+
+                    if (Math.abs(offsetX) > Math.abs(offsetY)) {
+                        if (offsetX < -5) {
+                            swipeLeft();
+                        } else if (offsetX > 5) {
+                            swipeRight();
+                        }
+                    }
+                    break;
             }
-            return false;
+            return true;
+        }
+    };
+
+    private void swipeLeft() {
+        switch (tag) {
+            case 1:
+                showVideo51();
+                break;
+            case 2:
+                showVideoFree();
+                break;
+        }
+    }
+
+    private void swipeRight() {
+        switch (tag) {
+            case 0:
+                showVideoFree();
+                break;
+            case 1:
+                showVideoVip();
+                break;
         }
     }
 
