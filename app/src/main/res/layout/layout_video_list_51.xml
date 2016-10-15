@@ -7,6 +7,8 @@
         android:id="@+id/gv_video_51"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:horizontalSpacing="10dp"
         android:numColumns="2"
         android:verticalSpacing="8dp">

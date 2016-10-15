@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.base.MyBaseAdapter;
+import net.zgyejy.yudong.modle.VideoFree;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,7 +17,7 @@ import butterknife.ButterKnife;
  * Created by FlyKnight on 2016/10/14.
  */
 
-public class ListViewAdapter_Free extends MyBaseAdapter {
+public class ListViewAdapter_Free extends MyBaseAdapter <VideoFree>{
     public ListViewAdapter_Free(Context context) {
         super(context);
     }
