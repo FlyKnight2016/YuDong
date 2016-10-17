@@ -13,7 +13,6 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import net.zgyejy.yudong.R;
@@ -101,7 +100,7 @@ public class RefreshableView extends LinearLayout implements View.OnTouchListene
     /**
      * 刷新时显示的进度条
      */
-    private ProgressBar progressBar;
+    private GifView gifView;
 
     /**
      * 指示下拉和释放的箭头
@@ -173,7 +172,8 @@ public class RefreshableView extends LinearLayout implements View.OnTouchListene
         super(context, attrs);
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         header = LayoutInflater.from(context).inflate(R.layout.pull_to_refresh, null, true);
-        progressBar = (ProgressBar) header.findViewById(R.id.progress_bar);
+        gifView = (GifView) header.findViewById(R.id.gifView);
+        gifView.setMovieResource(R.drawable.refreshing);
         arrow = (ImageView) header.findViewById(R.id.arrow);
         description = (TextView) header.findViewById(R.id.description);
         updateAt = (TextView) header.findViewById(R.id.updated_at);
@@ -314,16 +314,16 @@ public class RefreshableView extends LinearLayout implements View.OnTouchListene
             if (currentStatus == STATUS_PULL_TO_REFRESH) {
                 description.setText(getResources().getString(R.string.pull_to_refresh));
                 arrow.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.GONE);
+                gifView.setVisibility(View.GONE);
                 rotateArrow();
             } else if (currentStatus == STATUS_RELEASE_TO_REFRESH) {
                 description.setText(getResources().getString(R.string.release_to_refresh));
                 arrow.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.GONE);
+                gifView.setVisibility(View.GONE);
                 rotateArrow();
             } else if (currentStatus == STATUS_REFRESHING) {
                 description.setText(getResources().getString(R.string.refreshing));
-                progressBar.setVisibility(View.VISIBLE);
+                gifView.setVisibility(View.VISIBLE);
                 arrow.clearAnimation();
                 arrow.setVisibility(View.GONE);
             }
