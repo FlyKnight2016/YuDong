@@ -2,9 +2,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <ListView
-        android:id="@+id/lv_video_free"
+    <net.zgyejy.yudong.view.RefreshableView
+        android:id="@+id/refresh_VideoFree"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </ListView>
+
+        <ListView
+            android:id="@+id/lv_video_free"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+    </net.zgyejy.yudong.view.RefreshableView>
 </FrameLayout>

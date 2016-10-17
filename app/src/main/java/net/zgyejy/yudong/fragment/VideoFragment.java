@@ -20,6 +20,7 @@ import net.zgyejy.yudong.adapter.MyPagerAdapter;
 import net.zgyejy.yudong.modle.Book;
 import net.zgyejy.yudong.modle.VideoFree;
 import net.zgyejy.yudong.modle.VideoVip;
+import net.zgyejy.yudong.view.RefreshableView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +38,16 @@ public class VideoFragment extends Fragment {
     @BindView(R.id.tv_video_vip)
     TextView tvVideoVip;
 
-    GridView gvVideo51;//五个一教材列表
-    ListView lvVideo51, lvVideoFree, lvVideoVip;
-
     @BindView(R.id.vp_home_video)
     ViewPager vpHomeVideo;//左右滑动界面
+
     private MyPagerAdapter viewPagerAdapter;
+
+    RefreshableView refreshableView51,refreshableViewFree,
+            refreshableViewVip;//下拉刷新控件
+
+    GridView gvVideo51;//五个一教材列表
+    ListView lvVideo51, lvVideoFree, lvVideoVip;
 
     private GridViewAdapter_51Book adapter51Book;//五个一教材列表适配器
     private ListViewAdapter_Free adapterListFree;
@@ -88,20 +93,69 @@ public class VideoFragment extends Fragment {
         frameLayout = (FrameLayout) getActivity().getLayoutInflater()
                 .inflate(R.layout.layout_video_list_51, null);
         gvVideo51 = (GridView) frameLayout.findViewById(R.id.gv_video_51);
-        lvVideoFree = (ListView) frameLayout.findViewById(R.id.lv_video_51);
+        lvVideo51 = (ListView) frameLayout.findViewById(R.id.lv_video_51);
+        refreshableView51 = (RefreshableView) frameLayout.findViewById
+                (R.id.refresh_Video51);
         viewPagerAdapter.addToAdapterView(frameLayout);
 
         frameLayout = (FrameLayout) getActivity().getLayoutInflater()
                 .inflate(R.layout.layout_video_list_free, null);
         lvVideoFree = (ListView) frameLayout.findViewById(R.id.lv_video_free);
+        refreshableViewFree = (RefreshableView) frameLayout.findViewById
+                (R.id.refresh_VideoFree);
         viewPagerAdapter.addToAdapterView(frameLayout);
 
         frameLayout = (FrameLayout) getActivity().getLayoutInflater()
                 .inflate(R.layout.layout_video_list_vip, null);
         lvVideoVip = (ListView) frameLayout.findViewById(R.id.lv_video_vip);
+        refreshableViewVip = (RefreshableView) frameLayout.findViewById
+                (R.id.refresh_VideoVip);
         viewPagerAdapter.addToAdapterView(frameLayout);
 
+        setRefreshListener();
+
         viewPagerAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 设置下拉刷新控件的监听
+     */
+    private void setRefreshListener() {
+        refreshableView51.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
+            @Override
+            public void onRefresh() {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                refreshableView51.finishRefreshing();
+            }
+        },0);
+
+        refreshableViewFree.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
+            @Override
+            public void onRefresh() {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                refreshableViewFree.finishRefreshing();
+            }
+        },0);
+
+        refreshableViewVip.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
+            @Override
+            public void onRefresh() {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                refreshableViewVip.finishRefreshing();
+            }
+        },0);
     }
 
     /**
