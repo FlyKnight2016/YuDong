@@ -42,7 +42,9 @@ public class UserFragment extends Fragment {
         return view;
     }
 
-    @OnClick({R.id.ll_user_myBalance, R.id.ll_user_myCoupons, R.id.ll_user_myPoints, R.id.ll_user_myOrders, R.id.ll_user_myCoupons2, R.id.ll_user_integralMall, R.id.ll_user_actCenter, R.id.ll_user_normalProblem})
+    @OnClick({R.id.ll_user_myBalance, R.id.ll_user_myCoupons, R.id.ll_user_myPoints,
+            R.id.ll_user_myOrders, R.id.ll_user_myCoupons2, R.id.ll_user_integralMall,
+            R.id.ll_user_actCenter, R.id.ll_user_normalProblem})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_user_myBalance:

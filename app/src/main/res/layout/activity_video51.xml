@@ -34,10 +34,10 @@
         android:paddingRight="15dp"
         android:paddingBottom="10dp">
 
-        <ListView
+        <ExpandableListView
             android:id="@+id/lv_video_51"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        </ListView>
+        </ExpandableListView>
     </net.zgyejy.yudong.view.RefreshableView>
 </LinearLayout>
