@@ -37,28 +37,6 @@ public class Video51Activity extends MyBaseActivity {
 
     }
 
-    /*private void initData() {
-        //Video51 video51 = new Video51();
-        if (video51Types == null) {
-            video51Types = new ArrayList<>();
-            for (int i = 0; i < 20; i++) {
-                video51Types.add("第" + i + "周");
-            }
-        }
-        adapterList51.appendGroupData(video51Types,true);
-        if (listVideo51 == null) {
-            listVideo51 = new ArrayList<>();
-            video51Types.clear();
-            for (int i = 0; i < 5; i++) {
-                video51Types.add("第" + i + "天");
-            }
-            for (int i = 0; i<20; i++) {
-                listVideo51.add(video51Types);
-            }
-        }
-        adapterList51.appendChildData(listVideo51,true);
-    }*/
-
     private void initView() {
         if (video51Types == null) {
             video51Types = new ArrayList<>();
@@ -107,6 +85,7 @@ public class Video51Activity extends MyBaseActivity {
             case R.id.iv_video51_return:
             case R.id.tv_video51_return:
                 openActivity(HomeActivity.class);
+                finish();
                 break;
         }
     }
