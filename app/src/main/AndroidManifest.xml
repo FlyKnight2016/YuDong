@@ -22,6 +22,12 @@
             android:label="@string/title_activity_video_play"
             android:theme="@style/AppTheme">
         </activity>
+        <activity android:name=".activity.Video51Activity">
+        </activity>
+        <activity android:name=".activity.LoginActivity">
+        </activity>
+        <activity android:name=".activity.RegisterActivity">
+        </activity>
     </application>
 
 </manifest>

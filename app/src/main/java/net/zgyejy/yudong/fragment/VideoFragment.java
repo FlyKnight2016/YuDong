@@ -9,20 +9,18 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.activity.HomeActivity;
+import net.zgyejy.yudong.activity.Video51Activity;
 import net.zgyejy.yudong.activity.VideoPlayActivity;
 import net.zgyejy.yudong.adapter.GridViewAdapter_51Book;
-import net.zgyejy.yudong.adapter.ListViewAdapter_51;
 import net.zgyejy.yudong.adapter.ListViewAdapter_Free;
 import net.zgyejy.yudong.adapter.ListViewAdapter_Vip;
 import net.zgyejy.yudong.adapter.MyPagerAdapter;
 import net.zgyejy.yudong.modle.Book;
-import net.zgyejy.yudong.modle.Video51;
 import net.zgyejy.yudong.modle.VideoFree;
 import net.zgyejy.yudong.modle.VideoVip;
 import net.zgyejy.yudong.view.RefreshableView;
@@ -48,16 +46,13 @@ public class VideoFragment extends Fragment {
 
     private MyPagerAdapter viewPagerAdapter;
 
-    RefreshableView refreshableView51,refreshableViewFree,
-            refreshableViewVip;//下拉刷新控件
+    RefreshableView refreshableViewFree, refreshableViewVip;//下拉刷新控件
 
-    LinearLayout ll_video_51,ll_video_51_return;
     GridView gvVideo51;//五个一教材列表
-    ListView lvVideo51, lvVideoFree, lvVideoVip;
+    ListView lvVideoFree, lvVideoVip;
 
     private GridViewAdapter_51Book adapter51Book;//五个一教材列表适配器
     private ListViewAdapter_Free adapterListFree;
-    private ListViewAdapter_51 adapterList51;
     private ListViewAdapter_Vip adapterListVip;
 
     @BindColor(R.color.white)
@@ -65,12 +60,10 @@ public class VideoFragment extends Fragment {
     private int themeColor;//主题颜色
 
     private List<Book> listBook;//五个一教材列表
-    private List<Video51> listVideo51;
     private List<VideoFree> listVideoFree;
     private List<VideoVip> listVideoVip;
 
     private int topGuidTag = 0;//当前页面标识
-    private int video51Tag = 0;
 
 
     @Override
@@ -105,28 +98,9 @@ public class VideoFragment extends Fragment {
         gvVideo51.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showVideo51();
-                video51Tag = 1;
+                ((HomeActivity) getActivity()).openActivity(Video51Activity.class);
             }
         });
-        lvVideo51 = (ListView) frameLayout.findViewById(R.id.lv_video_51);
-        lvVideo51.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((HomeActivity)getActivity()).openActivity(VideoPlayActivity.class);
-            }
-        });
-        ll_video_51 = (LinearLayout) frameLayout.findViewById(R.id.ll_video_51);
-        ll_video_51_return = (LinearLayout) frameLayout.findViewById(R.id.ll_video_51_return);
-        ll_video_51_return.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showVideo51();
-                video51Tag = 0;
-            }
-        });
-        refreshableView51 = (RefreshableView) frameLayout.findViewById
-                (R.id.refresh_Video51);
         viewPagerAdapter.addToAdapterView(frameLayout);
 
         frameLayout = (FrameLayout) getActivity().getLayoutInflater()
@@ -135,7 +109,7 @@ public class VideoFragment extends Fragment {
         lvVideoFree.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((HomeActivity)getActivity()).openActivity(VideoPlayActivity.class);
+                ((HomeActivity) getActivity()).openActivity(VideoPlayActivity.class);
             }
         });
         refreshableViewFree = (RefreshableView) frameLayout.findViewById
@@ -148,7 +122,7 @@ public class VideoFragment extends Fragment {
         lvVideoVip.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((HomeActivity)getActivity()).openActivity(VideoPlayActivity.class);
+                ((HomeActivity) getActivity()).openActivity(VideoPlayActivity.class);
             }
         });
         refreshableViewVip = (RefreshableView) frameLayout.findViewById
@@ -164,17 +138,6 @@ public class VideoFragment extends Fragment {
      * 设置下拉刷新控件的监听
      */
     private void setRefreshListener() {
-        refreshableView51.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
-            @Override
-            public void onRefresh() {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                refreshableView51.finishRefreshing();
-            }
-        },0);
 
         refreshableViewFree.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
             @Override
@@ -186,7 +149,7 @@ public class VideoFragment extends Fragment {
                 }
                 refreshableViewFree.finishRefreshing();
             }
-        },0);
+        }, 0);
 
         refreshableViewVip.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
             @Override
@@ -198,7 +161,7 @@ public class VideoFragment extends Fragment {
                 }
                 refreshableViewVip.finishRefreshing();
             }
-        },0);
+        }, 0);
     }
 
     /**
@@ -224,6 +187,7 @@ public class VideoFragment extends Fragment {
 
     /**
      * 普通的点击事件
+     *
      * @param view
      */
     @OnClick({R.id.iv_scan, R.id.tv_video_51, R.id.tv_video_free,
@@ -280,50 +244,6 @@ public class VideoFragment extends Fragment {
      * 显示五个一视频数据
      */
     private void showVideo51() {
-        switch (video51Tag) {
-            case 0:
-                gvVideo51.setVisibility(View.VISIBLE);
-                ll_video_51.setVisibility(View.GONE);
-                initDateVideo51Grid();
-                break;
-            case 1:
-                gvVideo51.setVisibility(View.GONE);
-                ll_video_51.setVisibility(View.VISIBLE);
-                initDateVideo51List();
-                break;
-        }
-
-    }
-
-    /**
-     *配置各列表适配器，初始化51视频界面
-     */
-    private void initVideoAdapters() {
-
-        if (adapter51Book == null)
-            adapter51Book = new GridViewAdapter_51Book(getContext());
-        gvVideo51.setAdapter(adapter51Book);
-
-        if (adapterList51 == null)
-            adapterList51 = new ListViewAdapter_51(getContext());
-        lvVideo51.setAdapter(adapterList51);
-
-        if (adapterListFree == null)
-            adapterListFree = new ListViewAdapter_Free(getContext());
-        lvVideoFree.setAdapter(adapterListFree);
-
-        if (adapterListVip == null)
-            adapterListVip = new ListViewAdapter_Vip(getContext());
-        lvVideoVip.setAdapter(adapterListVip);
-
-        topGuidTag = 0;
-        setTopGuid();
-    }
-
-    /**
-     * 加载51数据列表数据
-     */
-    private void initDateVideo51Grid() {
         String[] str = {"一", "二", "三", "四", "五", "六"};
         if (listBook == null)
             listBook = new ArrayList<>();
@@ -335,16 +255,25 @@ public class VideoFragment extends Fragment {
         adapter51Book.updateAdapter();
     }
 
-    private void initDateVideo51List() {
-        Video51 video51 = new Video51();
-        if (listVideo51 == null) {
-            listVideo51 = new ArrayList<>();
-            for (int i = 0; i < 20; i++) {
-                listVideo51.add(video51);//测试添加数据
-            }
-        }
-        adapterList51.appendDataed(listVideo51, true);
-        adapterList51.updateAdapter();
+    /**
+     * 配置各列表适配器，初始化51视频界面
+     */
+    private void initVideoAdapters() {
+
+        if (adapter51Book == null)
+            adapter51Book = new GridViewAdapter_51Book(getContext());
+        gvVideo51.setAdapter(adapter51Book);
+
+        if (adapterListFree == null)
+            adapterListFree = new ListViewAdapter_Free(getContext());
+        lvVideoFree.setAdapter(adapterListFree);
+
+        if (adapterListVip == null)
+            adapterListVip = new ListViewAdapter_Vip(getContext());
+        lvVideoVip.setAdapter(adapterListVip);
+
+        topGuidTag = 0;
+        setTopGuid();
     }
 
     /**

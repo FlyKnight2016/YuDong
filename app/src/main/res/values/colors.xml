@@ -15,6 +15,9 @@
     <color name="blue">#0000FF</color>
     <color name="yellow">#FFFF00</color>
 
+    <!-- 半透明色 -->
+    <color name="translucentWhite">#55FFFFFF</color>
+
     <!-- 常用颜色 -->
     <color name="lightGray">#BFBFBF</color>
     <color name="midGray">#808080</color>
