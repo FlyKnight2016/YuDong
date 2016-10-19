@@ -140,7 +140,7 @@
                 android:background="@drawable/useropen"/>
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/ll_user_myCoupons2"
+            android:id="@+id/ll_user_myCollect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -148,12 +148,12 @@
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:background="@drawable/usercoupons"/>
+                android:background="@drawable/usercollect"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="我的优惠券"
+                android:text="我的收藏"
                 android:layout_marginLeft="10dp"/>
             <ImageView
                 android:layout_width="25dp"

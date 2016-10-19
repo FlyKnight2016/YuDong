@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
+        android:background="@color/themeColor"
         android:orientation="horizontal"
         android:gravity="center_vertical">
         <ImageView
@@ -16,12 +17,13 @@
             android:adjustViewBounds="true"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/return1"/>
+            android:background="@drawable/return2"/>
         <TextView
             android:id="@+id/tv_video51_return"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="返回"
+            android:textColor="@color/white"
             android:padding="5dp"
             android:textSize="20sp"/>
     </LinearLayout>
@@ -34,10 +36,39 @@
         android:paddingRight="15dp"
         android:paddingBottom="10dp">
 
-        <ExpandableListView
+        <ListView
             android:id="@+id/lv_video_51"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        </ExpandableListView>
+        </ListView>
     </net.zgyejy.yudong.view.RefreshableView>
+
+    <LinearLayout
+        android:id="@+id/ll_video51_child"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/tv_video51_backParent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="点击返回上一级"
+            android:gravity="center"/>
+        <net.zgyejy.yudong.view.RefreshableView
+            android:id="@+id/refresh_Video51_child"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="10dp">
+
+            <ListView
+                android:id="@+id/lv_video_51_child"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </ListView>
+        </net.zgyejy.yudong.view.RefreshableView>
+    </LinearLayout>
 </LinearLayout>

@@ -3,10 +3,8 @@ package net.zgyejy.yudong.activity;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.view.View;
-
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.base.MyBaseActivity;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

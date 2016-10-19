@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.activity.HomeActivity;
+import net.zgyejy.yudong.activity.SearchActivity;
 import net.zgyejy.yudong.activity.Video51Activity;
 import net.zgyejy.yudong.activity.VideoPlayActivity;
 import net.zgyejy.yudong.adapter.GridViewAdapter_51Book;
@@ -206,6 +207,7 @@ public class VideoFragment extends Fragment {
                 vpHomeVideo.setCurrentItem(2);
                 break;
             case R.id.iv_search:
+                ((HomeActivity)getActivity()).openActivity(SearchActivity.class);
                 break;
         }
     }
