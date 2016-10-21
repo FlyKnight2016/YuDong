@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="net.zgyejy.yudong">
 
+    <!--播放视频所需的权限-->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
@@ -19,16 +25,25 @@
         </activity>
         <activity
             android:name=".activity.VideoPlayActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_video_play"
             android:theme="@style/AppTheme">
         </activity>
-        <activity android:name=".activity.Video51Activity">
+        <activity
+            android:name=".activity.Video51Activity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.LoginActivity">
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.RegisterActivity">
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.SearchActivity">
+        <activity
+            android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

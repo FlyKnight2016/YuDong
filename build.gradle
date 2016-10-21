@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.1'
+        classpath 'com.android.tools.build:gradle:2.2.2'
 
         // 使用"android-apt"插件，用于ButterKnife
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
