@@ -21,15 +21,15 @@
             android:background="@drawable/return2"/>
 
         <SearchView
+            android:id="@+id/mySearchView"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:searchIcon="@drawable/search3"
+            android:layout_marginStart="10dp"
             android:background="@drawable/edit_text_back_white"
-            android:drawablePadding="5dp"
+            android:searchIcon="@drawable/search3"
             android:iconifiedByDefault="false"
             android:imeOptions="actionSearch"
             android:inputType="textCapWords"

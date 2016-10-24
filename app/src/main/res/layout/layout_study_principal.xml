@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/lv_study_principal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        ptr:ptrDrawable="@drawable/arrow"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrHeaderBackground="@color/lightGray"/>
+</FrameLayout>

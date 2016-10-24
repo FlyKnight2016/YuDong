@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import net.zgyejy.yudong.R;
+import net.zgyejy.yudong.adapter.CommentListAdapter;
 import net.zgyejy.yudong.base.MyBaseActivity;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class VideoPlayActivity extends MyBaseActivity {
     private MediaController mMediaController;
     private boolean fullscreen = false;
     private String path = "http://baobab.wdjcdn.com/145076769089714.mp4";
+    private CommentListAdapter commentListAdapter;
 
     @BindView(R.id.tv_play_title)
     TextView tvPlayTitle;
@@ -72,6 +74,24 @@ public class VideoPlayActivity extends MyBaseActivity {
         mVideoView.setMediaController(mMediaController);//绑定控制器
         mVideoView.requestFocus();//取得焦点
         mVideoView.start();
+
+        initListData();
+    }
+
+    /**
+     * 初始化评论列表数据
+     */
+    private void initListData() {
+        if (commentListAdapter == null)
+            commentListAdapter = new CommentListAdapter(this);
+        lvPlayComments.setAdapter(commentListAdapter);
+    }
+
+    /**
+     * 刷新评论列表数据
+     */
+    private void refreshListData() {
+
     }
 
     /**
@@ -166,6 +186,7 @@ public class VideoPlayActivity extends MyBaseActivity {
                 break;
             case R.id.btn_play_sendComment:
                 //获取品论内容，发送评论的方法
+                refreshListData();
                 break;
         }
     }

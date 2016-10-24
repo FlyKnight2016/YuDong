@@ -184,28 +184,6 @@
                 android:background="@drawable/useropen"/>
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/ll_user_actCenter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/useract"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="活动中心"
-                android:layout_marginLeft="10dp"/>
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="20dp"
-                android:layout_gravity="right"
-                android:background="@drawable/useropen"/>
-        </LinearLayout>
-        <LinearLayout
             android:id="@+id/ll_user_normalProblem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

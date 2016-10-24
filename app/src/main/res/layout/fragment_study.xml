@@ -1,13 +1,65 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="net.zgyejy.yudong.fragment.StudyFragment">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="net.zgyejy.yudong.fragment.StudyFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="学习园地界面..."/>
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+        </TextView>
+
+
+        <TextView
+            android:id="@+id/tv_study_principal"
+            style="@style/Style_VideoGuideText"
+            android:background="@drawable/text_view_back_51"
+            android:textColor="@color/white"
+            android:text="园长"/>
+
+        <TextView
+            android:id="@+id/tv_study_teacher"
+            style="@style/Style_VideoGuideText"
+            android:background="@drawable/text_view_border_free"
+            android:text="幼师"/>
+
+        <TextView
+            android:id="@+id/tv_study_parents"
+            style="@style/Style_VideoGuideText"
+            android:background="@drawable/text_view_border_free"
+            android:text="家长"/>
+
+        <TextView
+            android:id="@+id/tv_study_kid"
+            style="@style/Style_VideoGuideText"
+            android:background="@drawable/text_view_border_vip"
+            android:text="幼儿"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+        </TextView>
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_study_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1">
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>
