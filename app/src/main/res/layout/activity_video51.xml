@@ -5,43 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:background="@color/themeColor"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:padding="20px">
+
         <ImageView
             android:id="@+id/iv_video51_return"
+            android:layout_width="60px"
+            android:layout_height="60px"
             android:adjustViewBounds="true"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
             android:background="@drawable/return2"/>
+
         <TextView
             android:id="@+id/tv_video51_return"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10px"
             android:text="返回"
             android:textColor="@color/white"
-            android:padding="5dp"
-            android:textSize="20sp"/>
+            android:textSize="40px"/>
     </LinearLayout>
 
-    <net.zgyejy.yudong.view.RefreshableView
-        android:id="@+id/refresh_Video51"
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/lv_video_51"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingBottom="10dp">
-
-        <ListView
-            android:id="@+id/lv_video_51"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </ListView>
-    </net.zgyejy.yudong.view.RefreshableView>
+        android:layout_height="match_parent"
+        android:paddingBottom="20px"
+        android:paddingLeft="30px"
+        android:paddingRight="30px"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrDrawable="@drawable/default_ptr_flip"
+        ptr:ptrHeaderBackground="@color/themeColor"
+        ptr:ptrHeaderTextColor="#FFFFFF">
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
 
     <LinearLayout
         android:id="@+id/ll_video51_child"
@@ -49,26 +51,27 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone">
+
         <TextView
             android:id="@+id/tv_video51_backParent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="点击返回上一级"
-            android:gravity="center"/>
-        <net.zgyejy.yudong.view.RefreshableView
-            android:id="@+id/refresh_Video51_child"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="10dp">
+            android:gravity="center"
+            android:padding="10px"
+            android:text="点击返回上一级"/>
 
-            <ListView
-                android:id="@+id/lv_video_51_child"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </ListView>
-        </net.zgyejy.yudong.view.RefreshableView>
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/lv_video_51_child"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="30px"
+            android:paddingLeft="30px"
+            android:paddingRight="30px"
+            ptr:ptrAnimationStyle="flip"
+            ptr:ptrDrawable="@drawable/default_ptr_flip"
+            ptr:ptrHeaderBackground="@color/themeColor"
+            ptr:ptrHeaderTextColor="#FFFFFF">
+        </com.handmark.pulltorefresh.library.PullToRefreshListView>
     </LinearLayout>
 </LinearLayout>

@@ -14,20 +14,20 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="80px"
+            android:layout_height="70px"
+            android:layout_marginLeft="20px"
             android:layout_centerVertical="true"
             android:background="@drawable/return2"/>
 
         <SearchView
             android:id="@+id/mySearchView"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="80px"
             android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginTop="20px"
+            android:layout_marginBottom="20px"
+            android:layout_marginStart="20px"
             android:background="@drawable/edit_text_back_white"
             android:searchIcon="@drawable/search3"
             android:iconifiedByDefault="false"
@@ -38,12 +38,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="30px"
             android:layout_weight="0"
             android:text="取消"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="36px"
             />
     </LinearLayout>
 
@@ -51,10 +51,10 @@
         android:id="@+id/lv_search_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginBottom="20px"
+        android:layout_marginLeft="40px"
+        android:layout_marginRight="40px"
+        android:layout_marginTop="20px">
     </ListView>
 
 </LinearLayout>

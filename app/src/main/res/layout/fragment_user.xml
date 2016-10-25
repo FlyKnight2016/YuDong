@@ -5,12 +5,12 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="100px"
         android:background="@color/themeColor"
         android:gravity="center"
         android:text="个人中心"
         android:textStyle="bold"
-        android:textSize="22sp"
+        android:textSize="44px"
         android:textColor="@color/white"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,8 +20,8 @@
         android:background="@drawable/userback"
         android:gravity="center">
         <FrameLayout
-            android:layout_width="110dp"
-            android:layout_height="110dp">
+            android:layout_width="220px"
+            android:layout_height="220px">
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -29,10 +29,10 @@
 
             <net.zgyejy.yudong.view.XCRoundRectImageView
                 android:id="@+id/iv_userPortrait"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_marginTop="10px"
+                android:layout_marginLeft="10px"
+                android:layout_width="200px"
+                android:layout_height="200px"
                 android:src="@drawable/icon"/>
         </FrameLayout>
         <TextView
@@ -41,13 +41,13 @@
             android:layout_height="wrap_content"
             android:text="用户名"
             android:textColor="@color/white"
-            android:layout_marginTop="10dp"
-            android:textSize="18sp"/>
+            android:layout_marginTop="20px"
+            android:textSize="36px"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20px"
         android:layout_weight="0"
         android:orientation="horizontal">
         <LinearLayout
@@ -62,12 +62,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0.00"
-                android:textSize="15sp"/>
+                android:textSize="30px"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="我的余额"
-                android:textSize="15sp"/>
+                android:textSize="30px"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ll_user_myCoupons"
@@ -81,12 +81,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0.00"
-                android:textSize="15sp"/>
+                android:textSize="30px"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="我的优惠券"
-                android:textSize="15sp"/>
+                android:textSize="30px"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ll_user_myPoints"
@@ -100,12 +100,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textSize="15sp"/>
+                android:textSize="30px"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="我的积分"
-                android:textSize="15sp"/>
+                android:textSize="30px"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -113,19 +113,19 @@
         android:layout_height="0dp"
         android:layout_weight="3"
         android:orientation="vertical"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginTop="40px"
+        android:layout_marginLeft="40px"
+        android:layout_marginRight="40px">
         <LinearLayout
             android:id="@+id/ll_user_myOrders"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="30px">
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="70px"
+                android:layout_height="70px"
                 android:background="@drawable/userorder"/>
             <TextView
                 android:layout_width="0dp"
@@ -134,8 +134,8 @@
                 android:text="我的订单"
                 android:layout_marginLeft="10dp"/>
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="20dp"
+                android:layout_width="50px"
+                android:layout_height="40px"
                 android:layout_gravity="right"
                 android:background="@drawable/useropen"/>
         </LinearLayout>
@@ -146,8 +146,8 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="70px"
+                android:layout_height="70px"
                 android:background="@drawable/usercollect"/>
             <TextView
                 android:layout_width="0dp"
@@ -156,8 +156,8 @@
                 android:text="我的收藏"
                 android:layout_marginLeft="10dp"/>
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="20dp"
+                android:layout_width="50px"
+                android:layout_height="40px"
                 android:layout_gravity="right"
                 android:background="@drawable/useropen"/>
         </LinearLayout>
@@ -168,18 +168,18 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="70px"
+                android:layout_height="70px"
                 android:background="@drawable/userpoints"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="积分商城"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="20px"/>
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="20dp"
+                android:layout_width="50px"
+                android:layout_height="40px"
                 android:layout_gravity="right"
                 android:background="@drawable/useropen"/>
         </LinearLayout>
@@ -189,20 +189,20 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="30px">
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="70px"
+                android:layout_height="70px"
                 android:background="@drawable/userquestion"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="常见问题"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="20px"/>
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="20dp"
+                android:layout_width="50px"
+                android:layout_height="40px"
                 android:layout_gravity="right"
                 android:background="@drawable/useropen"/>
         </LinearLayout>

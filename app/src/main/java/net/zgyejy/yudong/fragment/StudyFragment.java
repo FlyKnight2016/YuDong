@@ -3,7 +3,6 @@ package net.zgyejy.yudong.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,17 +57,18 @@ public class StudyFragment extends Fragment {
 
     private MyPagerAdapter viewPagerAdapter;//ViewPager适配器
 
-    TextView tvStudyChange;//改变父母学习列表界面显示内容
+    TextView tvStudySelectParents, tvStudySelectSp;//改变父母学习列表界面显示内容
 
     private PullToRefreshListView lvStudyPrincipal, lvStudyTeacher,
             lvStudyParents, lvStudyKid;//各布局对应的列表
 
     private ArticleListAdapter lvPrincipalAdapter, lvTeacherAdapter,
-            lvParentsAdapter, lvSPAdapter;
+            lvParentsAdapter;
     private List<Article> principalArticles, teacherArticles,
             parentsArticles, spArticles;
     private RequestQueue requestQueue;//volley接口对象
-    private int PageNumPrincipal, PageNumTeacher, PageNumParents, PageNumSp, PageNumKid;//当前列表加载页数
+    private int PageNumPrincipal = 1, PageNumTeacher = 1, PageNumParents = 1,
+            PageNumSp = 1, PageNumKid = 1;//当前列表加载页数(默认为1)
 
     //private KidListAdapter lvKidAdapter;
     //private List<KidVideo> kidVideos;
@@ -141,18 +141,20 @@ public class StudyFragment extends Fragment {
         lvStudyTeacher.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-
+                PageNumTeacher = 1;
+                showStudyTeacher();
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-
+                PageNumTeacher++;
+                showStudyTeacher();
             }
         });
         lvStudyTeacher.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //打开条目对应网页的方法
+                ((HomeActivity)getActivity()).showToast(teacherArticles.get(position).getBody());
             }
         });
         viewPagerAdapter.addToAdapterView(frameLayout);
@@ -165,12 +167,28 @@ public class StudyFragment extends Fragment {
         lvStudyParents.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-
+                switch (parentsTag) {
+                    case 0:
+                        PageNumParents = 1;
+                        break;
+                    case 1:
+                        PageNumSp = 1;
+                        break;
+                }
+                showStudyParents();
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-
+                switch (parentsTag) {
+                    case 0:
+                        PageNumParents++;
+                        break;
+                    case 1:
+                        PageNumSp++;
+                        break;
+                }
+                showStudyParents();
             }
         });
         lvStudyParents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -179,21 +197,24 @@ public class StudyFragment extends Fragment {
                 //打开条目对应网页的方法
             }
         });
-        tvStudyChange = (TextView) frameLayout.findViewById(R.id.tv_study_change);
-        tvStudyChange.setOnClickListener(new View.OnClickListener() {
-            //根据设定的标识改变父母学习页面的显示内容
+        tvStudySelectParents = (TextView) frameLayout.findViewById(R.id.tv_study_select_parents);
+        tvStudySelectSp = (TextView) frameLayout.findViewById(R.id.tv_study_select_sp);
+        tvStudySelectParents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (parentsTag) {
-                    case 0:
-                        //适配列表内容为父母学堂
-                        parentsTag = 1;
-                        break;
-                    case 1:
-                        //适配列表内容为家园共育
-                        parentsTag = 0;
-                        break;
-                }
+                tvStudySelectParents.setBackgroundResource(R.color.lightGray);
+                tvStudySelectSp.setBackgroundResource(R.color.white);
+                parentsTag = 0;
+                showStudyParents();
+            }
+        });
+        tvStudySelectSp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvStudySelectSp.setBackgroundResource(R.color.lightGray);
+                tvStudySelectParents.setBackgroundResource(R.color.white);
+                parentsTag = 1;
+                showStudyParents();
             }
         });
         viewPagerAdapter.addToAdapterView(frameLayout);
@@ -225,6 +246,10 @@ public class StudyFragment extends Fragment {
         viewPagerAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * 设置刷新参数
+     * @param pullToRefresh
+     */
     private void initLvRefresh(PullToRefreshListView pullToRefresh) {
         pullToRefresh.setMode(PullToRefreshBase.Mode.BOTH);
         ILoadingLayout startLabels = pullToRefresh
@@ -249,6 +274,16 @@ public class StudyFragment extends Fragment {
         if (lvPrincipalAdapter == null)
             lvPrincipalAdapter = new ArticleListAdapter(getContext());
         lvStudyPrincipal.setAdapter(lvPrincipalAdapter);
+
+        //配置幼师之路列表适配器
+        if (lvTeacherAdapter == null)
+            lvTeacherAdapter = new ArticleListAdapter(getContext());
+        lvStudyTeacher.setAdapter(lvTeacherAdapter);
+
+        //配置父母学堂和家园共育列表适配器
+        if (lvParentsAdapter == null)
+            lvParentsAdapter = new ArticleListAdapter(getContext());
+        lvStudyParents.setAdapter(lvParentsAdapter);
     }
 
     /**
@@ -287,7 +322,7 @@ public class StudyFragment extends Fragment {
 
     //设置上标题和对应数据加载
     private void setTopGuide() {
-        setDefaultTopGuid();
+        setDefaultTopGuide();
         switch (topGuidTag) {
             case 0:
                 tvStudyPrincipal.setBackgroundResource(R.drawable.text_view_back_51);
@@ -313,16 +348,30 @@ public class StudyFragment extends Fragment {
     }
 
     /**
+     * 显示加载动画
+     */
+    private void showLoadingDialog() {
+        ((HomeActivity) getActivity()).showLoadingDialog(getContext(), "数据正在加载...", true);
+    }
+
+    /**
+     * 取消加载动画
+     */
+    private void cancelDialog() {
+        ((HomeActivity) getActivity()).cancelDialog();
+    }
+
+    /**
      * 请求、添加园长学习列表的数据
      */
     private void showStudyPrincipal() {
+        showLoadingDialog();
         String url = API.STUDY_ARTICLE_PRINCIPAL + "&page=" + PageNumPrincipal;
 
-        JsonArrayRequest req = new JsonArrayRequest(url, new Response.Listener<JSONArray> () {
+        JsonArrayRequest req = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 try {
-                    Log.i(TAG, "onResponse: ---------------" + response);
                     List<Article> list = ParserArticleLists.getArticleList(response.toString());
                     if (principalArticles == null)
                         principalArticles = new ArrayList<>();
@@ -332,6 +381,7 @@ public class StudyFragment extends Fragment {
                     lvPrincipalAdapter.appendDataed(principalArticles, true);
                     lvPrincipalAdapter.updateAdapter();
                     lvStudyPrincipal.onRefreshComplete();
+                    cancelDialog();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -342,23 +392,6 @@ public class StudyFragment extends Fragment {
                 VolleyLog.e("Error: ", error.getMessage());
             }
         });
-
-
-        /*JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject jsonObject) {
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-
-                    }
-                }
-        );*/
         requestQueue.add(req);
     }
 
@@ -366,27 +399,117 @@ public class StudyFragment extends Fragment {
      * 请求、添加幼师学习列表的数据
      */
     private void showStudyTeacher() {
+        showLoadingDialog();
+        String url = API.STUDY_ARTICLE_TEACHER + "&page=" + PageNumTeacher;
 
+        JsonArrayRequest req = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    List<Article> list = ParserArticleLists.getArticleList(response.toString());
+                    if (teacherArticles == null)
+                        teacherArticles = new ArrayList<>();
+                    if (PageNumTeacher == 1)
+                        teacherArticles.clear();
+                    teacherArticles.addAll(list);
+                    lvTeacherAdapter.appendDataed(teacherArticles, true);
+                    lvTeacherAdapter.updateAdapter();
+                    lvStudyTeacher.onRefreshComplete();
+                    cancelDialog();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("Error: ", error.getMessage());
+            }
+        });
+        requestQueue.add(req);
     }
 
     /**
      * 请求、添加父母学习列表的数据
      */
     private void showStudyParents() {
+        showLoadingDialog();
+        switch (parentsTag) {
+            //Tag为0，显示父母学堂的列表内容
+            case 0:
+                String url = API.STUDY_ARTICLE_PARENTS + "&page=" + PageNumParents;
 
+                JsonArrayRequest req = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            List<Article> list = ParserArticleLists.getArticleList(response.toString());
+                            if (parentsArticles == null)
+                                parentsArticles = new ArrayList<>();
+                            if (PageNumParents == 1)
+                                parentsArticles.clear();
+                            parentsArticles.addAll(list);
+                            lvParentsAdapter.appendDataed(parentsArticles, true);
+                            lvParentsAdapter.updateAdapter();
+                            lvStudyParents.onRefreshComplete();
+                            cancelDialog();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        VolleyLog.e("Error: ", error.getMessage());
+                    }
+                });
+                requestQueue.add(req);
+                break;
+            //Tag为1，显示家园共育的列表内容
+            case 1:
+                String url2 = API.STUDY_ARTICLE_SP + "&page=" + PageNumSp;
+
+                JsonArrayRequest req2 = new JsonArrayRequest(url2, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            List<Article> list = ParserArticleLists.getArticleList(response.toString());
+                            if (spArticles == null)
+                                spArticles = new ArrayList<>();
+                            if (PageNumSp == 1)
+                                spArticles.clear();
+                            spArticles.addAll(list);
+                            lvParentsAdapter.appendDataed(spArticles, true);
+                            lvParentsAdapter.updateAdapter();
+                            lvStudyParents.onRefreshComplete();
+                            cancelDialog();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        VolleyLog.e("Error: ", error.getMessage());
+                    }
+                });
+                requestQueue.add(req2);
+                break;
+        }
     }
 
     /**
      * 请求、添加幼儿学习列表的数据
      */
     private void showStudyKid() {
-
+        //showLoadingDialog();
+        //cancelDialog();
     }
 
     /**
      * 设置上方所有导航标题为未选中状态
      */
-    private void setDefaultTopGuid() {
+    private void setDefaultTopGuide() {
         themeColor = ((HomeActivity) getActivity()).getThemeColor();
 
         tvStudyPrincipal.setBackgroundResource(R.drawable.text_view_border_51);

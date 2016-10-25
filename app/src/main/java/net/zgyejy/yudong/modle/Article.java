@@ -9,11 +9,13 @@ public class Article {
     private String id;
     private String title;
     private String url;
+    private String body;
 
-    public Article(String id, String title, String url) {
+    public Article(String id, String title, String url, String body) {
         this.id = id;
         this.title = title;
         this.url = url;
+        this.body = body;
     }
 
     public String getId() {
@@ -40,12 +42,21 @@ public class Article {
         this.url = url;
     }
 
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
     @Override
     public String toString() {
         return "Article{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", url='" + url + '\'' +
+                ", body='" + body + '\'' +
                 '}';
     }
 }

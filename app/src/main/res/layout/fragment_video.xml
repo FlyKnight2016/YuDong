@@ -8,30 +8,28 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80px"
         android:layout_weight="0"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:padding="10px">
 
-        <RelativeLayout
-            android:layout_width="0dp"
+
+        <ImageView
+            android:id="@+id/iv_scan"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="3">
-            <ImageView
-                android:id="@+id/iv_scan"
-                android:adjustViewBounds="true"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:src="@drawable/scan"/>
-        </RelativeLayout>
+            android:layout_marginLeft="10px"
+            android:adjustViewBounds="true"
+            android:src="@drawable/scan"/>
 
 
         <TextView
             android:id="@+id/tv_video_51"
             style="@style/Style_VideoGuideText"
-            android:text="五个一"
-            android:background="@drawable/text_view_border_51"/>
+            android:layout_marginLeft="50px"
+            android:background="@drawable/text_view_border_51"
+            android:text="五个一"/>
 
         <TextView
             android:id="@+id/tv_video_free"
@@ -42,21 +40,18 @@
         <TextView
             android:id="@+id/tv_video_vip"
             style="@style/Style_VideoGuideText"
+            android:layout_marginRight="50px"
             android:background="@drawable/text_view_border_vip"
             android:text="VIP"/>
-        <RelativeLayout
-            android:layout_width="0dp"
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="3">
-            <ImageView
-                android:id="@+id/iv_search"
-                android:adjustViewBounds="true"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/search"/>
-        </RelativeLayout>
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10px"
+            android:adjustViewBounds="true"
+            android:src="@drawable/search"/>
 
     </LinearLayout>
 
@@ -64,10 +59,10 @@
         android:id="@+id/vp_home_video"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginLeft="20px"
+        android:layout_marginRight="20px"
+        android:layout_marginTop="20px"
+        android:layout_weight="1">
     </android.support.v4.view.ViewPager>
 
 </LinearLayout>

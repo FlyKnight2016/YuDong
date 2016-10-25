@@ -19,7 +19,7 @@
         android:layout_weight="0"
         android:gravity="center_horizontal"
         android:text="七巧板智力阅读\n第*册"
-        android:textSize="18sp"
+        android:textSize="36px"
         android:textStyle="bold"
-        android:padding="5dp"/>
+        android:padding="10px"/>
 </LinearLayout>

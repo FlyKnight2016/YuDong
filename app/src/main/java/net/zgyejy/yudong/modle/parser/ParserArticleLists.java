@@ -20,6 +20,7 @@ public class ParserArticleLists {
      * @return
      */
     public static List<Article> getArticleList(String json) {
+        json = json.replace("\r\n", "\\r\\n");
         Gson gson = new Gson();
         Type type = new TypeToken<List<Article>>() {
         }.getType();

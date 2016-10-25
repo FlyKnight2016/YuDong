@@ -10,8 +10,8 @@
 
     <!-- 主页面下方导航TextView的style -->
     <style name="Style_HomeGuideImage">
-        <item name="android:layout_width">30dp</item>
-        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_width">60px</item>
+        <item name="android:layout_height">60px</item>
         <item name="android:layout_centerHorizontal">true</item>
     </style>
 
@@ -19,9 +19,9 @@
     <style name="Style_HomeGuideText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">32px</item>
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:padding">3dp</item>
+        <item name="android:padding">6px</item>
     </style>
 
     <!-- videoFragment上方导航TextView的style -->
@@ -29,9 +29,9 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">2</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">32px</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:padding">10px</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/themeColor</item>
 
@@ -45,6 +45,16 @@
     <declare-styleable name="CustomTheme">
         <attr name="gifViewStyle" format="reference"/>
     </declare-styleable>
+
+    <!--数据加载缓冲动画的style-->
+    <style name="loading_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item><!--Dialog的windowFrame框为无-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">true</item><!--是否为半透明-->
+        <item name="android:windowNoTitle">true</item><!--是否显示title-->
+        <item name="android:windowBackground">@color/transparent</item><!--设置Dialog的背景-->
+        <item name="android:backgroundDimEnabled">false</item><!--背景是否模糊显示-->
+    </style>
 
     <style name="Widget_GifView"></style>
 

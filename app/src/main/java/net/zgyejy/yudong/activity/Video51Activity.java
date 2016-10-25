@@ -6,13 +6,16 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.handmark.pulltorefresh.library.ILoadingLayout;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.adapter.ListViewAdapter_51;
 import net.zgyejy.yudong.adapter.ListViewAdapter_Free;
 import net.zgyejy.yudong.base.MyBaseActivity;
 import net.zgyejy.yudong.modle.Video51;
 import net.zgyejy.yudong.modle.VideoFree;
-import net.zgyejy.yudong.view.RefreshableView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,15 +29,11 @@ public class Video51Activity extends MyBaseActivity {
     private List<VideoFree> listVideo51;
 
     @BindView(R.id.lv_video_51_child)
-    ListView lvVideo51Child;
-    @BindView(R.id.refresh_Video51_child)
-    RefreshableView refreshVideo51Child;
+    PullToRefreshListView lvVideo51Child;
     @BindView(R.id.ll_video51_child)
     LinearLayout llVideo51Child;
     @BindView(R.id.lv_video_51)
-    ListView lvVideo51;
-    @BindView(R.id.refresh_Video51)
-    RefreshableView refreshVideo51;
+    PullToRefreshListView lvVideo51;
 
     private ListViewAdapter_51 adapter_51;
     private ListViewAdapter_Free adapter_51_child;
@@ -47,7 +46,7 @@ public class Video51Activity extends MyBaseActivity {
 
         initView();
 
-        initDataListWeekNums();
+        initDataListWeekNum();
     }
 
     /**
@@ -57,62 +56,82 @@ public class Video51Activity extends MyBaseActivity {
         if (adapter_51 == null)
             adapter_51 = new ListViewAdapter_51(this);
         lvVideo51.setAdapter(adapter_51);
+        initLvRefresh(lvVideo51);
 
         if (adapter_51_child == null)
             adapter_51_child = new ListViewAdapter_Free(this);
         lvVideo51Child.setAdapter(adapter_51_child);
+        initLvRefresh(lvVideo51Child);
 
         setListeners();
+    }
+
+    /**
+     * 设置刷新参数
+     * @param pullToRefresh
+     */
+    private void initLvRefresh(PullToRefreshListView pullToRefresh) {
+        pullToRefresh.setMode(PullToRefreshBase.Mode.BOTH);
+        ILoadingLayout startLabels = pullToRefresh
+                .getLoadingLayoutProxy(true, false);
+        startLabels.setPullLabel("下拉刷新...");// 刚下拉时，显示的提示
+        startLabels.setRefreshingLabel("正在载入...");// 刷新时
+        startLabels.setReleaseLabel("放开刷新...");// 下来达到一定距离时，显示的提示
+
+        ILoadingLayout endLabels = pullToRefresh.getLoadingLayoutProxy(
+                false, true);
+        endLabels.setPullLabel("上拉刷新...");// 刚下拉时，显示的提示
+        endLabels.setRefreshingLabel("正在载入...");// 刷新时
+        endLabels.setReleaseLabel("放开刷新...");// 下来达到一定距离时，显示的提示
     }
 
     /**
      * 设置监听
      */
     private void setListeners() {
+        lvVideo51.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                //下拉加载数据
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                //上拉加载数据
+            }
+        });
         lvVideo51.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                refreshVideo51.setVisibility(View.GONE);
+                lvVideo51.setVisibility(View.GONE);
                 llVideo51Child.setVisibility(View.VISIBLE);
                 initDataListVideo51();
             }
         });
 
+        lvVideo51Child.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                //下拉加载数据
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                //上拉加载数据
+            }
+        });
         lvVideo51Child.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 openActivity(VideoPlayActivity.class);
             }
         });
-
-        refreshVideo51.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
-            @Override
-            public void onRefresh() {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                refreshVideo51.finishRefreshing();
-            }
-        }, 0);
-        refreshVideo51Child.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
-            @Override
-            public void onRefresh() {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                refreshVideo51Child.finishRefreshing();
-            }
-        }, 0);
     }
 
     /**
      * 导入51视频周列表数据
      */
-    private void initDataListWeekNums() {
+    private void initDataListWeekNum() {
         Video51 video51 = new Video51();
         if (listWeekNums == null) {
             listWeekNums = new ArrayList<>();
@@ -148,7 +167,7 @@ public class Video51Activity extends MyBaseActivity {
                 finish();
                 break;
             case R.id.tv_video51_backParent:
-                refreshVideo51.setVisibility(View.VISIBLE);
+                lvVideo51.setVisibility(View.VISIBLE);
                 llVideo51Child.setVisibility(View.GONE);
                 break;
         }

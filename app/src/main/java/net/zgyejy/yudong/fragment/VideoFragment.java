@@ -12,6 +12,10 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.ILoadingLayout;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.activity.HomeActivity;
 import net.zgyejy.yudong.activity.SearchActivity;
@@ -24,7 +28,6 @@ import net.zgyejy.yudong.adapter.MyPagerAdapter;
 import net.zgyejy.yudong.modle.Book;
 import net.zgyejy.yudong.modle.VideoFree;
 import net.zgyejy.yudong.modle.VideoVip;
-import net.zgyejy.yudong.view.RefreshableView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,10 +50,8 @@ public class VideoFragment extends Fragment {
 
     private MyPagerAdapter viewPagerAdapter;
 
-    RefreshableView refreshableViewFree, refreshableViewVip;//下拉刷新控件
-
     GridView gvVideo51;//五个一教材列表
-    ListView lvVideoFree, lvVideoVip;
+    PullToRefreshListView lvVideoFree, lvVideoVip;
 
     private GridViewAdapter_51Book adapter51Book;//五个一教材列表适配器
     private ListViewAdapter_Free adapterListFree;
@@ -64,7 +65,7 @@ public class VideoFragment extends Fragment {
     private List<VideoFree> listVideoFree;
     private List<VideoVip> listVideoVip;
 
-    private int topGuidTag = 0;//当前页面标识
+    private int topGuideTag = 0;//当前页面标识
 
 
     @Override
@@ -93,6 +94,7 @@ public class VideoFragment extends Fragment {
 
         FrameLayout frameLayout;
 
+        //51视频GridView
         frameLayout = (FrameLayout) getActivity().getLayoutInflater()
                 .inflate(R.layout.layout_video_list_51, null);
         gvVideo51 = (GridView) frameLayout.findViewById(R.id.gv_video_51);
@@ -104,65 +106,75 @@ public class VideoFragment extends Fragment {
         });
         viewPagerAdapter.addToAdapterView(frameLayout);
 
+        //免费视频ListView
         frameLayout = (FrameLayout) getActivity().getLayoutInflater()
                 .inflate(R.layout.layout_video_list_free, null);
-        lvVideoFree = (ListView) frameLayout.findViewById(R.id.lv_video_free);
+        lvVideoFree = (PullToRefreshListView) frameLayout.findViewById(R.id.lv_video_free);
+        initLvRefresh(lvVideoFree);
+        lvVideoFree.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                //下拉刷新数据
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                //上拉加载数据
+            }
+        });
         lvVideoFree.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ((HomeActivity) getActivity()).openActivity(VideoPlayActivity.class);
             }
         });
-        refreshableViewFree = (RefreshableView) frameLayout.findViewById
-                (R.id.refresh_VideoFree);
         viewPagerAdapter.addToAdapterView(frameLayout);
 
+        //收费视频ListView
         frameLayout = (FrameLayout) getActivity().getLayoutInflater()
                 .inflate(R.layout.layout_video_list_vip, null);
-        lvVideoVip = (ListView) frameLayout.findViewById(R.id.lv_video_vip);
+        lvVideoVip = (PullToRefreshListView) frameLayout.findViewById(R.id.lv_video_vip);
+        initLvRefresh(lvVideoVip);
+        lvVideoVip.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                //下拉刷新数据
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                //上拉加载数据
+            }
+        });
         lvVideoVip.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ((HomeActivity) getActivity()).openActivity(VideoPlayActivity.class);
             }
         });
-        refreshableViewVip = (RefreshableView) frameLayout.findViewById
-                (R.id.refresh_VideoVip);
         viewPagerAdapter.addToAdapterView(frameLayout);
-
-        setRefreshListener();
 
         viewPagerAdapter.notifyDataSetChanged();
     }
 
     /**
-     * 设置下拉刷新控件的监听
+     * 设置刷新参数
+     *
+     * @param pullToRefresh
      */
-    private void setRefreshListener() {
+    private void initLvRefresh(PullToRefreshListView pullToRefresh) {
+        pullToRefresh.setMode(PullToRefreshBase.Mode.BOTH);
+        ILoadingLayout startLabels = pullToRefresh
+                .getLoadingLayoutProxy(true, false);
+        startLabels.setPullLabel("下拉刷新...");// 刚下拉时，显示的提示
+        startLabels.setRefreshingLabel("正在载入...");// 刷新时
+        startLabels.setReleaseLabel("放开刷新...");// 下来达到一定距离时，显示的提示
 
-        refreshableViewFree.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
-            @Override
-            public void onRefresh() {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                refreshableViewFree.finishRefreshing();
-            }
-        }, 0);
-
-        refreshableViewVip.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
-            @Override
-            public void onRefresh() {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                refreshableViewVip.finishRefreshing();
-            }
-        }, 0);
+        ILoadingLayout endLabels = pullToRefresh.getLoadingLayoutProxy(
+                false, true);
+        endLabels.setPullLabel("上拉刷新...");// 刚下拉时，显示的提示
+        endLabels.setRefreshingLabel("正在载入...");// 刷新时
+        endLabels.setReleaseLabel("放开刷新...");// 下来达到一定距离时，显示的提示
     }
 
     /**
@@ -176,8 +188,8 @@ public class VideoFragment extends Fragment {
 
         @Override
         public void onPageSelected(int position) {
-            topGuidTag = position;
-            setTopGuid();
+            topGuideTag = position;
+            setTopGuide();
         }
 
         @Override
@@ -207,7 +219,7 @@ public class VideoFragment extends Fragment {
                 vpHomeVideo.setCurrentItem(2);
                 break;
             case R.id.iv_search:
-                ((HomeActivity)getActivity()).openActivity(SearchActivity.class);
+                ((HomeActivity) getActivity()).openActivity(SearchActivity.class);
                 break;
         }
     }
@@ -274,14 +286,14 @@ public class VideoFragment extends Fragment {
             adapterListVip = new ListViewAdapter_Vip(getContext());
         lvVideoVip.setAdapter(adapterListVip);
 
-        topGuidTag = 0;
-        setTopGuid();
+        topGuideTag = 0;
+        setTopGuide();
     }
 
     /**
      * 设置上方所有导航标题为未选中状态
      */
-    private void setDefaultTopGuid() {
+    private void setDefaultTopGuide() {
         themeColor = ((HomeActivity) getActivity()).getThemeColor();
 
         tvVideo51.setBackgroundResource(R.drawable.text_view_border_51);
@@ -294,9 +306,9 @@ public class VideoFragment extends Fragment {
     }
 
     //设置上标题和对应数据加载
-    private void setTopGuid() {
-        setDefaultTopGuid();
-        switch (topGuidTag) {
+    private void setTopGuide() {
+        setDefaultTopGuide();
+        switch (topGuideTag) {
             case 0:
                 tvVideo51.setBackgroundResource(R.drawable.text_view_back_51);
                 tvVideo51.setTextColor(whiteColor);

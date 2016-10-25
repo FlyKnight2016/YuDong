@@ -7,14 +7,14 @@
     <RelativeLayout
         android:id="@+id/ll_play_title"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="100px"
         android:layout_weight="0"
         android:background="@color/themeColor">
         <ImageView
             android:id="@+id/iv_play_back"
-            android:layout_width="40dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="80px"
+            android:layout_height="70px"
+            android:layout_marginLeft="20px"
             android:layout_centerVertical="true"
             android:background="@drawable/return2"/>
         <TextView
@@ -24,7 +24,7 @@
             android:layout_centerInParent="true"
             android:text="视频名称"
             android:textStyle="bold"
-            android:textSize="22sp"
+            android:textSize="44px"
             android:textColor="@color/white"/>
     </RelativeLayout>
 
@@ -43,7 +43,7 @@
     <LinearLayout
         android:id="@+id/ll_play_videoAbout"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="70px"
         android:layout_weight="0"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -51,13 +51,13 @@
             android:id="@+id/tv_play_browse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="40px"
             android:layout_weight="1"
             android:text="浏览771次"/>
         <ImageView
             android:id="@+id/iv_play_praise"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="50px"
+            android:layout_height="50px"
             android:layout_weight="0"
             android:background="@drawable/praise"/>
         <TextView
@@ -65,12 +65,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="40px"
             android:text="771次"/>
         <ImageView
             android:id="@+id/iv_play_collect"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="50px"
+            android:layout_height="50px"
             android:layout_weight="0"
             android:background="@drawable/collect"/>
         <TextView
@@ -78,14 +78,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="40px"
             android:text="收藏"/>
         <ImageView
             android:id="@+id/iv_play_menu"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="50px"
+            android:layout_height="50px"
             android:layout_weight="0"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="40px"
             android:background="@drawable/menu"/>
     </LinearLayout>
 
@@ -94,8 +94,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -105,9 +105,9 @@
             android:gravity="center_vertical">
             <ImageView
                 android:id="@+id/iv_play_userPortrait"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="10dp"
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_margin="20px"
                 android:layout_weight="0"
                 android:background="@drawable/icon"/>
             <EditText
@@ -115,17 +115,17 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
                 android:hint="请输入评论内容"/>
             <Button
                 android:id="@+id/btn_play_sendComment"
-                android:layout_width="60dp"
+                android:layout_width="120px"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_margin="20px"
                 android:text="评论"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="32px"
                 android:background="@drawable/text_view_back_button"/>
         </LinearLayout>
         <ListView

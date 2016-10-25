@@ -8,10 +8,10 @@
         android:layout_height="wrap_content">
         <net.zgyejy.yudong.view.XCRoundRectImageView
             android:id="@+id/iv_commentList_portrait"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="80px"
+            android:layout_height="80px"
             android:background="@drawable/icon"
-            android:layout_margin="10dp"/>
+            android:layout_margin="20px"/>
         <TextView
             android:id="@+id/tv_commentList_userName"
             android:layout_width="wrap_content"
@@ -20,7 +20,7 @@
             android:layout_toRightOf="@id/iv_commentList_portrait"
             android:text="用户名"
             android:textColor="#AA000000"
-            android:textSize="16sp"/>
+            android:textSize="32px"/>
         <TextView
             android:id="@+id/tv_commentList_date"
             android:layout_width="wrap_content"
@@ -34,6 +34,6 @@
         android:id="@+id/tv_commentList_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20px"
         android:text="评论内容()...................."/>
 </LinearLayout>
