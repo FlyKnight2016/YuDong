@@ -37,4 +37,6 @@
     <color name="lightOrange">#FFCC00</color>
     <color name="midOrange">#FF9900</color>
     <color name="deepOrange">#FF6600</color>
+
+    <color name="dim_foreground_dark">#bebebe</color>
 </resources>
