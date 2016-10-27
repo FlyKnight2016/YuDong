@@ -5,12 +5,12 @@ package net.zgyejy.yudong.gloable;
  */
 
 public class API {
-    public static final String ZgyejyNetIP = "http://www.zgyejy.net/";//中国幼儿教育网地址
+    public static final String ZgyejyNetIP = "http://www.zgyejy.net";//中国幼儿教育网地址
 
     public static final String ServerIP = "http://118.244.212.82:9092/newsClient/";//服务器地址
 
     public static final String STUDY_ARTICLE = ZgyejyNetIP +
-            "index.php?c=article&a=connector";//学习园地文章接口
+            "/index.php?c=article&a=connector";//学习园地文章接口
 
     public static final String STUDY_ARTICLE_PRINCIPAL = STUDY_ARTICLE + "&tid=2";//园长管理
     public static final String STUDY_ARTICLE_PARENTS = STUDY_ARTICLE + "&tid=3";//父母学堂

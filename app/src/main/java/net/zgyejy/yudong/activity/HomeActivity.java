@@ -51,12 +51,34 @@ public class HomeActivity extends MyBaseActivity {
     private Fragment actFragment, showFragment, studyFragment,
             userFragment, videoFragment;
 
+    private String isTo;//得到跳转来源想要打开的内容
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         loadVideoFragment();
+        isTo = getIntent().getStringExtra("isTo");
+        if (isTo == null) {
+            isTo = "51Video";
+        }else if (isTo.equals("UserFragment")){
+            showUserFragment();
+        }else if (isTo.equals("StudyFragment")
+                ||isTo.equals("Principal")
+                ||isTo.equals("Teacher")
+                ||isTo.equals("Parents")
+                ||isTo.equals("Kid")) {
+            showStudyFragment();
+        }else if (isTo.equals("Act")) {
+            showActFragment();
+        }else if (isTo.equals("Show")) {
+            showShowFragment();
+        }
+    }
+
+    public String getIsTo() {
+        return isTo;
     }
 
     @OnClick({R.id.rl_home_show, R.id.rl_home_study, R.id.rl_home_video,

@@ -22,7 +22,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import net.zgyejy.yudong.R;
+import net.zgyejy.yudong.activity.ArticleReadActivity;
 import net.zgyejy.yudong.activity.HomeActivity;
+import net.zgyejy.yudong.activity.WebReadActivity;
 import net.zgyejy.yudong.adapter.ArticleListAdapter;
 import net.zgyejy.yudong.adapter.MyPagerAdapter;
 import net.zgyejy.yudong.gloable.API;
@@ -127,8 +129,12 @@ public class StudyFragment extends Fragment {
         });
         lvStudyPrincipal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
                 //打开条目对应网页的方法
+                Bundle bundle = new Bundle();
+                Article article = principalArticles.get(i);
+                bundle.putSerializable("article", article);
+                ((HomeActivity) getActivity()).openActivity(WebReadActivity.class, bundle);
             }
         });
         viewPagerAdapter.addToAdapterView(frameLayout);
@@ -153,8 +159,12 @@ public class StudyFragment extends Fragment {
         });
         lvStudyTeacher.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((HomeActivity)getActivity()).showToast(teacherArticles.get(position).getBody());
+            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+                //条目点击事件
+                Bundle bundle = new Bundle();
+                Article article = teacherArticles.get(i);
+                bundle.putSerializable("article", article);
+                ((HomeActivity) getActivity()).openActivity(ArticleReadActivity.class, bundle);
             }
         });
         viewPagerAdapter.addToAdapterView(frameLayout);
@@ -193,8 +203,17 @@ public class StudyFragment extends Fragment {
         });
         lvStudyParents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
                 //打开条目对应网页的方法
+                Bundle bundle = new Bundle();
+                Article article;
+                if (parentsTag == 0) {
+                    article = parentsArticles.get(i);
+                }else {
+                    article = spArticles.get(i);
+                }
+                bundle.putSerializable("article", article);
+                ((HomeActivity) getActivity()).openActivity(WebReadActivity.class, bundle);
             }
         });
         tvStudySelectParents = (TextView) frameLayout.findViewById(R.id.tv_study_select_parents);
@@ -294,8 +313,16 @@ public class StudyFragment extends Fragment {
             ((HomeActivity) getActivity()).showToast("当前无网络连接，请连接网络!");
         } else {
             requestQueue = Volley.newRequestQueue(getContext());//实例化一个RequestQueue对象
-            PageNumPrincipal = 1;
-            showStudyPrincipal();
+            String isTo = ((HomeActivity)getActivity()).getIsTo();
+            if (isTo.equals("StudyFragment")||isTo.equals("Principal")){
+                showStudyPrincipal();
+            }else if (isTo.equals("Teacher")) {
+                vpStudyList.setCurrentItem(1);
+            }else if (isTo.equals("Parents")) {
+                vpStudyList.setCurrentItem(2);
+            }else if (isTo.equals("Kid")) {
+                vpStudyList.setCurrentItem(3);
+            }
         }
     }
 

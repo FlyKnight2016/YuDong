@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import net.zgyejy.yudong.R;
+import net.zgyejy.yudong.activity.HomeActivity;
+import net.zgyejy.yudong.activity.LeadActivity;
+import net.zgyejy.yudong.util.SharedUtil;
 import net.zgyejy.yudong.view.XCRoundRectImageView;
 
 import butterknife.BindView;
@@ -44,7 +47,7 @@ public class UserFragment extends Fragment {
 
     @OnClick({R.id.ll_user_myBalance, R.id.ll_user_myCoupons, R.id.ll_user_myPoints,
             R.id.ll_user_myOrders, R.id.ll_user_myCollect, R.id.ll_user_integralMall,
-            R.id.ll_user_normalProblem})
+            R.id.ll_user_normalProblem,R.id.ll_user_aboutUs})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_user_myBalance:
@@ -60,6 +63,12 @@ public class UserFragment extends Fragment {
             case R.id.ll_user_integralMall:
                 break;
             case R.id.ll_user_normalProblem:
+                break;
+            case R.id.ll_user_aboutUs:
+                SharedUtil.putBoolean(getContext(),"isFirst",true);
+                Bundle bundle = new Bundle();
+                bundle.putString("AboutUsFrom","UserFragment");
+                ((HomeActivity)getActivity()).openActivity(LeadActivity.class,bundle);
                 break;
         }
     }

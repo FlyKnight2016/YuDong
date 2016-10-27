@@ -8,6 +8,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--主引导界面可点击TextView的style-->
+    <style name="Style_TableTopClickableText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">100px</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginTop">10px</item>
+        <item name="android:layout_marginLeft">20px</item>
+        <item name="android:layout_marginBottom">20px</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">32px</item>
+    </style>
+
     <!-- 主页面下方导航TextView的style -->
     <style name="Style_HomeGuideImage">
         <item name="android:layout_width">60px</item>

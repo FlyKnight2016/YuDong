@@ -19,7 +19,7 @@
                 android:padding="10px"
                 android:text="父母学堂"
                 android:background="@color/lightGray"
-                android:textSize="40px"/>
+                android:textSize="32px"/>
             <TextView
                 android:id="@+id/tv_study_select_sp"
                 android:layout_width="0dp"
@@ -28,7 +28,7 @@
                 android:gravity="center_horizontal"
                 android:padding="10px"
                 android:text="家园共育"
-                android:textSize="40px"/>
+                android:textSize="32px"/>
         </LinearLayout>
         <com.handmark.pulltorefresh.library.PullToRefreshListView
             xmlns:ptr="http://schemas.android.com/apk/res-auto"

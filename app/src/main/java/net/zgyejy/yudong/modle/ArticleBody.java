@@ -3,20 +3,17 @@ package net.zgyejy.yudong.modle;
 import java.io.Serializable;
 
 /**
- * 文章对象
- * Created by FlyKnight on 2016/10/21.
+ * Created by FlyKnight on 2016/10/26.
  */
 
-public class Article implements Serializable{
+public class ArticleBody implements Serializable{
     private String id;
     private String title;
-    private String url;
-    private ArticleBody body;
+    private String body;
 
-    public Article(String id, String title, String url, ArticleBody body) {
+    public ArticleBody(String id, String title, String body) {
         this.id = id;
         this.title = title;
-        this.url = url;
         this.body = body;
     }
 
@@ -36,29 +33,20 @@ public class Article implements Serializable{
         this.title = title;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public ArticleBody getBody() {
+    public String getBody() {
         return body;
     }
 
-    public void setBody(ArticleBody body) {
+    public void setBody(String body) {
         this.body = body;
     }
 
     @Override
     public String toString() {
-        return "Article{" +
+        return "ArticleBody{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
-                ", url='" + url + '\'' +
-                ", body=" + body +
+                ", body='" + body + '\'' +
                 '}';
     }
 }

@@ -207,6 +207,30 @@
                 android:background="@drawable/useropen"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_user_aboutUs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10px">
+            <ImageView
+                android:layout_width="70px"
+                android:layout_height="70px"
+                android:background="@drawable/aboutus"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="关于我们"
+                android:layout_marginLeft="20px"/>
+            <ImageView
+                android:layout_width="50px"
+                android:layout_height="40px"
+                android:layout_gravity="right"
+                android:background="@drawable/useropen"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

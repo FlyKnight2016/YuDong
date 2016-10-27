@@ -1,5 +1,6 @@
 package net.zgyejy.yudong.activity;
 
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -62,6 +63,7 @@ public class VideoPlayActivity extends MyBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_play);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ButterKnife.bind(this);
 
         addOtherViews();
@@ -170,8 +172,8 @@ public class VideoPlayActivity extends MyBaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_play_back:
-                //根据跳转来源返回相应的Activity
-                //openActivity();
+                //关闭当前播放页面
+                finish();
                 break;
             case R.id.iv_play_praise:
             case R.id.tv_play_praiseNum:

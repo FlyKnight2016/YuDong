@@ -12,6 +12,8 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -28,6 +30,7 @@ import net.zgyejy.yudong.adapter.MyPagerAdapter;
 import net.zgyejy.yudong.modle.Book;
 import net.zgyejy.yudong.modle.VideoFree;
 import net.zgyejy.yudong.modle.VideoVip;
+import net.zgyejy.yudong.util.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +70,7 @@ public class VideoFragment extends Fragment {
 
     private int topGuideTag = 0;//当前页面标识
 
+    private RequestQueue requestQueue;//volley接口对象
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,7 +84,27 @@ public class VideoFragment extends Fragment {
         ButterKnife.bind(this, view);
         initView();
         initVideoAdapters();
+        loadDate();
         return view;
+    }
+
+    /**
+     * 加载数据
+     */
+    private void loadDate() {
+        if (!CommonUtil.isNetworkAvailable(getActivity())) {
+            ((HomeActivity) getActivity()).showToast("当前无网络连接，请连接网络!");
+        } else {
+            requestQueue = Volley.newRequestQueue(getContext());//实例化一个RequestQueue对象
+            String isTo = ((HomeActivity) getActivity()).getIsTo();
+            if (isTo != null && isTo.equals("51Video")) {
+
+            } else if (isTo.equals("FreeVideo")) {
+                vpHomeVideo.setCurrentItem(1);
+            } else if (isTo.equals("VipVideo")) {
+                vpHomeVideo.setCurrentItem(2);
+            }
+        }
     }
 
     /**
