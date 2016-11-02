@@ -3,14 +3,14 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="horizontal"
-              android:paddingBottom="10px"
-              android:paddingTop="10px">
+              android:padding="10px">
 
     <ImageView
         android:id="@+id/iv_video_vip"
-        android:layout_width="300px"
+        android:layout_width="wrap_content"
         android:layout_height="200px"
-        android:background="@drawable/icon"
+        android:adjustViewBounds="true"
+        android:src="@drawable/icon"
         android:paddingBottom="10px"
         android:paddingTop="10px"/>
     <LinearLayout
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginTop="20px"
+            android:layout_marginTop="10px"
             android:maxLines="3"
             android:text="视频简介..."/>
 

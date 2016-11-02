@@ -6,6 +6,7 @@ package net.zgyejy.yudong.gloable;
 
 public class API {
     public static final String ZgyejyNetIP = "http://www.zgyejy.net";//中国幼儿教育网地址
+    public static final String APP_SERVER_IP = "http://api.zgyejy.net";//app服务器地址
 
     public static final String ServerIP = "http://118.244.212.82:9092/newsClient/";//服务器地址
 

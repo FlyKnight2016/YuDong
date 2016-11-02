@@ -19,16 +19,16 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import net.zgyejy.yudong.R;
+import net.zgyejy.yudong.activity.CourseList51Activity;
 import net.zgyejy.yudong.activity.HomeActivity;
 import net.zgyejy.yudong.activity.SearchActivity;
-import net.zgyejy.yudong.activity.Video51Activity;
 import net.zgyejy.yudong.activity.VideoPlayActivity;
 import net.zgyejy.yudong.adapter.GridViewAdapter_51Book;
 import net.zgyejy.yudong.adapter.ListViewAdapter_Free;
 import net.zgyejy.yudong.adapter.ListViewAdapter_Vip;
 import net.zgyejy.yudong.adapter.MyPagerAdapter;
 import net.zgyejy.yudong.modle.Book;
-import net.zgyejy.yudong.modle.VideoFree;
+import net.zgyejy.yudong.modle.Video;
 import net.zgyejy.yudong.modle.VideoVip;
 import net.zgyejy.yudong.util.CommonUtil;
 
@@ -65,7 +65,7 @@ public class VideoFragment extends Fragment {
     private int themeColor;//主题颜色
 
     private List<Book> listBook;//五个一教材列表
-    private List<VideoFree> listVideoFree;
+    private List<Video> listVideoFree;
     private List<VideoVip> listVideoVip;
 
     private int topGuideTag = 0;//当前页面标识
@@ -125,7 +125,8 @@ public class VideoFragment extends Fragment {
         gvVideo51.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((HomeActivity) getActivity()).openActivity(Video51Activity.class);
+                //打开课程列表界面
+                ((HomeActivity) getActivity()).openActivity(CourseList51Activity.class);
             }
         });
         viewPagerAdapter.addToAdapterView(frameLayout);
@@ -227,12 +228,10 @@ public class VideoFragment extends Fragment {
      *
      * @param view
      */
-    @OnClick({R.id.iv_scan, R.id.tv_video_51, R.id.tv_video_free,
+    @OnClick({R.id.tv_video_51, R.id.tv_video_free,
             R.id.tv_video_vip, R.id.iv_search})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_scan:
-                break;
             case R.id.tv_video_51:
                 vpHomeVideo.setCurrentItem(0);
                 break;
@@ -267,11 +266,11 @@ public class VideoFragment extends Fragment {
      * 显示免费视频数据
      */
     private void showVideoFree() {
-        VideoFree videoFree = new VideoFree();
+        Video video = new Video(51,"视频名称","视频链接");
         if (listVideoFree == null) {
             listVideoFree = new ArrayList<>();
             for (int i = 0; i < 6; i++) {
-                listVideoFree.add(videoFree);//测试添加数据
+                listVideoFree.add(video);//测试添加数据
             }
         }
         adapterListFree.appendDataed(listVideoFree, true);
@@ -299,15 +298,15 @@ public class VideoFragment extends Fragment {
     private void initVideoAdapters() {
 
         if (adapter51Book == null)
-            adapter51Book = new GridViewAdapter_51Book(getContext());
+            adapter51Book = new GridViewAdapter_51Book(getActivity());
         gvVideo51.setAdapter(adapter51Book);
 
         if (adapterListFree == null)
-            adapterListFree = new ListViewAdapter_Free(getContext());
+            adapterListFree = new ListViewAdapter_Free(getActivity());
         lvVideoFree.setAdapter(adapterListFree);
 
         if (adapterListVip == null)
-            adapterListVip = new ListViewAdapter_Vip(getContext());
+            adapterListVip = new ListViewAdapter_Vip(getActivity());
         lvVideoVip.setAdapter(adapterListVip);
 
         topGuideTag = 0;
@@ -324,9 +323,9 @@ public class VideoFragment extends Fragment {
         tvVideoFree.setBackgroundResource(R.drawable.text_view_border_free);
         tvVideoVip.setBackgroundResource(R.drawable.text_view_border_vip);
 
-        tvVideo51.setTextColor(themeColor);
-        tvVideoFree.setTextColor(themeColor);
-        tvVideoVip.setTextColor(themeColor);
+        tvVideo51.setTextColor(whiteColor);
+        tvVideoFree.setTextColor(whiteColor);
+        tvVideoVip.setTextColor(whiteColor);
     }
 
     //设置上标题和对应数据加载
@@ -335,17 +334,17 @@ public class VideoFragment extends Fragment {
         switch (topGuideTag) {
             case 0:
                 tvVideo51.setBackgroundResource(R.drawable.text_view_back_51);
-                tvVideo51.setTextColor(whiteColor);
+                tvVideo51.setTextColor(themeColor);
                 showVideo51();
                 break;
             case 1:
                 tvVideoFree.setBackgroundResource(R.drawable.text_view_back_free);
-                tvVideoFree.setTextColor(whiteColor);
+                tvVideoFree.setTextColor(themeColor);
                 showVideoFree();
                 break;
             case 2:
                 tvVideoVip.setBackgroundResource(R.drawable.text_view_back_vip);
-                tvVideoVip.setTextColor(whiteColor);
+                tvVideoVip.setTextColor(themeColor);
                 showVideoVip();
                 break;
         }

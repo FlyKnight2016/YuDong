@@ -7,18 +7,17 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
-        android:label="@string/app_name"
+        android:label="育栋教育"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.HomeActivity"
             android:screenOrientation="portrait">
-
         </activity>
         <activity
             android:name=".activity.VideoPlayActivity"
@@ -64,10 +63,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ArticleReadActivity"
+        <activity
+            android:name=".activity.ArticleReadActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name=".activity.WebReadActivity">
+        </activity>
+        <activity android:name=".activity.AboutUsActivity">
+        </activity>
+        <activity android:name=".activity.CourseList51Activity">
         </activity>
     </application>
 

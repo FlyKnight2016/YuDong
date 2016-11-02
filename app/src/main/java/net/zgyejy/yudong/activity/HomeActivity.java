@@ -81,10 +81,13 @@ public class HomeActivity extends MyBaseActivity {
         return isTo;
     }
 
-    @OnClick({R.id.rl_home_show, R.id.rl_home_study, R.id.rl_home_video,
+    @OnClick({R.id.iv_home_return,R.id.rl_home_show, R.id.rl_home_study, R.id.rl_home_video,
             R.id.rl_home_act, R.id.rl_home_user})
     void homeOnClick(View view) {
         switch (view.getId()) {
+            case R.id.iv_home_return:
+                finish();
+                break;
             case R.id.rl_home_show:
                 showShowFragment();
                 break;

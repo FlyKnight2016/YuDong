@@ -1,10 +1,13 @@
 package net.zgyejy.yudong.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.xys.libzxing.zxing.activity.CaptureActivity;
 
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.base.MyBaseActivity;
@@ -14,6 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class TableTopActivity extends MyBaseActivity {
+    private static final String TAG = "TableTopActivity";
 
     @BindView(R.id.vp_tableTop_recommend)
     ViewPager vpTableTopRecommend;
@@ -26,6 +30,8 @@ public class TableTopActivity extends MyBaseActivity {
     @BindView(R.id.tv_tableTop_act_content)
     TextView tvTableTopActContent;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,63 +39,78 @@ public class TableTopActivity extends MyBaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.iv_tableTop_user, R.id.tv_tableTop_toVideo, R.id.tv_tableTop_to51Video,
+    @OnClick({R.id.iv_scan, R.id.iv_tableTop_user, R.id.tv_tableTop_toVideo, R.id.tv_tableTop_to51Video,
             R.id.tv_tableTop_toFreeVideo, R.id.tv_tableTop_toVipVideo, R.id.tv_tableTop_toStudy,
             R.id.tv_tableTop_toPrincipalStudy, R.id.tv_tableTop_toTeacherStudy,
             R.id.tv_tableTop_toParentsStudy, R.id.tv_tableTop_toKidStudy, R.id.tv_tabletop_toAct,
-            R.id.tv_tableTop_toShow,R.id.iv_tableTop_toHomeWeb})
+            R.id.tv_tableTop_toShow, R.id.iv_tableTop_toHomeWeb})
     public void onClick(View view) {
         Bundle bundle = new Bundle();
         switch (view.getId()) {
+            case R.id.iv_scan:
+                Intent intent = new Intent(TableTopActivity.this, CaptureActivity.class);
+                startActivityForResult(intent, 0);
+                break;
             case R.id.iv_tableTop_user:
-                bundle.putString("isTo","UserFragment");
-                openActivity(HomeActivity.class,bundle);
+                bundle.putString("isTo", "UserFragment");
+                openActivity(HomeActivity.class, bundle);
                 break;
             case R.id.tv_tableTop_toVideo:
             case R.id.tv_tableTop_to51Video:
                 openActivity(HomeActivity.class);
                 break;
             case R.id.tv_tableTop_toFreeVideo:
-                bundle.putString("isTo","FreeVideo");
-                openActivity(HomeActivity.class,bundle);
+                bundle.putString("isTo", "FreeVideo");
+                openActivity(HomeActivity.class, bundle);
                 break;
             case R.id.tv_tableTop_toVipVideo:
-                bundle.putString("isTo","VipVideo");
-                openActivity(HomeActivity.class,bundle);
+                bundle.putString("isTo", "VipVideo");
+                openActivity(HomeActivity.class, bundle);
                 break;
             case R.id.tv_tableTop_toStudy:
-                bundle.putString("isTo","StudyFragment");
-                openActivity(HomeActivity.class,bundle);
+                bundle.putString("isTo", "StudyFragment");
+                openActivity(HomeActivity.class, bundle);
                 break;
             case R.id.tv_tableTop_toPrincipalStudy:
-                bundle.putString("isTo","Principal");
-                openActivity(HomeActivity.class,bundle);
+                bundle.putString("isTo", "Principal");
+                openActivity(HomeActivity.class, bundle);
                 break;
             case R.id.tv_tableTop_toTeacherStudy:
-                bundle.putString("isTo","Teacher");
-                openActivity(HomeActivity.class,bundle);
+                bundle.putString("isTo", "Teacher");
+                openActivity(HomeActivity.class, bundle);
                 break;
             case R.id.tv_tableTop_toParentsStudy:
-                bundle.putString("isTo","Parents");
-                openActivity(HomeActivity.class,bundle);
+                bundle.putString("isTo", "Parents");
+                openActivity(HomeActivity.class, bundle);
                 break;
             case R.id.tv_tableTop_toKidStudy:
-                bundle.putString("isTo","Kid");
-                openActivity(HomeActivity.class,bundle);
+                bundle.putString("isTo", "Kid");
+                openActivity(HomeActivity.class, bundle);
                 break;
             case R.id.tv_tabletop_toAct:
-                bundle.putString("isTo","Act");
-                openActivity(HomeActivity.class,bundle);
+                bundle.putString("isTo", "Act");
+                openActivity(HomeActivity.class, bundle);
                 break;
             case R.id.tv_tableTop_toShow:
-                bundle.putString("isTo","Show");
-                openActivity(HomeActivity.class,bundle);
+                bundle.putString("isTo", "Show");
+                openActivity(HomeActivity.class, bundle);
                 break;
             case R.id.iv_tableTop_toHomeWeb:
                 //跳转到幼儿教育网网页
-                bundle.putString("isTo","YejyNet");
-                openActivity(WebReadActivity.class,bundle);
+                bundle.putString("isTo", "YejyNet");
+                openActivity(WebReadActivity.class, bundle);
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            Intent intent = new Intent(TableTopActivity.this,Video51Activity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
     }
 }

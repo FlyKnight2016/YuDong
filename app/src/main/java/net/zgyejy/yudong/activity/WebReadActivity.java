@@ -101,6 +101,6 @@ public class WebReadActivity extends MyBaseActivity {
 
     @OnClick(R.id.iv_web_back)
     public void onClick() {
-        openActivity(HomeActivity.class);
+        finish();
     }
 }

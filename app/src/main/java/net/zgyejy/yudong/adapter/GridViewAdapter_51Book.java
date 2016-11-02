@@ -28,6 +28,11 @@ public class GridViewAdapter_51Book extends MyBaseAdapter<Book> {
         ViewHolder vh;
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_video_51_grid_item, null);
+            if (i%2 == 0) {
+                view.setPadding(20,0,0,0);
+            }else {
+                view.setPadding(0,0,20,0);
+            }
             vh = new ViewHolder(view);
             view.setTag(vh);
         } else {

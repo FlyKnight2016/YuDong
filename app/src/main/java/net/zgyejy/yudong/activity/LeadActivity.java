@@ -101,7 +101,7 @@ public class LeadActivity extends MyBaseActivity {
 
         imageView = (ImageView) getLayoutInflater().inflate(
                 R.layout.layout_lead_viewpager_item, null);
-        imageView.setBackgroundResource(R.drawable.lead3);
+        imageView.setBackgroundResource(R.drawable.lead4);
         adapter.addToAdapterView(imageView);
 
         adapter.notifyDataSetChanged();

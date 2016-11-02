@@ -1,13 +1,16 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="net.zgyejy.yudong.fragment.ShowFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+             android:layout_height="match_parent">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="秀一秀界面..."/>
-
+        android:layout_height="90px"
+        android:background="@color/themeColor">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="秀一秀"
+            android:textColor="@color/white"
+            android:textSize="40px"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
 </FrameLayout>

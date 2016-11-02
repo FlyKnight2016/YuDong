@@ -16,6 +16,8 @@ import android.widget.TextView;
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.adapter.CommentListAdapter;
 import net.zgyejy.yudong.base.MyBaseActivity;
+import net.zgyejy.yudong.gloable.API;
+import net.zgyejy.yudong.modle.Video;
 import net.zgyejy.yudong.util.MediaController;
 import net.zgyejy.yudong.view.VideoView;
 
@@ -31,8 +33,9 @@ public class VideoPlayActivity extends MyBaseActivity implements
     private List<View> otherViews;
     private MediaController mMediaController;
     private boolean fullscreen = false;
-    private String path = "http://baobab.wdjcdn.com/145076769089714.mp4";
+    private String path;
     private CommentListAdapter commentListAdapter;
+    private Video video;
 
     @BindView(R.id.tv_play_title)
     TextView tvPlayTitle;
@@ -68,6 +71,8 @@ public class VideoPlayActivity extends MyBaseActivity implements
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ButterKnife.bind(this);
 
+        getPath();
+
         addOtherViews();
 
         matchViewToOrientation();
@@ -82,6 +87,16 @@ public class VideoPlayActivity extends MyBaseActivity implements
         mVideoView.start();
 
         initListData();
+    }
+
+    /**
+     * 得到视频资源地址
+     */
+    private void getPath() {
+        Bundle bundle = getIntent().getExtras();
+        video = (Video)bundle.getSerializable("video");
+        if (video!=null)
+            path = API.APP_SERVER_IP + video.getVideo_url();
     }
 
     @Override

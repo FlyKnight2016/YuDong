@@ -22,7 +22,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import net.zgyejy.yudong.R;
-import net.zgyejy.yudong.activity.ArticleReadActivity;
 import net.zgyejy.yudong.activity.HomeActivity;
 import net.zgyejy.yudong.activity.WebReadActivity;
 import net.zgyejy.yudong.adapter.ArticleListAdapter;
@@ -44,7 +43,6 @@ import butterknife.OnClick;
 
 
 public class StudyFragment extends Fragment {
-    private static final String TAG = "StudyFragment";
 
     @BindView(R.id.tv_study_principal)
     TextView tvStudyPrincipal;
@@ -160,11 +158,11 @@ public class StudyFragment extends Fragment {
         lvStudyTeacher.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-                //条目点击事件
+                //打开对应的网页
                 Bundle bundle = new Bundle();
                 Article article = teacherArticles.get(i);
                 bundle.putSerializable("article", article);
-                ((HomeActivity) getActivity()).openActivity(ArticleReadActivity.class, bundle);
+                ((HomeActivity) getActivity()).openActivity(WebReadActivity.class, bundle);
             }
         });
         viewPagerAdapter.addToAdapterView(frameLayout);
@@ -221,8 +219,8 @@ public class StudyFragment extends Fragment {
         tvStudySelectParents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tvStudySelectParents.setBackgroundResource(R.color.lightGray);
-                tvStudySelectSp.setBackgroundResource(R.color.white);
+                tvStudySelectParents.setBackgroundResource(R.color.white);
+                tvStudySelectSp.setBackgroundResource(R.color.lightGray);
                 parentsTag = 0;
                 showStudyParents();
             }
@@ -230,8 +228,8 @@ public class StudyFragment extends Fragment {
         tvStudySelectSp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tvStudySelectSp.setBackgroundResource(R.color.lightGray);
-                tvStudySelectParents.setBackgroundResource(R.color.white);
+                tvStudySelectSp.setBackgroundResource(R.color.white);
+                tvStudySelectParents.setBackgroundResource(R.color.lightGray);
                 parentsTag = 1;
                 showStudyParents();
             }
@@ -322,6 +320,8 @@ public class StudyFragment extends Fragment {
                 vpStudyList.setCurrentItem(2);
             }else if (isTo.equals("Kid")) {
                 vpStudyList.setCurrentItem(3);
+            }else {
+                showStudyPrincipal();
             }
         }
     }
@@ -353,22 +353,22 @@ public class StudyFragment extends Fragment {
         switch (topGuidTag) {
             case 0:
                 tvStudyPrincipal.setBackgroundResource(R.drawable.text_view_back_51);
-                tvStudyPrincipal.setTextColor(whiteColor);
+                tvStudyPrincipal.setTextColor(themeColor);
                 showStudyPrincipal();
                 break;
             case 1:
                 tvStudyTeacher.setBackgroundResource(R.drawable.text_view_back_free);
-                tvStudyTeacher.setTextColor(whiteColor);
+                tvStudyTeacher.setTextColor(themeColor);
                 showStudyTeacher();
                 break;
             case 2:
                 tvStudyParents.setBackgroundResource(R.drawable.text_view_back_free);
-                tvStudyParents.setTextColor(whiteColor);
+                tvStudyParents.setTextColor(themeColor);
                 showStudyParents();
                 break;
             case 3:
                 tvStudyKid.setBackgroundResource(R.drawable.text_view_back_vip);
-                tvStudyKid.setTextColor(whiteColor);
+                tvStudyKid.setTextColor(themeColor);
                 showStudyKid();
                 break;
         }
@@ -544,10 +544,10 @@ public class StudyFragment extends Fragment {
         tvStudyParents.setBackgroundResource(R.drawable.text_view_border_free);
         tvStudyKid.setBackgroundResource(R.drawable.text_view_border_vip);
 
-        tvStudyPrincipal.setTextColor(themeColor);
-        tvStudyTeacher.setTextColor(themeColor);
-        tvStudyParents.setTextColor(themeColor);
-        tvStudyKid.setTextColor(themeColor);
+        tvStudyPrincipal.setTextColor(whiteColor);
+        tvStudyTeacher.setTextColor(whiteColor);
+        tvStudyParents.setTextColor(whiteColor);
+        tvStudyKid.setTextColor(whiteColor);
     }
 
     /**

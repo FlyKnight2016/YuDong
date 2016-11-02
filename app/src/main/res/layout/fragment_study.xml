@@ -7,10 +7,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="90px"
         android:layout_weight="0"
         android:orientation="horizontal"
-        android:padding="10px">
+        android:background="@color/themeColor"
+        android:gravity="center_vertical">
 
         <TextView
             android:layout_width="0dp"
@@ -23,26 +24,29 @@
             android:id="@+id/tv_study_principal"
             style="@style/Style_VideoGuideText"
             android:background="@drawable/text_view_back_51"
-            android:textColor="@color/white"
+            android:textColor="@color/themeColor"
             android:text="园长"/>
 
         <TextView
             android:id="@+id/tv_study_teacher"
             style="@style/Style_VideoGuideText"
             android:background="@drawable/text_view_border_free"
-            android:text="幼师"/>
+            android:text="幼师"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/tv_study_parents"
             style="@style/Style_VideoGuideText"
             android:background="@drawable/text_view_border_free"
-            android:text="家长"/>
+            android:text="家长"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/tv_study_kid"
             style="@style/Style_VideoGuideText"
             android:background="@drawable/text_view_border_vip"
-            android:text="幼儿"/>
+            android:text="幼儿"
+            android:textColor="@color/white"/>
 
         <TextView
             android:layout_width="0dp"
@@ -56,9 +60,6 @@
         android:id="@+id/vp_study_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="20px"
-        android:layout_marginRight="20px"
-        android:layout_marginTop="20px"
         android:layout_weight="1">
     </android.support.v4.view.ViewPager>
 

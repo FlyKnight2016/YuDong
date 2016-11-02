@@ -10,20 +10,28 @@
         android:layout_height="90px"
         android:layout_weight="0"
         android:background="@color/themeColor">
+        <ImageView
+            android:id="@+id/iv_scan"
+            android:layout_width="70px"
+            android:layout_height="70px"
+            android:layout_marginLeft="10px"
+            android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            android:src="@drawable/scan_white"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="育栋教育"
-            android:textSize="44px"
+            android:textSize="40px"
             android:textColor="@color/white"
             android:layout_centerInParent="true"/>
 
         <ImageView
             android:id="@+id/iv_tableTop_user"
-            android:layout_width="50px"
-            android:layout_height="50px"
+            android:layout_width="60px"
+            android:layout_height="60px"
             android:src="@drawable/user_white"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20px"
@@ -71,19 +79,16 @@
                 <TextView
                     android:id="@+id/tv_tableTop_to51Video"
                     style="@style/Style_TableTopClickableText"
-                    android:text="五个一\n#5To1"
-                    android:background="@drawable/text_view_back_button"/>
+                    android:background="@drawable/table_51"/>
                 <TextView
                     android:id="@+id/tv_tableTop_toFreeVideo"
                     style="@style/Style_TableTopClickableText"
-                    android:text="免费\n#Free"
-                    android:background="@drawable/text_view_back_button"/>
+                    android:background="@drawable/table_free"/>
                 <TextView
                     android:id="@+id/tv_tableTop_toVipVideo"
                     style="@style/Style_TableTopClickableText"
                     android:layout_marginRight="20px"
-                    android:text="收费\n#VIP"
-                    android:background="@drawable/text_view_back_button"/>
+                    android:background="@drawable/table_vip"/>
             </LinearLayout>
 
             <LinearLayout
@@ -104,40 +109,37 @@
                     android:textColor="@color/themeColor"
                     android:textSize="36px"/>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/tv_tableTop_toPrincipalStudy"
-                    style="@style/Style_TableTopClickableText"
-                    android:text="园长\n#Leader"
-                    android:background="@drawable/text_view_back_button"/>
+                    style="@style/Style_TableTopClickableText2"
+                    android:background="@drawable/table_principal"/>
                 <TextView
                     android:id="@+id/tv_tableTop_toTeacherStudy"
-                    style="@style/Style_TableTopClickableText"
-                    android:text="教师\n#Teacher"
-                    android:background="@drawable/text_view_back_button"/>
+                    style="@style/Style_TableTopClickableText2"
+                    android:background="@drawable/table_teacher"/>
 
                 <TextView
                     android:id="@+id/tv_tableTop_toParentsStudy"
-                    style="@style/Style_TableTopClickableText"
-                    android:text="父母\n#Parents"
-                    android:background="@drawable/text_view_back_button"/>
+                    style="@style/Style_TableTopClickableText2"
+                    android:background="@drawable/table_parents"/>
 
                 <TextView
                     android:id="@+id/tv_tableTop_toKidStudy"
-                    style="@style/Style_TableTopClickableText"
+                    style="@style/Style_TableTopClickableText2"
                     android:layout_marginRight="20px"
-                    android:text="儿童\n#Kid"
-                    android:background="@drawable/text_view_back_button"/>
+                    android:background="@drawable/table_kid"/>
             </LinearLayout>
-            
+
             <ImageView
                 android:id="@+id/iv_tableTop_toHomeWeb"
                 android:layout_width="match_parent"
                 android:layout_height="90px"
-                android:background="@color/lightGray"/>
+                android:background="@drawable/table_yejynet"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -164,7 +166,7 @@
                 android:layout_margin="20px">
                 <ImageView
                     android:id="@+id/iv_tableTop_act"
-                    android:layout_width="220px"
+                    android:layout_width="200px"
                     android:layout_height="200px"
                     android:background="@color/lightGray"/>
                 <TextView
@@ -216,6 +218,45 @@
                     android:textColor="@color/themeColor"
                     android:textSize="36px"/>
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20px">
+                <ImageView
+                    android:id="@+id/iv_tableTop_show"
+                    android:layout_width="200px"
+                    android:layout_height="200px"
+                    android:background="@color/lightGray"/>
+                <TextView
+                    android:id="@+id/tv_tableTop_show_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/iv_tableTop_show"
+                    android:layout_marginLeft="30px"
+                    android:text="推荐秀一秀"
+                    android:textSize="36px"
+                    android:textStyle="bold"
+                    android:maxLines="1"/>
+                <TextView
+                    android:id="@+id/tv_tableTop_show_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/tv_tableTop_show_title"
+                    android:layout_below="@id/tv_tableTop_show_title"
+                    android:layout_marginTop="10px"
+                    android:text="2016-08-01（发表时间）"
+                    android:textColor="@color/deepOrange"/>
+                <TextView
+                    android:id="@+id/tv_tableTop_show_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/tv_tableTop_show_date"
+                    android:layout_below="@id/tv_tableTop_show_date"
+                    android:layout_marginTop="10px"
+                    android:text="秀一秀简介/推荐理由：不限年龄、不限性别、不限身份、不限国籍、不限人数..."
+                    android:maxLines="3"/>
+            </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>

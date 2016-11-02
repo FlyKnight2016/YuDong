@@ -5,16 +5,29 @@
     android:id="@+id/activity_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.zgyejy.yudong.activity.HomeActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="net.zgyejy.yudong.activity.HomeActivity">
 
-    <RelativeLayout
-        android:id="@+id/rl_container"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="5dp">
-    </RelativeLayout>
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:id="@+id/rl_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/iv_home_return"
+            android:layout_width="70px"
+            android:layout_height="70px"
+            android:layout_marginTop="10px"
+            android:layout_marginLeft="10px"
+            android:adjustViewBounds="true"
+            android:src="@drawable/return2"/>
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,42 +38,50 @@
         <RelativeLayout
             android:id="@+id/rl_home_show"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/iv_home_show"
                 style="@style/Style_HomeGuideImage"
                 android:background="@drawable/show_normal"/>
+
             <TextView
                 android:id="@+id/tv_home_show"
                 style="@style/Style_HomeGuideText"
                 android:layout_below="@id/iv_home_show"
                 android:text="秀一秀"/>
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/rl_home_study"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/iv_home_study"
                 style="@style/Style_HomeGuideImage"
                 android:background="@drawable/study_normal"/>
+
             <TextView
                 android:id="@+id/tv_home_study"
                 style="@style/Style_HomeGuideText"
                 android:layout_below="@id/iv_home_study"
                 android:text="学习"/>
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/rl_home_video"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/iv_home_video"
                 style="@style/Style_HomeGuideImage"
                 android:background="@drawable/video_normal"/>
+
             <TextView
                 android:id="@+id/tv_home_video"
                 style="@style/Style_HomeGuideText"
@@ -71,12 +92,14 @@
         <RelativeLayout
             android:id="@+id/rl_home_act"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/iv_home_act"
                 style="@style/Style_HomeGuideImage"
                 android:background="@drawable/act_normal"/>
+
             <TextView
                 android:id="@+id/tv_home_act"
                 style="@style/Style_HomeGuideText"
@@ -87,12 +110,14 @@
         <RelativeLayout
             android:id="@+id/rl_home_user"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/iv_home_user"
                 style="@style/Style_HomeGuideImage"
                 android:background="@drawable/user_normal"/>
+
             <TextView
                 android:id="@+id/tv_home_user"
                 style="@style/Style_HomeGuideText"

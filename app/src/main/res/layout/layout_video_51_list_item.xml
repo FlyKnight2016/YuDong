@@ -7,6 +7,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="五个一视频..."
-        android:padding="20px"
+        android:paddingTop="20px"
+        android:paddingBottom="20px"
+        android:paddingLeft="40px"
+        android:paddingRight="40px"
         android:textSize="32px"/>
 </LinearLayout>

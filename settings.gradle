@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':libzxing', ':zxing'
 include ':pullToRefresh'

@@ -2,16 +2,19 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
-
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100px"
-        android:background="@color/themeColor"
-        android:gravity="center"
-        android:text="个人中心"
-        android:textStyle="bold"
-        android:textSize="44px"
-        android:textColor="@color/white"/>
+        android:layout_height="90px"
+        android:background="@color/themeColor">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="个人中心"
+            android:textColor="@color/white"
+            android:textSize="40px"/>
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -215,8 +218,9 @@
             android:gravity="center_vertical"
             android:layout_marginTop="10px">
             <ImageView
-                android:layout_width="70px"
-                android:layout_height="70px"
+                android:layout_width="60px"
+                android:layout_height="60px"
+                android:layout_marginRight="10px"
                 android:background="@drawable/aboutus"/>
             <TextView
                 android:layout_width="0dp"

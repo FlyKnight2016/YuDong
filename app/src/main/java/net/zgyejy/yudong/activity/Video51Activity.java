@@ -3,21 +3,27 @@ package net.zgyejy.yudong.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import net.zgyejy.yudong.R;
-import net.zgyejy.yudong.adapter.ListViewAdapter_51;
 import net.zgyejy.yudong.adapter.ListViewAdapter_Free;
 import net.zgyejy.yudong.base.MyBaseActivity;
-import net.zgyejy.yudong.modle.Video51;
-import net.zgyejy.yudong.modle.VideoFree;
+import net.zgyejy.yudong.modle.Video;
+import net.zgyejy.yudong.modle.parser.ParserVideoList;
+import net.zgyejy.yudong.util.CommonUtil;
 
-import java.util.ArrayList;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,18 +31,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class Video51Activity extends MyBaseActivity {
-    private List<Video51> listWeekNums;
-    private List<VideoFree> listVideo51;
-
-    @BindView(R.id.lv_video_51_child)
-    PullToRefreshListView lvVideo51Child;
-    @BindView(R.id.ll_video51_child)
-    LinearLayout llVideo51Child;
-    @BindView(R.id.lv_video_51)
+    @BindView(R.id.lv_video51)
     PullToRefreshListView lvVideo51;
 
-    private ListViewAdapter_51 adapter_51;
-    private ListViewAdapter_Free adapter_51_child;
+    private ListViewAdapter_Free adapter;//适配器
+    private List<Video> list51Video;//一课的视频列表(5个视频)
+    private String url51;//5个视频列表的链接
+    private RequestQueue requestQueue;//volley接口对象
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,28 +47,24 @@ public class Video51Activity extends MyBaseActivity {
 
         initView();
 
-        initDataListWeekNum();
+        url51 = getIntent().getStringExtra("result");
+        loadListData();
     }
 
     /**
      * 初始化界面
      */
     private void initView() {
-        if (adapter_51 == null)
-            adapter_51 = new ListViewAdapter_51(this);
-        lvVideo51.setAdapter(adapter_51);
-        initLvRefresh(lvVideo51);
-
-        if (adapter_51_child == null)
-            adapter_51_child = new ListViewAdapter_Free(this);
-        lvVideo51Child.setAdapter(adapter_51_child);
-        initLvRefresh(lvVideo51Child);
-
-        setListeners();
+        if (adapter == null)
+            adapter = new ListViewAdapter_Free(this);
+        lvVideo51.setAdapter(adapter);
+        initLvRefresh(lvVideo51);//设置下拉上拉刷新参数
+        setListeners();//设置各种监听
     }
 
     /**
      * 设置刷新参数
+     *
      * @param pullToRefresh
      */
     private void initLvRefresh(PullToRefreshListView pullToRefresh) {
@@ -92,84 +89,65 @@ public class Video51Activity extends MyBaseActivity {
         lvVideo51.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                //下拉加载数据
+                loadListData();
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                //上拉加载数据
+                showToast("已无更多数据!");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        lvVideo51.onRefreshComplete();
+                    }
+                });
             }
         });
         lvVideo51.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                lvVideo51.setVisibility(View.GONE);
-                llVideo51Child.setVisibility(View.VISIBLE);
-                initDataListVideo51();
-            }
-        });
-
-        lvVideo51Child.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                //下拉加载数据
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                //上拉加载数据
-            }
-        });
-        lvVideo51Child.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                openActivity(VideoPlayActivity.class);
+                Bundle bundle = new Bundle();
+                Video video = list51Video.get(position);
+                bundle.putSerializable("video",video);
+                openActivity(VideoPlayActivity.class,bundle);
             }
         });
     }
 
     /**
-     * 导入51视频周列表数据
+     * 根据传入的url返回5个1的视频列表
      */
-    private void initDataListWeekNum() {
-        Video51 video51 = new Video51();
-        if (listWeekNums == null) {
-            listWeekNums = new ArrayList<>();
-            for (int i =0 ; i<20; i++) {
-                listWeekNums.add(video51);
-            }
+    private void loadListData() {
+        if (!CommonUtil.isNetworkAvailable(this)) {
+            showToast("当前无网络连接，请连接网络!");
+        } else {
+            if (requestQueue == null)
+                requestQueue = Volley.newRequestQueue(this);//实例化一个RequestQueue对象
+            showLoadingDialog(this, "数据正在加载...", true);//显示加载动画
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url51,
+                    null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject jsonObject) {
+                            list51Video = ParserVideoList.getVideoList(jsonObject.toString());
+                            adapter.appendDataed(list51Video, true);
+                            adapter.updateAdapter();
+                            lvVideo51.onRefreshComplete();
+                            cancelDialog();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                        }
+                    }
+            );
+            requestQueue.add(jsonObjectRequest);
         }
-        adapter_51.appendDataed(listWeekNums,true);
-        adapter_51.updateAdapter();
     }
 
-    /**
-     * 导入一周的51视频列表数据
-     */
-    private void initDataListVideo51() {
-        VideoFree videoFree = new VideoFree();
-        if (listVideo51 == null) {
-            listVideo51 = new ArrayList<>();
-            for (int i = 0; i < 5; i++) {
-                listVideo51.add(videoFree);//测试添加数据
-            }
-        }
-        adapter_51_child.appendDataed(listVideo51, true);
-        adapter_51_child.updateAdapter();
-    }
-
-    @OnClick({R.id.iv_video51_return, R.id.tv_video51_return,R.id.tv_video51_backParent})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.iv_video51_return:
-            case R.id.tv_video51_return:
-                openActivity(HomeActivity.class);
-                finish();
-                break;
-            case R.id.tv_video51_backParent:
-                lvVideo51.setVisibility(View.VISIBLE);
-                llVideo51Child.setVisibility(View.GONE);
-                break;
-        }
+    @OnClick(R.id.iv_video51_return)
+    public void onClick() {
+        finish();
     }
 }

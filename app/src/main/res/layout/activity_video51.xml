@@ -6,72 +6,37 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/themeColor"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="20px">
+        android:layout_height="90px"
+        android:background="@color/themeColor">
 
         <ImageView
             android:id="@+id/iv_video51_return"
-            android:layout_width="60px"
-            android:layout_height="60px"
+            android:layout_width="70px"
+            android:layout_height="70px"
+            android:layout_marginLeft="10px"
+            android:layout_marginTop="10px"
             android:adjustViewBounds="true"
-            android:background="@drawable/return2"/>
+            android:src="@drawable/return2"/>
 
         <TextView
-            android:id="@+id/tv_video51_return"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10px"
-            android:text="返回"
+            android:layout_centerInParent="true"
+            android:text="视频列表"
             android:textColor="@color/white"
             android:textSize="40px"/>
-    </LinearLayout>
+    </RelativeLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/lv_video_51"
+        android:id="@+id/lv_video51"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="20px"
-        android:paddingLeft="30px"
-        android:paddingRight="30px"
         ptr:ptrAnimationStyle="flip"
         ptr:ptrDrawable="@drawable/default_ptr_flip"
         ptr:ptrHeaderBackground="@color/themeColor"
         ptr:ptrHeaderTextColor="#FFFFFF">
     </com.handmark.pulltorefresh.library.PullToRefreshListView>
-
-    <LinearLayout
-        android:id="@+id/ll_video51_child"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/tv_video51_backParent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="10px"
-            android:text="点击返回上一级"/>
-
-        <com.handmark.pulltorefresh.library.PullToRefreshListView
-            xmlns:ptr="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/lv_video_51_child"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="30px"
-            android:paddingLeft="30px"
-            android:paddingRight="30px"
-            ptr:ptrAnimationStyle="flip"
-            ptr:ptrDrawable="@drawable/default_ptr_flip"
-            ptr:ptrHeaderBackground="@color/themeColor"
-            ptr:ptrHeaderTextColor="#FFFFFF">
-        </com.handmark.pulltorefresh.library.PullToRefreshListView>
-    </LinearLayout>
 </LinearLayout>

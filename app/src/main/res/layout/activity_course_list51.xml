@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_course_list51"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="@color/themeColor">
+        <ImageView
+            android:id="@+id/iv_course_return"
+            android:layout_width="70px"
+            android:layout_height="70px"
+            android:layout_marginTop="10px"
+            android:layout_marginLeft="10px"
+            android:adjustViewBounds="true"
+            android:src="@drawable/return2"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="课程列表"
+            android:textColor="@color/white"
+            android:textSize="40px"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/lv_course"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrDrawable="@drawable/default_ptr_flip"
+        ptr:ptrHeaderBackground="@color/themeColor"
+        ptr:ptrHeaderTextColor="#FFFFFF">
+
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+</LinearLayout>

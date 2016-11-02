@@ -8,50 +8,52 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80px"
+        android:layout_height="90px"
         android:layout_weight="0"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="10px">
+        android:background="@color/themeColor">
 
 
         <ImageView
-            android:id="@+id/iv_scan"
+            android:visibility="invisible"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="70px"
             android:layout_marginLeft="10px"
             android:adjustViewBounds="true"
-            android:src="@drawable/scan"/>
+            android:src="@drawable/return2"/>
 
 
         <TextView
             android:id="@+id/tv_video_51"
             style="@style/Style_VideoGuideText"
             android:layout_marginLeft="50px"
-            android:background="@drawable/text_view_border_51"
+            android:background="@drawable/text_view_back_51"
             android:text="五个一"/>
 
         <TextView
             android:id="@+id/tv_video_free"
             style="@style/Style_VideoGuideText"
             android:background="@drawable/text_view_border_free"
-            android:text="免费"/>
+            android:text="免费"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/tv_video_vip"
             style="@style/Style_VideoGuideText"
             android:layout_marginRight="50px"
             android:background="@drawable/text_view_border_vip"
-            android:text="VIP"/>
+            android:text="VIP"
+            android:textColor="@color/white"/>
 
         <ImageView
             android:id="@+id/iv_search"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="70px"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10px"
             android:adjustViewBounds="true"
-            android:src="@drawable/search"/>
+            android:src="@drawable/search1"/>
 
     </LinearLayout>
 
@@ -59,9 +61,6 @@
         android:id="@+id/vp_home_video"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="20px"
-        android:layout_marginRight="20px"
-        android:layout_marginTop="20px"
         android:layout_weight="1">
     </android.support.v4.view.ViewPager>
 
