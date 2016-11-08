@@ -1,26 +1,34 @@
 package net.zgyejy.yudong.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jorge.circlelibrary.ImageCycleView;
 import com.xys.libzxing.zxing.activity.CaptureActivity;
 
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.base.MyBaseActivity;
+import net.zgyejy.yudong.gloable.API;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import it.sephiroth.android.library.picasso.Picasso;
 
 public class TableTopActivity extends MyBaseActivity {
-    private static final String TAG = "TableTopActivity";
+    Bundle bundle;
 
-    @BindView(R.id.vp_tableTop_recommend)
-    ViewPager vpTableTopRecommend;
+    @BindView(R.id.table_cycleView)
+    ImageCycleView imageCycleView;
     @BindView(R.id.iv_tableTop_act)
     ImageView ivTableTopAct;
     @BindView(R.id.tv_tableTop_act_title)
@@ -30,6 +38,12 @@ public class TableTopActivity extends MyBaseActivity {
     @BindView(R.id.tv_tableTop_act_content)
     TextView tvTableTopActContent;
 
+    //装载数据的集合 文字描述
+    ArrayList<String> imageDescList;
+    //装载数据的集合 图片地址
+    ArrayList<String> urlList;
+    //装载数据的集合 广告链接
+    ArrayList<String> advUrlList;
 
 
     @Override
@@ -37,6 +51,81 @@ public class TableTopActivity extends MyBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_top);
         ButterKnife.bind(this);
+
+        loadAdvData();
+
+    }
+
+    /**
+     * 请求并添加广告数据
+     */
+    private void loadAdvData() {
+        if (imageDescList == null)
+            imageDescList = new ArrayList<>();
+        imageDescList.clear();
+        if (urlList == null)
+            urlList = new ArrayList<>();
+        if (advUrlList == null)
+            advUrlList = new ArrayList<>();
+        urlList.clear();
+
+        /**添加数据*/
+        urlList.add("http://www.zgyejy.net/uploads/2016/10/131456398989.jpg");
+        urlList.add("http://www.zgyejy.net/uploads/2016/10/241628115842.jpg");
+        urlList.add("http://www.zgyejy.net/uploads/2016/04/201619098309.jpg");
+        imageDescList.add("广告位招租");
+        imageDescList.add("演讲小明星");
+        imageDescList.add("诚邀加盟");
+        advUrlList.add("http://www.zgyejy.net/zuixinhuodong/4631.html");
+        advUrlList.add("http://www.zgyejy.net/tupianzhanshi/9559.html");
+        advUrlList.add("http://www.zgyejy.net/tupianzhanshi/5476.html");
+
+        initCarsuelView(imageDescList, urlList);
+
+    }
+
+    /**
+     * 初始化轮播图
+     *
+     * @param imageDescList
+     * @param urlList
+     */
+    private void initCarsuelView(ArrayList<String> imageDescList, ArrayList<String> urlList) {
+        LinearLayout.LayoutParams cParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, getScreenHeight(TableTopActivity.this) * 3 / 10);
+        imageCycleView.setLayoutParams(cParams);
+        ImageCycleView.ImageCycleViewListener mAdCycleViewListener = new ImageCycleView.ImageCycleViewListener() {
+            @Override
+            public void onImageClick(int position, View imageView) {
+                /**实现点击事件*/
+                if (bundle == null)
+                    bundle = new Bundle();
+                bundle.putString("url",advUrlList.get(position));
+                openActivity(WebReadActivity.class,bundle);
+            }
+
+            @Override
+            public void displayImage(String imageURL, ImageView imageView) {
+                /**在此方法中，显示图片，可以用自己的图片加载库，也可以用本demo中的（Imageloader）*/
+                Picasso.with(getApplicationContext()).load(imageURL).into(imageView);
+            }
+        };
+/**设置数据*/
+        imageCycleView.setImageResources(imageDescList, urlList, mAdCycleViewListener);
+        imageCycleView.startImageCycle();
+    }
+
+    /**
+     * 得到屏幕的高度
+     *
+     * @param context
+     * @return
+     */
+    public static int getScreenHeight(Context context) {
+        if (null == context) {
+            return 0;
+        }
+        DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
+        return dm.heightPixels;
     }
 
     @OnClick({R.id.iv_scan, R.id.iv_tableTop_user, R.id.tv_tableTop_toVideo, R.id.tv_tableTop_to51Video,
@@ -45,7 +134,8 @@ public class TableTopActivity extends MyBaseActivity {
             R.id.tv_tableTop_toParentsStudy, R.id.tv_tableTop_toKidStudy, R.id.tv_tabletop_toAct,
             R.id.tv_tableTop_toShow, R.id.iv_tableTop_toHomeWeb})
     public void onClick(View view) {
-        Bundle bundle = new Bundle();
+        if (bundle == null)
+            bundle = new Bundle();
         switch (view.getId()) {
             case R.id.iv_scan:
                 Intent intent = new Intent(TableTopActivity.this, CaptureActivity.class);
@@ -97,7 +187,7 @@ public class TableTopActivity extends MyBaseActivity {
                 break;
             case R.id.iv_tableTop_toHomeWeb:
                 //跳转到幼儿教育网网页
-                bundle.putString("isTo", "YejyNet");
+                bundle.putString("url", API.ZgyejyNetIP);
                 openActivity(WebReadActivity.class, bundle);
                 break;
         }
@@ -108,7 +198,9 @@ public class TableTopActivity extends MyBaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             Bundle bundle = data.getExtras();
-            Intent intent = new Intent(TableTopActivity.this,Video51Activity.class);
+            //String result = bundle.getString("result");
+            //showToast(result);
+            Intent intent = new Intent(TableTopActivity.this, Video51Activity.class);
             intent.putExtras(bundle);
             startActivity(intent);
         }

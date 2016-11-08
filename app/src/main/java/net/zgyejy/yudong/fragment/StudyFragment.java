@@ -43,6 +43,7 @@ import butterknife.OnClick;
 
 
 public class StudyFragment extends Fragment {
+    Bundle bundle;
 
     @BindView(R.id.tv_study_principal)
     TextView tvStudyPrincipal;
@@ -129,9 +130,10 @@ public class StudyFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
                 //打开条目对应网页的方法
-                Bundle bundle = new Bundle();
+                if (bundle == null)
+                    bundle = new Bundle();
                 Article article = principalArticles.get(i);
-                bundle.putSerializable("article", article);
+                bundle.putString("url",API.ZgyejyNetIP + article.getUrl());
                 ((HomeActivity) getActivity()).openActivity(WebReadActivity.class, bundle);
             }
         });
@@ -159,9 +161,10 @@ public class StudyFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
                 //打开对应的网页
-                Bundle bundle = new Bundle();
+                if (bundle == null)
+                    bundle = new Bundle();
                 Article article = teacherArticles.get(i);
-                bundle.putSerializable("article", article);
+                bundle.putString("url", API.ZgyejyNetIP + article.getUrl());
                 ((HomeActivity) getActivity()).openActivity(WebReadActivity.class, bundle);
             }
         });
@@ -203,14 +206,15 @@ public class StudyFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
                 //打开条目对应网页的方法
-                Bundle bundle = new Bundle();
+                if (bundle == null)
+                    bundle = new Bundle();
                 Article article;
                 if (parentsTag == 0) {
                     article = parentsArticles.get(i);
                 }else {
                     article = spArticles.get(i);
                 }
-                bundle.putSerializable("article", article);
+                bundle.putString("url", API.ZgyejyNetIP + article.getUrl());
                 ((HomeActivity) getActivity()).openActivity(WebReadActivity.class, bundle);
             }
         });

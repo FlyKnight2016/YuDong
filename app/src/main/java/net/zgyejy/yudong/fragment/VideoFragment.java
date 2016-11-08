@@ -27,6 +27,7 @@ import net.zgyejy.yudong.adapter.GridViewAdapter_51Book;
 import net.zgyejy.yudong.adapter.ListViewAdapter_Free;
 import net.zgyejy.yudong.adapter.ListViewAdapter_Vip;
 import net.zgyejy.yudong.adapter.MyPagerAdapter;
+import net.zgyejy.yudong.gloable.API;
 import net.zgyejy.yudong.modle.Book;
 import net.zgyejy.yudong.modle.Video;
 import net.zgyejy.yudong.modle.VideoVip;
@@ -41,6 +42,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class VideoFragment extends Fragment {
+    Bundle bundle;
+
     @BindView(R.id.tv_video_51)
     TextView tvVideo51;
     @BindView(R.id.tv_video_free)
@@ -98,7 +101,7 @@ public class VideoFragment extends Fragment {
             requestQueue = Volley.newRequestQueue(getContext());//实例化一个RequestQueue对象
             String isTo = ((HomeActivity) getActivity()).getIsTo();
             if (isTo != null && isTo.equals("51Video")) {
-
+                showVideo51();
             } else if (isTo.equals("FreeVideo")) {
                 vpHomeVideo.setCurrentItem(1);
             } else if (isTo.equals("VipVideo")) {
@@ -126,7 +129,10 @@ public class VideoFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //打开课程列表界面
-                ((HomeActivity) getActivity()).openActivity(CourseList51Activity.class);
+                if (bundle == null)
+                    bundle = new Bundle();
+                bundle.putString("courses",listBook.get(position).getUrl());
+                ((HomeActivity) getActivity()).openActivity(CourseList51Activity.class,bundle);
             }
         });
         viewPagerAdapter.addToAdapterView(frameLayout);
@@ -281,15 +287,47 @@ public class VideoFragment extends Fragment {
      * 显示五个一视频数据
      */
     private void showVideo51() {
-        String[] str = {"一", "二", "三", "四", "五", "六"};
         if (listBook == null)
             listBook = new ArrayList<>();
         listBook.clear();
         for (int i = 0; i < 6; i++) {
-            listBook.add(new Book("七巧板智力阅读\n第" + str[i] + "册"));
+            listBook.add(new Book("七巧板智力阅读\n第" + (i+1) + "册"));
+            setBook(i);
         }
         adapter51Book.appendDataed(listBook, true);
         adapter51Book.updateAdapter();
+    }
+
+    private void setBook(int i) {
+        int image;
+        Book book = listBook.get(i);
+        switch (i) {
+            case 0:
+                image = R.drawable.volume1;
+                book.setUrl(API.VIDEO_51_BOOK_LIST+131);
+                break;
+            case 1:
+                image = R.drawable.volume2;
+                book.setUrl(API.VIDEO_51_BOOK_LIST+65);
+                break;
+            case 2:
+                image = R.drawable.volume3;
+                book.setUrl(API.VIDEO_51_BOOK_LIST+156);
+                break;
+            case 3:
+                image = R.drawable.volume4;
+                book.setUrl(API.VIDEO_51_BOOK_LIST+86);
+                break;
+            case 4:
+                image = R.drawable.volume5;
+                book.setUrl(API.VIDEO_51_BOOK_LIST+177);
+                break;
+            default:
+                image = R.drawable.volume6;
+                book.setUrl(API.VIDEO_51_BOOK_LIST+109);
+                break;
+        }
+        book.setBookImage(image);
     }
 
     /**

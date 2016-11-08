@@ -12,7 +12,7 @@ import net.zgyejy.yudong.base.MyBaseActivity;
 import net.zgyejy.yudong.util.SharedUtil;
 
 public class LeadActivity extends MyBaseActivity {
-    boolean isFromUserFragment;
+    boolean isFromAboutUs;//是否是从关于我们界面点进来的
     ViewPager vpLeadPicture;
     TextView tvLeadSkip;//点击进入
     private MyPagerAdapter adapter;
@@ -51,10 +51,10 @@ public class LeadActivity extends MyBaseActivity {
         imageViews[0].setAlpha(1.0f);
 
         String from = getIntent().getStringExtra("AboutUsFrom");
-        if (from != null && from.equals("UserFragment")) {
-            isFromUserFragment = true;
+        if (from != null && from.equals("AboutUsActivity")) {
+            isFromAboutUs = true;
         } else {
-            isFromUserFragment = false;
+            isFromAboutUs = false;
         }
     }
 
@@ -69,7 +69,7 @@ public class LeadActivity extends MyBaseActivity {
             @Override
             public void onClick(View v) {
 
-                if (isFromUserFragment) {
+                if (isFromAboutUs) {
                     finish();
                 } else {
                     openActivity(TableTopActivity.class);
@@ -116,7 +116,7 @@ public class LeadActivity extends MyBaseActivity {
         @Override
         public void onPageSelected(int position) {
             if (position >= 3) {
-                if (isFromUserFragment)
+                if (isFromAboutUs)
                     tvLeadSkip.setText("点击返回");
                 tvLeadSkip.setVisibility(View.VISIBLE);
             }

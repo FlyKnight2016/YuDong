@@ -48,6 +48,16 @@
             android:layout_alignParentBottom="true"
             android:layout_below="@id/capture_crop_view"
             android:background="@drawable/shadow"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/capture_crop_view"
+            android:layout_marginTop="10dp"
+            android:text="请扫描书上\n的二维码"
+            android:textSize="14sp"
+            android:textColor="#FFFF5D"/>
 
         <ImageView
             android:id="@+id/capture_mask_left"

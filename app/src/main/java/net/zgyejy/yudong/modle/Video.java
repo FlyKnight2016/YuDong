@@ -6,12 +6,12 @@ import java.io.Serializable;
  * Created by FlyKnight on 2016/11/1.
  */
 
-public class Video implements Serializable{
+public class Video implements Serializable {
     private int id;//视频id
     private String video_name;//视频名称
     private String video_zip;//视频缩略图
     private String video_describe;//视频描述
-    private String video_style;//视频类型
+    private int video_style;//视频类型
     private String video_price;//视频价格
     private String see_num;//浏览次数
     private String evaluate_num;//评论数
@@ -58,11 +58,11 @@ public class Video implements Serializable{
         this.video_describe = video_describe;
     }
 
-    public String getVideo_style() {
+    public int getVideo_style() {
         return video_style;
     }
 
-    public void setVideo_style(String video_style) {
+    public void setVideo_style(int video_style) {
         this.video_style = video_style;
     }
 

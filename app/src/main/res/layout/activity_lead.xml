@@ -8,7 +8,7 @@
         android:id="@+id/vp_lead_picture"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/lightGray">
+        android:background="@color/littleGray">
     </android.support.v4.view.ViewPager>
 
     <TextView
@@ -17,10 +17,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="20px"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80px"
         android:text="点击进入"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20px"
+        android:layout_marginRight="20px"
         android:textColor="@color/white"
         android:background="@drawable/btn_back_border_white"/>
 

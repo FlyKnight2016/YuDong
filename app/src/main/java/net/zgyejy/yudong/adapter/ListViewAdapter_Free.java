@@ -14,6 +14,7 @@ import net.zgyejy.yudong.modle.Video;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import it.sephiroth.android.library.picasso.Picasso;
 
 /**
  * Created by FlyKnight on 2016/10/14.
@@ -40,7 +41,12 @@ public class ListViewAdapter_Free extends MyBaseAdapter <Video>{
         vh.tvVideoFreeIntro.setText(video.getVideo_describe());
         vh.tvVideoFreeCollect.setText(video.getCollect_num());
         vh.tvVideoFreeComment.setText(video.getEvaluate_num());
-        new MyImageLoader(context).display(API.APP_SERVER_IP + video.getVideo_zip(),vh.ivVideoFree);
+        //使用Picasso第三方库加载图片
+        Picasso.with(context)
+                .load(API.APP_SERVER_IP + video.getVideo_zip())//加载地址
+                .placeholder(R.drawable.loadingphoto)//占位图（加载中）
+                .error(R.drawable.nophoto)//加载失败
+                .into(vh.ivVideoFree);//加载到的ImageView
         return view;
     }
 

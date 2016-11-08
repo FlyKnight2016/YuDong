@@ -13,4 +13,11 @@
     <string name="updated_just_now">刚刚更新</string>
     <string name="time_error">时间有问题</string>
     <string name="title_activity_video_play">VideoPlayActivity</string>
+
+    <!--公司简介-->
+    <string name="about_us">\t\t郑州育栋教育咨询有限公司是全国唯一一家研发和推广七巧板幼儿教材教学的幼教机构。\n
+        \t\t育栋教育咨询有限公司经过十二年的不懈努力和发展，坚持走特色办学之路，延续科学管理、品牌化发展。拥有一支
+        具有远大理想抱负、富有激情、充满活力的高效精英团队。经过十数年如一日的潜心研究，我们拥有了一套特色教育教
+        学方法（1+3+4+7的育栋特色教学方法）。以积极健康的形象、优质的教学，向社会各界展示自己的独有特色，为千余
+        所幼教机构提供了优质服务和特色培训。</string>
 </resources>

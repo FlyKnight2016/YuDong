@@ -1,10 +1,10 @@
 [
     {
-        "merged": "D:\\Android_zt\\MyApplications\\YuDong\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
-        "source": "D:\\Android_zt\\MyApplications\\YuDong\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_horizontal.xml"
+        "merged": "D:\\EglishPath\\MyApplications\\YuDong\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_vertical.xml",
+        "source": "D:\\EglishPath\\MyApplications\\YuDong\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
     },
     {
-        "merged": "D:\\Android_zt\\MyApplications\\YuDong\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_vertical.xml",
-        "source": "D:\\Android_zt\\MyApplications\\YuDong\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
+        "merged": "D:\\EglishPath\\MyApplications\\YuDong\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
+        "source": "D:\\EglishPath\\MyApplications\\YuDong\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_horizontal.xml"
     }
 ]

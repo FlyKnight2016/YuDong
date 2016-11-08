@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import net.zgyejy.yudong.R;
+import net.zgyejy.yudong.activity.AboutUsActivity;
 import net.zgyejy.yudong.activity.HomeActivity;
 import net.zgyejy.yudong.activity.LeadActivity;
 import net.zgyejy.yudong.util.SharedUtil;
@@ -65,10 +66,7 @@ public class UserFragment extends Fragment {
             case R.id.ll_user_normalProblem:
                 break;
             case R.id.ll_user_aboutUs:
-                SharedUtil.putBoolean(getContext(),"isFirst",true);
-                Bundle bundle = new Bundle();
-                bundle.putString("AboutUsFrom","UserFragment");
-                ((HomeActivity)getActivity()).openActivity(LeadActivity.class,bundle);
+                ((HomeActivity)getActivity()).openActivity(AboutUsActivity.class);
                 break;
         }
     }

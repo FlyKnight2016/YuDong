@@ -6,7 +6,8 @@ package net.zgyejy.yudong.modle;
 
 public class Book {
     private String bookName;
-    private String bookImage;
+    private int bookImage;
+    private String url;
 
     public Book(String bookName) {
         this.bookName = bookName;
@@ -20,11 +21,19 @@ public class Book {
         this.bookName = bookName;
     }
 
-    public String getBookImage() {
+    public int getBookImage() {
         return bookImage;
     }
 
-    public void setBookImage(String bookImage) {
+    public void setBookImage(int bookImage) {
         this.bookImage = bookImage;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

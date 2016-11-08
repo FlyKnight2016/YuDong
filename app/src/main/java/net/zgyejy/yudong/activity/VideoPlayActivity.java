@@ -2,8 +2,11 @@ package net.zgyejy.yudong.activity;
 
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -12,30 +15,47 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.adapter.CommentListAdapter;
 import net.zgyejy.yudong.base.MyBaseActivity;
 import net.zgyejy.yudong.gloable.API;
+import net.zgyejy.yudong.modle.Comment;
 import net.zgyejy.yudong.modle.Video;
 import net.zgyejy.yudong.util.MediaController;
 import net.zgyejy.yudong.view.VideoView;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+
 public class VideoPlayActivity extends MyBaseActivity implements
-        net.zgyejy.yudong.util.MediaController.onClickIsFullScreenListener {
+        net.zgyejy.yudong.util.MediaController.onClickIsFullScreenListener,
+        MediaPlayer.OnPreparedListener,
+        MediaPlayer.OnErrorListener,
+        MediaPlayer.OnCompletionListener{
     private List<View> otherViews;
     private MediaController mMediaController;
     private boolean fullscreen = false;
     private String path;
     private CommentListAdapter commentListAdapter;
     private Video video;
+    private List<Comment> comments;
+
+    private View mVolumeBrightnessLayout;
+    private ImageView mOperationBg;
+    private ImageView mOperationPercent;
+    private AudioManager mAudioManager;
+    /** 最大声音 */
+    private int mMaxVolume;
+    /** 当前声音 */
+    private int mVolume = -1;
+    /** 当前亮度 */
+    private float mBrightness = -1f;
+    /** 当前缩放模式 */
+    //private int mLayout = VideoView.VIDEO_LAYOUT_ZOOM;
+    private GestureDetector mGestureDetector;
 
     @BindView(R.id.tv_play_title)
     TextView tvPlayTitle;
@@ -63,6 +83,8 @@ public class VideoPlayActivity extends MyBaseActivity implements
     ListView lvPlayComments;
     @BindView(R.id.ll_play_commentAbout)
     LinearLayout llPlayCommentAbout;
+    @BindView(R.id.tv_play_noComment)
+    TextView tvPlayNoComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +95,7 @@ public class VideoPlayActivity extends MyBaseActivity implements
 
         getPath();
 
-        addOtherViews();
+        addOtherViewsToList();
 
         matchViewToOrientation();
 
@@ -84,8 +106,9 @@ public class VideoPlayActivity extends MyBaseActivity implements
         mVideoView.setMediaController(mMediaController);//绑定控制器
         mVideoView.setVideoURI(Uri.parse(path));//设置播放地址
         mVideoView.requestFocus();//取得焦点
-        mVideoView.start();
 
+
+        //加载评论列表数据
         initListData();
     }
 
@@ -101,8 +124,12 @@ public class VideoPlayActivity extends MyBaseActivity implements
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
+        //全屏时滑动屏幕调节亮度和音量
+        if (fullscreen) {
+
+        }
         return super.onTouchEvent(event);
-        //以后添加滑动屏幕快进快退
     }
 
     /**
@@ -112,13 +139,34 @@ public class VideoPlayActivity extends MyBaseActivity implements
         if (commentListAdapter == null)
             commentListAdapter = new CommentListAdapter(this);
         lvPlayComments.setAdapter(commentListAdapter);
+
+        //加载数据
+        refreshListData();
+    }
+
+    /**
+     * 根据是否有评论，显示相应提示
+     */
+    private void showHint() {
+        if (comments == null||comments.size() == 0) {
+            lvPlayComments.setVisibility(View.GONE);
+            tvPlayNoComment.setVisibility(View.VISIBLE);
+        }else {
+            lvPlayComments.setVisibility(View.VISIBLE);
+            tvPlayNoComment.setVisibility(View.GONE);
+        }
     }
 
     /**
      * 刷新评论列表数据
      */
     private void refreshListData() {
+        //发送请求，得到返回数据
 
+        commentListAdapter.appendDataed(comments,true);
+        commentListAdapter.updateAdapter();
+
+        showHint();
     }
 
     /**
@@ -135,7 +183,7 @@ public class VideoPlayActivity extends MyBaseActivity implements
     /**
      * 添加非播放View到otherViews集合中
      */
-    private void addOtherViews() {
+    private void addOtherViewsToList() {
         if (otherViews == null)
             otherViews = new ArrayList<>();
         otherViews.clear();
@@ -228,5 +276,22 @@ public class VideoPlayActivity extends MyBaseActivity implements
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             mMediaController.setFullScreenButton(R.drawable.full_screen);
         }
+    }
+
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        showToast("准备好了");
+        mVideoView.start();
+    }
+
+    @Override
+    public boolean onError(MediaPlayer mp, int what, int extra) {
+        showToast("Error");
+        return true;
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer mp) {
+        showToast("播放完成");
     }
 }

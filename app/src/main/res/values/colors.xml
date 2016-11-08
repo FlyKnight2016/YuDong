@@ -23,6 +23,7 @@
 
     <!-- 常用颜色 -->
     <color name="lightGray">#F0F0F0</color>
+    <color name="littleGray">#B3B3B3</color>
     <color name="midGray">#808080</color>
     <color name="deepGray">#404040</color>
 

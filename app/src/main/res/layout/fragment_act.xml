@@ -14,4 +14,9 @@
             android:textSize="40px"
             android:layout_centerInParent="true"/>
     </RelativeLayout>
+    <Button
+        android:id="@+id/btn_h5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击进入活动页面（H5）"/>
 </LinearLayout>

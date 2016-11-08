@@ -37,4 +37,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.7'
     compile 'im.quar:autolayout:1.0.4'
     compile project(':libzxing')
+    compile 'com.jorge.circleview:circlelibrary:1.0.0'
+    compile 'it.sephiroth.android.library.picasso:picasso:2.5.2.4b'
+    compile 'com.charonchui.vitamio:vitamio:4.2.2'
 }

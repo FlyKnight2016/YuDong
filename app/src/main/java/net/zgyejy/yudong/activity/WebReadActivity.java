@@ -33,14 +33,8 @@ public class WebReadActivity extends MyBaseActivity {
         setContentView(R.layout.activity_web_read);
         ButterKnife.bind(this);
 
-        String isTo = getIntent().getStringExtra("isTo");
-        if (isTo!=null&&isTo.equals("YejyNet")){
-            url = API.ZgyejyNetIP;
-        }else {
-            Bundle bundle = getIntent().getExtras();
-            article = (Article) bundle.getSerializable("article");//得到Article对象
-            url = API.ZgyejyNetIP+article.getUrl();
-        }
+        url = getIntent().getStringExtra("url");
+
         webSet();//网页设置
     }
 

@@ -1,10 +1,12 @@
 package net.zgyejy.yudong.activity;
 
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-
+import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -14,25 +16,37 @@ import com.android.volley.toolbox.Volley;
 import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.adapter.ListViewAdapter_Free;
+import net.zgyejy.yudong.adapter.MyPagerAdapter;
 import net.zgyejy.yudong.base.MyBaseActivity;
 import net.zgyejy.yudong.modle.Video;
 import net.zgyejy.yudong.modle.parser.ParserVideoList;
 import net.zgyejy.yudong.util.CommonUtil;
-
 import org.json.JSONObject;
-
 import java.util.List;
 
+import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class Video51Activity extends MyBaseActivity {
-    @BindView(R.id.lv_video51)
     PullToRefreshListView lvVideo51;
+    @BindView(R.id.tv_video51_video)
+    TextView tvVideo51Video;
+    @BindView(R.id.tv_video51_mp3)
+    TextView tvVideo51Mp3;
+    @BindView(R.id.tv_video51_text)
+    TextView tvVideo51Text;
+    @BindView(R.id.vp_video51_vmt)
+    ViewPager vpVideo51Vmt;
+    MyPagerAdapter viewPagerAdapter;
+    private int topGuideTag = 0;//当前页面标识
+    @BindColor(R.color.themeColor)
+    int themeColor;
+    @BindColor(R.color.white)
+    int whiteColor;
 
     private ListViewAdapter_Free adapter;//适配器
     private List<Video> list51Video;//一课的视频列表(5个视频)
@@ -45,9 +59,11 @@ public class Video51Activity extends MyBaseActivity {
         setContentView(R.layout.activity_video51);
         ButterKnife.bind(this);
 
+        url51 = getIntent().getStringExtra("result");
+        //showToast(url51);
+
         initView();
 
-        url51 = getIntent().getStringExtra("result");
         loadListData();
     }
 
@@ -55,11 +71,113 @@ public class Video51Activity extends MyBaseActivity {
      * 初始化界面
      */
     private void initView() {
+        viewPagerAdapter = new MyPagerAdapter(this);
+        vpVideo51Vmt.setAdapter(viewPagerAdapter);
+        vpVideo51Vmt.setOnPageChangeListener(pageChangeListener);
+
+        LinearLayout linearLayout;
+
+        //加载视频列表页面
+        linearLayout = (LinearLayout) getLayoutInflater()
+                .inflate(R.layout.layout_video51_list, null);
+        lvVideo51 = (PullToRefreshListView) linearLayout.findViewById(R.id.lv_video51);
         if (adapter == null)
             adapter = new ListViewAdapter_Free(this);
         lvVideo51.setAdapter(adapter);
         initLvRefresh(lvVideo51);//设置下拉上拉刷新参数
         setListeners();//设置各种监听
+        viewPagerAdapter.addToAdapterView(linearLayout);
+
+        //加载MP3页面
+        linearLayout = (LinearLayout) getLayoutInflater()
+                .inflate(R.layout.layout_video51_mp3,null);
+
+        //（加载MP3数据）..................
+
+        viewPagerAdapter.addToAdapterView(linearLayout);
+
+        //加载文档页面
+        linearLayout = (LinearLayout) getLayoutInflater()
+                .inflate(R.layout.layout_video51_text,null);
+
+        //（加载文档数据）...................
+
+        viewPagerAdapter.addToAdapterView(linearLayout);
+
+        viewPagerAdapter.notifyDataSetChanged();
+
+    }
+
+    /**
+     * ViewPager页面改变的监听
+     */
+    private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            topGuideTag = position;
+            setTopGuide();
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    };
+
+    //设置上标题和对应数据加载
+    private void setTopGuide() {
+        setDefaultTopGuide();
+        switch (topGuideTag) {
+            case 0:
+                tvVideo51Video.setBackgroundResource(R.drawable.text_view_back_51);
+                tvVideo51Video.setTextColor(themeColor);
+                showVideo();
+                break;
+            case 1:
+                tvVideo51Mp3.setBackgroundResource(R.drawable.text_view_back_free);
+                tvVideo51Mp3.setTextColor(themeColor);
+                showMp3();
+                break;
+            case 2:
+                tvVideo51Text.setBackgroundResource(R.drawable.text_view_back_vip);
+                tvVideo51Text.setTextColor(themeColor);
+                showText();
+                break;
+        }
+    }
+
+    //显示文档
+    private void showText() {
+
+    }
+
+    //显示MP3
+    private void showMp3() {
+
+    }
+
+    //显示视频列表
+    private void showVideo() {
+
+    }
+
+    /**
+     * 设置上方所有导航标题为未选中状态
+     */
+    private void setDefaultTopGuide() {
+
+        tvVideo51Video.setBackgroundResource(R.drawable.text_view_border_51);
+        tvVideo51Mp3.setBackgroundResource(R.drawable.text_view_border_free);
+        tvVideo51Text.setBackgroundResource(R.drawable.text_view_border_vip);
+
+        tvVideo51Video.setTextColor(whiteColor);
+        tvVideo51Mp3.setTextColor(whiteColor);
+        tvVideo51Text.setTextColor(whiteColor);
     }
 
     /**
@@ -107,9 +225,9 @@ public class Video51Activity extends MyBaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
-                Video video = list51Video.get(position);
-                bundle.putSerializable("video",video);
-                openActivity(VideoPlayActivity.class,bundle);
+                Video video = adapter.getItem(position - 1);
+                bundle.putSerializable("video", video);
+                openActivity(VideoPlayActivity.class, bundle);
             }
         });
     }

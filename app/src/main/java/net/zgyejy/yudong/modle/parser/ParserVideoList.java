@@ -21,7 +21,7 @@ public class ParserVideoList {
      * @return
      */
     public static List<Video> getVideoList(String json) {
-        json = json.replace("\r\n", "\\r\\n");
+        json = json.replace("\r\n", "");
         Gson gson = new Gson();
         Type type = new TypeToken<BaseEntity<List<Video>>>() {
         }.getType();

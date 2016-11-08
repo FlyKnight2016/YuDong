@@ -37,14 +37,14 @@
             android:layout_marginRight="20px"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_tableTop_recommend"
+    <com.jorge.circlelibrary.ImageCycleView
+        android:id="@+id/table_cycleView"
         android:layout_width="match_parent"
-        android:layout_height="370px"
-        android:layout_weight="0"
-        android:background="@color/lightGray">
+        android:layout_height="wrap_content"
+        android:layout_weight="0">
 
-    </android.support.v4.view.ViewPager>
+    </com.jorge.circlelibrary.ImageCycleView>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"

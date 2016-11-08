@@ -13,7 +13,7 @@
         <ImageView
             android:id="@+id/iv_play_back"
             android:layout_width="70px"
-            android:layout_height="60px"
+            android:layout_height="70px"
             android:layout_marginLeft="16px"
             android:layout_centerVertical="true"
             android:background="@drawable/return2"/>
@@ -23,8 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="视频名称"
-            android:textStyle="bold"
-            android:textSize="44px"
+            android:textSize="40px"
             android:textColor="@color/white"/>
     </RelativeLayout>
 
@@ -39,6 +38,47 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             />
+        <FrameLayout
+            android:id="@+id/operation_volume_brightness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="#00000000"
+            android:orientation="horizontal"
+            android:padding="0dip"
+            android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/operation_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/video_volume_bg" />
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:paddingBottom="25dip">
+
+                <ImageView
+                    android:id="@+id/operation_full"
+                    android:layout_width="94dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:src="@drawable/video_num_bg" />
+
+                <ImageView
+                    android:id="@+id/operation_percent"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:scaleType="matrix"
+                    android:src="@drawable/video_num_front" />
+
+            </FrameLayout>
+        </FrameLayout>
     </RelativeLayout>
     <LinearLayout
         android:id="@+id/ll_play_videoAbout"
@@ -134,6 +174,14 @@
             android:layout_height="0dp"
             android:layout_weight="1">
         </ListView>
+        <TextView
+            android:id="@+id/tv_play_noComment"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="暂无评论，赶快抢个沙发吧！"
+            android:padding="20px"/>
     </LinearLayout>
 
 
