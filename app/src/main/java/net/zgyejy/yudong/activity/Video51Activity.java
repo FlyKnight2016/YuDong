@@ -23,6 +23,8 @@ import net.zgyejy.yudong.base.MyBaseActivity;
 import net.zgyejy.yudong.modle.Video;
 import net.zgyejy.yudong.modle.parser.ParserVideoList;
 import net.zgyejy.yudong.util.CommonUtil;
+import net.zgyejy.yudong.util.VolleySingleton;
+
 import org.json.JSONObject;
 import java.util.List;
 
@@ -204,21 +206,10 @@ public class Video51Activity extends MyBaseActivity {
      * 设置监听
      */
     private void setListeners() {
-        lvVideo51.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+        lvVideo51.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
                 loadListData();
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                showToast("已无更多数据!");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        lvVideo51.onRefreshComplete();
-                    }
-                });
             }
         });
         lvVideo51.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -240,7 +231,8 @@ public class Video51Activity extends MyBaseActivity {
             showToast("当前无网络连接，请连接网络!");
         } else {
             if (requestQueue == null)
-                requestQueue = Volley.newRequestQueue(this);//实例化一个RequestQueue对象
+                //实例化一个RequestQueue对象
+                requestQueue = VolleySingleton.getVolleySingleton(this).getRequestQueue();
             showLoadingDialog(this, "数据正在加载...", true);//显示加载动画
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url51,
                     null,

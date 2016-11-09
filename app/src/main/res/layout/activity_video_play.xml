@@ -128,61 +128,62 @@
             android:layout_marginRight="40px"
             android:background="@drawable/menu"/>
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_play_commentAbout"
+    <ScrollView
+        android:id="@+id/sv_play_commentAbout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
         android:layout_marginLeft="30px"
-        android:layout_marginRight="30px"
-        android:orientation="vertical">
+        android:layout_marginRight="30px">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-            <ImageView
-                android:id="@+id/iv_play_userPortrait"
-                android:layout_width="100px"
-                android:layout_height="100px"
-                android:layout_margin="20px"
-                android:layout_weight="0"
-                android:background="@drawable/icon"/>
-            <EditText
-                android:id="@+id/et_play_commentContent"
-                android:layout_width="0dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="20px"
-                android:layout_marginRight="20px"
-                android:hint="请输入评论内容"/>
-            <Button
-                android:id="@+id/btn_play_sendComment"
-                android:layout_width="120px"
-                android:layout_height="match_parent"
-                android:layout_margin="20px"
-                android:text="评论"
-                android:textColor="@color/white"
-                android:textSize="32px"
-                android:background="@drawable/text_view_back_button"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:id="@+id/iv_play_userPortrait"
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:layout_margin="20px"
+                    android:layout_weight="0"
+                    android:background="@drawable/icon"/>
+                <EditText
+                    android:id="@+id/et_play_commentContent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="20px"
+                    android:hint="请输入评论内容..."
+                    android:textSize="14sp"/>
+                <Button
+                    android:id="@+id/btn_play_sendComment"
+                    android:layout_width="120px"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20px"
+                    android:text="评论"
+                    android:textColor="@color/white"
+                    android:textSize="32px"
+                    android:background="@drawable/text_view_back_button"/>
+            </LinearLayout>
+            <ListView
+                android:id="@+id/lv_play_comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
+            <TextView
+                android:id="@+id/tv_play_noComment"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="暂无评论，赶快抢个沙发吧！"
+                android:padding="20px"/>
         </LinearLayout>
-        <ListView
-            android:id="@+id/lv_play_comments"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-        </ListView>
-        <TextView
-            android:id="@+id/tv_play_noComment"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="暂无评论，赶快抢个沙发吧！"
-            android:padding="20px"/>
-    </LinearLayout>
-
+    </ScrollView>
 
 </LinearLayout>

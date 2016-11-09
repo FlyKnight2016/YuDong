@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/YuDong.iml" filepath="$PROJECT_DIR$/YuDong.iml" />
-      <module fileurl="file://$PROJECT_DIR$/YuDong.iml" filepath="$PROJECT_DIR$/YuDong.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/libzxing/libzxing.iml" filepath="$PROJECT_DIR$/libzxing/libzxing.iml" />
       <module fileurl="file://$PROJECT_DIR$/pullToRefresh/pullToRefresh.iml" filepath="$PROJECT_DIR$/pullToRefresh/pullToRefresh.iml" />

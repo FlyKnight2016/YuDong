@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.adapter.CommentListAdapter;
@@ -87,8 +88,8 @@ public class VideoPlayActivity extends MyBaseActivity implements
     EditText etPlayCommentContent;
     @BindView(R.id.lv_play_comments)
     ListView lvPlayComments;
-    @BindView(R.id.ll_play_commentAbout)
-    LinearLayout llPlayCommentAbout;
+    @BindView(R.id.sv_play_commentAbout)
+    ScrollView svPlayCommentAbout;
     @BindView(R.id.tv_play_noComment)
     TextView tvPlayNoComment;
 
@@ -101,6 +102,7 @@ public class VideoPlayActivity extends MyBaseActivity implements
 
         getPath();
 
+        showLoadingDialog(this, "视频正在准备中\n请稍等...", true);//显示加载动画
         mVolumeBrightnessLayout = findViewById(R.id.operation_volume_brightness);
         mOperationBg = (ImageView) findViewById(R.id.operation_bg);
         mOperationPercent = (ImageView) findViewById(R.id.operation_percent);
@@ -332,7 +334,7 @@ public class VideoPlayActivity extends MyBaseActivity implements
         otherViews.clear();
         otherViews.add(llPlayTitle);
         otherViews.add(llPlayVideoAbout);
-        otherViews.add(llPlayCommentAbout);
+        otherViews.add(svPlayCommentAbout);
     }
 
     /**
@@ -423,7 +425,7 @@ public class VideoPlayActivity extends MyBaseActivity implements
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        showToast("播放完成");
+        showToast("视频播放完成");
 
     }
 
@@ -435,7 +437,8 @@ public class VideoPlayActivity extends MyBaseActivity implements
 
     @Override
     public void onPrepared(MediaPlayer mp) {
-        showToast("准备好了");
+        cancelDialog();
+        showToast("视频准备好了");
         mVideoView.start();
     }
 }

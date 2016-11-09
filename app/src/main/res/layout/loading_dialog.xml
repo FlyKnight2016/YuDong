@@ -4,18 +4,28 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/dialog_back_border_gray"
     android:gravity="center">
 
-    <ImageView
-        android:id="@+id/iv_loading_img"
-        android:src="@drawable/loading_01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/tv_loading_msg"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="正在加载数据......"
-        android:layout_marginTop="16px"/>
+        android:padding="20px"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iv_loading_img"
+            android:src="@drawable/loading_01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_loading_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="正在加载数据......"
+            android:layout_marginTop="16px"/>
+    </LinearLayout>
 
 </LinearLayout>

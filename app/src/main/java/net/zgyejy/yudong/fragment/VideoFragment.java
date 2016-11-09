@@ -32,6 +32,7 @@ import net.zgyejy.yudong.modle.Book;
 import net.zgyejy.yudong.modle.Video;
 import net.zgyejy.yudong.modle.VideoVip;
 import net.zgyejy.yudong.util.CommonUtil;
+import net.zgyejy.yudong.util.VolleySingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +99,9 @@ public class VideoFragment extends Fragment {
         if (!CommonUtil.isNetworkAvailable(getActivity())) {
             ((HomeActivity) getActivity()).showToast("当前无网络连接，请连接网络!");
         } else {
-            requestQueue = Volley.newRequestQueue(getContext());//实例化一个RequestQueue对象
+            if (requestQueue == null)
+                //实例化一个RequestQueue对象
+                requestQueue = VolleySingleton.getVolleySingleton(getContext()).getRequestQueue();
             String isTo = ((HomeActivity) getActivity()).getIsTo();
             if (isTo != null && isTo.equals("51Video")) {
                 showVideo51();
