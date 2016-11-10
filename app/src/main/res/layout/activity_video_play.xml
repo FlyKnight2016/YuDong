@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="视频名称"
-            android:textSize="40px"
+            android:textSize="36px"
             android:textColor="@color/white"/>
     </RelativeLayout>
 

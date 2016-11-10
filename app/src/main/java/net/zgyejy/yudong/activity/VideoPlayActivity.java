@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.adapter.CommentListAdapter;
 import net.zgyejy.yudong.base.MyBaseActivity;
@@ -30,8 +31,10 @@ import net.zgyejy.yudong.modle.Comment;
 import net.zgyejy.yudong.modle.Video;
 import net.zgyejy.yudong.util.MediaController;
 import net.zgyejy.yudong.view.VideoView;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -41,11 +44,12 @@ public class VideoPlayActivity extends MyBaseActivity implements
         net.zgyejy.yudong.util.MediaController.onClickIsFullScreenListener,
         MediaPlayer.OnPreparedListener,
         MediaPlayer.OnErrorListener,
-        MediaPlayer.OnCompletionListener{
+        MediaPlayer.OnCompletionListener {
     private List<View> otherViews;
     private MediaController mMediaController;
     private boolean fullscreen = false;
-    private String path;
+    private String path;//视频网络地址
+    private String title;//视频标题
     private CommentListAdapter commentListAdapter;
     private Video video;
     private List<Comment> comments;
@@ -54,13 +58,21 @@ public class VideoPlayActivity extends MyBaseActivity implements
     private ImageView mOperationBg;
     private ImageView mOperationPercent;
     private AudioManager mAudioManager;
-    /** 最大声音 */
+    /**
+     * 最大声音
+     */
     private int mMaxVolume;
-    /** 当前声音 */
+    /**
+     * 当前声音
+     */
     private int mVolume = -1;
-    /** 当前亮度 */
+    /**
+     * 当前亮度
+     */
     private float mBrightness = -1f;
-    /** 当前缩放模式 */
+    /**
+     * 当前缩放模式
+     */
     //private int mLayout = VideoView.VIDEO_LAYOUT_ZOOM;
     private GestureDetector mGestureDetector;
 
@@ -100,7 +112,7 @@ public class VideoPlayActivity extends MyBaseActivity implements
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ButterKnife.bind(this);
 
-        getPath();
+        getPathAndTitle();
 
         showLoadingDialog(this, "视频正在准备中\n请稍等...", true);//显示加载动画
         mVolumeBrightnessLayout = findViewById(R.id.operation_volume_brightness);
@@ -139,31 +151,35 @@ public class VideoPlayActivity extends MyBaseActivity implements
     /**
      * 得到视频资源地址
      */
-    private void getPath() {
+    private void getPathAndTitle() {
         Bundle bundle = getIntent().getExtras();
-        video = (Video)bundle.getSerializable("video");
-        if (video!=null)
+        video = (Video) bundle.getSerializable("video");
+        if (video != null) {
             path = API.APP_SERVER_IP + video.getVideo_url();
+            String video_name = video.getVideo_name();
+            title = video_name.substring(video_name.indexOf("课 ")+1,video_name.length());
+        }
+
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-        //全屏时滑动屏幕调节亮度和音量
-        if (fullscreen) {
-            if (mGestureDetector.onTouchEvent(event))
-                return true;
+        if (mGestureDetector.onTouchEvent(event))
+            return true;
 
-            // 处理手势结束
-            switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                case MotionEvent.ACTION_UP:
-                    endGesture();
-                    break;
-            }
+        // 处理手势结束
+        switch (event.getAction() & MotionEvent.ACTION_MASK) {
+            case MotionEvent.ACTION_UP:
+                endGesture();
+                break;
         }
         return super.onTouchEvent(event);
     }
-    /** 手势结束 */
+
+    /**
+     * 手势结束
+     */
     private void endGesture() {
         mVolume = -1;
         mBrightness = -1f;
@@ -173,7 +189,9 @@ public class VideoPlayActivity extends MyBaseActivity implements
         mDismissHandler.sendEmptyMessageDelayed(0, 500);
     }
 
-    /** 定时隐藏 */
+    /**
+     * 定时隐藏
+     */
     private Handler mDismissHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -183,7 +201,9 @@ public class VideoPlayActivity extends MyBaseActivity implements
 
     private class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
 
-        /** 双击 */
+        /**
+         * 双击
+         */
         @Override
         public boolean onDoubleTap(MotionEvent e) {
             if (!fullscreen) {
@@ -196,7 +216,9 @@ public class VideoPlayActivity extends MyBaseActivity implements
             return true;
         }
 
-        /** 滑动 */
+        /**
+         * 滑动
+         */
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2,
                                 float distanceX, float distanceY) {
@@ -293,10 +315,10 @@ public class VideoPlayActivity extends MyBaseActivity implements
      * 根据是否有评论，显示相应提示
      */
     private void showHint() {
-        if (comments == null||comments.size() == 0) {
+        if (comments == null || comments.size() == 0) {
             lvPlayComments.setVisibility(View.GONE);
             tvPlayNoComment.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             lvPlayComments.setVisibility(View.VISIBLE);
             tvPlayNoComment.setVisibility(View.GONE);
         }
@@ -308,7 +330,7 @@ public class VideoPlayActivity extends MyBaseActivity implements
     private void refreshListData() {
         //发送请求，得到返回数据
 
-        commentListAdapter.appendDataed(comments,true);
+        commentListAdapter.appendDataed(comments, true);
         commentListAdapter.updateAdapter();
 
         showHint();
@@ -439,6 +461,7 @@ public class VideoPlayActivity extends MyBaseActivity implements
     public void onPrepared(MediaPlayer mp) {
         cancelDialog();
         showToast("视频准备好了");
+        tvPlayTitle.setText(title);
         mVideoView.start();
     }
 }
