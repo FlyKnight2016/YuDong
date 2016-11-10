@@ -16,7 +16,8 @@
         android:icon="@drawable/icon"
         android:label="育栋教育"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".MyApplication">
         <activity
             android:name=".activity.HomeActivity"
             android:screenOrientation="portrait">

@@ -18,6 +18,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/java-gen']
+        }
+    }
 }
 
 dependencies {
@@ -39,4 +44,5 @@ dependencies {
     compile project(':libzxing')
     compile 'com.jorge.circleview:circlelibrary:1.0.0'
     compile 'it.sephiroth.android.library.picasso:picasso:2.5.2.4b'
+    compile 'org.wlf:FileDownloader:0.3.1'
 }
