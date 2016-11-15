@@ -1,22 +1,44 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="90px"
         android:background="@color/themeColor">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="活动中心"
             android:textColor="@color/white"
-            android:textSize="40px"
-            android:layout_centerInParent="true"/>
+            android:textSize="40px" />
     </RelativeLayout>
-    <Button
-        android:id="@+id/btn_h5"
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="点击进入活动页面（H5）"/>
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_act_now"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/act_now" />
+
+        <TextView
+            android:id="@+id/btn_download_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_gravity="bottom"
+            android:background="@drawable/text_view_back_button"
+            android:gravity="center_horizontal"
+            android:padding="20px"
+            android:text="点击下载文档（.doc）"
+            android:textColor="@color/white"
+            android:textSize="36px" />
+    </FrameLayout>
 </LinearLayout>

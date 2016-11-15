@@ -42,7 +42,7 @@
         android:layout_marginTop="40px"
         android:layout_marginLeft="40px"
         android:layout_marginRight="40px"
-        android:hint="    手机号..."
+        android:hint="  手机号..."
         android:drawableLeft="@drawable/phone"/>
     <android.support.design.widget.TextInputEditText
         android:id="@+id/et_userPsw"
@@ -51,7 +51,8 @@
         android:layout_marginTop="20px"
         android:layout_marginLeft="40px"
         android:layout_marginRight="40px"
-        android:hint="    密码..."
+        android:hint=" 密码..."
+        android:inputType="textPassword"
         android:drawableLeft="@drawable/lock"/>
     <Button
         android:id="@+id/btn_login"
@@ -65,12 +66,49 @@
         android:textColor="@color/white"
         android:textSize="40px"
         android:background="@drawable/text_view_back_button"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="30px"
+        android:layout_marginLeft="50px"
+        android:layout_marginRight="50px"
+        android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/cb_isRememberPsw"
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:layout_weight="0"
+            android:background="@drawable/btn_check"
+            android:button="@null"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="记住密码"
+            android:textSize="36px"/>
+        <CheckBox
+            android:id="@+id/cb_isAutoLogin"
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:layout_weight="0"
+            android:background="@drawable/btn_check"
+            android:button="@null"
+            android:layout_marginLeft="40px"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="自动登录"
+            android:textSize="36px"/>
+    </LinearLayout>
     <TextView
         android:id="@+id/tv_findPsw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="40px"
-        android:layout_marginRight="10px"
+        android:layout_weight="0"
+        android:padding="20px"
+        android:layout_marginRight="30px"
         android:layout_gravity="right"
         android:text="忘记密码?"
         android:textColor="@color/themeColor"

@@ -12,16 +12,16 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import net.zgyejy.yudong.R;
-import net.zgyejy.yudong.adapter.ListViewAdapter_Free;
+import net.zgyejy.yudong.adapter.ListViewAdapter_51;
 import net.zgyejy.yudong.adapter.MyPagerAdapter;
 import net.zgyejy.yudong.base.MyBaseActivity;
-import net.zgyejy.yudong.modle.Video;
-import net.zgyejy.yudong.modle.parser.ParserVideoList;
+import net.zgyejy.yudong.bean.VideoIntegral;
+import net.zgyejy.yudong.modle.CourseInfo;
+import net.zgyejy.yudong.modle.parser.ParserCourseInfo;
 import net.zgyejy.yudong.util.CommonUtil;
 import net.zgyejy.yudong.util.VolleySingleton;
 
@@ -50,8 +50,9 @@ public class Video51Activity extends MyBaseActivity {
     @BindColor(R.color.white)
     int whiteColor;
 
-    private ListViewAdapter_Free adapter;//适配器
-    private List<Video> list51Video;//一课的视频列表(5个视频)
+    private CourseInfo courseInfo;//课程详细信息
+    private ListViewAdapter_51 adapter;//51视频适配器
+    private List<VideoIntegral> list51VideoIntegral;//一课的视频列表(5个视频)
     private String url51;//5个视频列表的链接
     private RequestQueue requestQueue;//volley接口对象
 
@@ -84,7 +85,7 @@ public class Video51Activity extends MyBaseActivity {
                 .inflate(R.layout.layout_video51_list, null);
         lvVideo51 = (PullToRefreshListView) linearLayout.findViewById(R.id.lv_video51);
         if (adapter == null)
-            adapter = new ListViewAdapter_Free(this);
+            adapter = new ListViewAdapter_51(this);
         lvVideo51.setAdapter(adapter);
         initLvRefresh(lvVideo51);//设置下拉上拉刷新参数
         setListeners();//设置各种监听
@@ -216,15 +217,15 @@ public class Video51Activity extends MyBaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
-                Video video = adapter.getItem(position - 1);
-                bundle.putSerializable("video", video);
+                VideoIntegral videoIntegral = adapter.getItem(position - 1);
+                bundle.putSerializable("videoIntegral", videoIntegral);
                 openActivity(VideoPlayActivity.class, bundle);
             }
         });
     }
 
     /**
-     * 根据传入的url返回5个1的视频列表
+     * 根据传入的url返回课程详细信息
      */
     private void loadListData() {
         if (!CommonUtil.isNetworkAvailable(this)) {
@@ -239,8 +240,10 @@ public class Video51Activity extends MyBaseActivity {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject jsonObject) {
-                            list51Video = ParserVideoList.getVideoList(jsonObject.toString());
-                            adapter.appendDataed(list51Video, true);
+                            courseInfo = ParserCourseInfo.getCourseInfo(jsonObject.toString());
+
+                            list51VideoIntegral = courseInfo.getVideo();
+                            adapter.appendDataed(list51VideoIntegral, true);
                             adapter.updateAdapter();
                             lvVideo51.onRefreshComplete();
                             cancelDialog();

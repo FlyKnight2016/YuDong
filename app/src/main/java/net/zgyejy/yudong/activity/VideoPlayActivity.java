@@ -26,9 +26,9 @@ import android.widget.TextView;
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.adapter.CommentListAdapter;
 import net.zgyejy.yudong.base.MyBaseActivity;
+import net.zgyejy.yudong.bean.VideoIntegral;
 import net.zgyejy.yudong.gloable.API;
 import net.zgyejy.yudong.modle.Comment;
-import net.zgyejy.yudong.modle.Video;
 import net.zgyejy.yudong.util.MediaController;
 import net.zgyejy.yudong.view.VideoView;
 
@@ -51,7 +51,7 @@ public class VideoPlayActivity extends MyBaseActivity implements
     private String path;//视频网络地址
     private String title;//视频标题
     private CommentListAdapter commentListAdapter;
-    private Video video;
+    private VideoIntegral videoIntegral;
     private List<Comment> comments;
 
     private View mVolumeBrightnessLayout;
@@ -153,10 +153,10 @@ public class VideoPlayActivity extends MyBaseActivity implements
      */
     private void getPathAndTitle() {
         Bundle bundle = getIntent().getExtras();
-        video = (Video) bundle.getSerializable("video");
-        if (video != null) {
-            path = API.APP_SERVER_IP + video.getVideo_url();
-            String video_name = video.getVideo_name();
+        videoIntegral = (VideoIntegral) bundle.getSerializable("videoIntegral");
+        if (videoIntegral != null) {
+            path = API.APP_SERVER_IP + videoIntegral.getVideo_url();
+            String video_name = videoIntegral.getVideo_name();
             title = video_name.substring(video_name.indexOf("课 ")+1,video_name.length());
         }
 

@@ -16,6 +16,7 @@ import com.xys.libzxing.zxing.activity.CaptureActivity;
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.base.MyBaseActivity;
 import net.zgyejy.yudong.gloable.API;
+import net.zgyejy.yudong.util.SharedUtil;
 
 import java.util.ArrayList;
 
@@ -53,7 +54,6 @@ public class TableTopActivity extends MyBaseActivity {
         ButterKnife.bind(this);
 
         loadAdvData();
-
     }
 
     /**
@@ -99,8 +99,8 @@ public class TableTopActivity extends MyBaseActivity {
                 /**实现点击事件*/
                 if (bundle == null)
                     bundle = new Bundle();
-                bundle.putString("url",advUrlList.get(position));
-                openActivity(WebReadActivity.class,bundle);
+                bundle.putString("url", advUrlList.get(position));
+                openActivity(WebReadActivity.class, bundle);
             }
 
             @Override
@@ -132,7 +132,7 @@ public class TableTopActivity extends MyBaseActivity {
             R.id.tv_tableTop_toFreeVideo, R.id.tv_tableTop_toVipVideo, R.id.tv_tableTop_toStudy,
             R.id.tv_tableTop_toPrincipalStudy, R.id.tv_tableTop_toTeacherStudy,
             R.id.tv_tableTop_toParentsStudy, R.id.tv_tableTop_toKidStudy, R.id.tv_tabletop_toAct,
-            R.id.tv_tableTop_toShow, R.id.iv_tableTop_toHomeWeb})
+            R.id.tv_tableTop_toShow, R.id.iv_tableTop_toHomeWeb, R.id.rl_tableTop_act})
     public void onClick(View view) {
         if (bundle == null)
             bundle = new Bundle();
@@ -177,6 +177,7 @@ public class TableTopActivity extends MyBaseActivity {
                 bundle.putString("isTo", "Kid");
                 openActivity(HomeActivity.class, bundle);
                 break;
+            case R.id.rl_tableTop_act:
             case R.id.tv_tabletop_toAct:
                 bundle.putString("isTo", "Act");
                 openActivity(HomeActivity.class, bundle);
@@ -204,5 +205,15 @@ public class TableTopActivity extends MyBaseActivity {
             intent.putExtras(bundle);
             startActivity(intent);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        //添加退出登录的方法，或者用户选择不自动登录的话，销毁本地缓存的数据
+        SharedUtil.setIsLogined(this, false);
+        if (SharedUtil.getIsAutoLogin(this)) {
+            SharedUtil.saveToken(this, null);
+        }
+        super.onDestroy();
     }
 }

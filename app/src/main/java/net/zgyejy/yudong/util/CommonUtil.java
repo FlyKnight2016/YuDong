@@ -132,6 +132,33 @@ public class CommonUtil {
     }
 
     /**
+     * 判断当前网络是否为wifi
+     * @param activity
+     * @return
+     */
+    public static boolean getIsWifi(Activity activity) {
+        Context context = activity.getApplicationContext();
+        //获取手机所有连接管理对象（包括对wi-fi，net等连接的管理）
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService
+                (Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager == null) {
+            return false;
+        } else {
+            //获取NetworkInfo对象
+            NetworkInfo[] networkInfo = connectivityManager.getAllNetworkInfo();
+            if (networkInfo != null && networkInfo.length > 0) {
+                String netTypeName;
+                for (int i = 0; i < networkInfo.length; i++) {
+                    netTypeName = networkInfo[i].getTypeName();//获取当前网络类型
+                    if (netTypeName.equals("WIFI"))
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * 获取手机的IMEI值
      *
      * @param context

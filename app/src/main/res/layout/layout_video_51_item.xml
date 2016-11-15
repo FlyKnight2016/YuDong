@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal"
+              android:padding="10px">
+
+    <ImageView
+        android:id="@+id/iv_video_51"
+        android:layout_width="200px"
+        android:layout_height="200px"
+        android:layout_gravity="center_vertical"
+        android:paddingBottom="10px"
+        android:paddingTop="10px"
+        android:src="@drawable/nophoto"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20px">
+
+        <TextView
+            android:id="@+id/tv_video_51_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="视频名称..."
+            android:textColor="@color/themeColor"
+            android:textSize="32px"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_video_51_browsed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_video_51_title"
+            android:gravity="right"
+            android:text="浏览0次"
+            android:textSize="30px"/>
+
+        <TextView
+            android:id="@+id/tv_video_51_intro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:textSize="24px"
+            android:layout_below="@id/tv_video_51_browsed"
+            android:text="视频简介..."/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_below="@id/tv_video_51_intro">
+
+            <ImageView
+                android:id="@+id/iv_video_51_collect"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_weight="0"
+                android:src="@drawable/collect"/>
+
+            <TextView
+                android:id="@+id/tv_video_51_collect"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:layout_weight="1"
+                android:text="0"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/iv_video_51_comment"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_weight="0"
+                android:src="@drawable/comment"/>
+
+            <TextView
+                android:id="@+id/tv_video_51_comment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:layout_weight="1"
+                android:text="0"/>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

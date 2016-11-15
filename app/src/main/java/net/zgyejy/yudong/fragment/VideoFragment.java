@@ -13,7 +13,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -24,12 +23,12 @@ import net.zgyejy.yudong.activity.HomeActivity;
 import net.zgyejy.yudong.activity.SearchActivity;
 import net.zgyejy.yudong.activity.VideoPlayActivity;
 import net.zgyejy.yudong.adapter.GridViewAdapter_51Book;
-import net.zgyejy.yudong.adapter.ListViewAdapter_Free;
+import net.zgyejy.yudong.adapter.ListViewAdapter_51;
 import net.zgyejy.yudong.adapter.ListViewAdapter_Vip;
 import net.zgyejy.yudong.adapter.MyPagerAdapter;
+import net.zgyejy.yudong.bean.VideoIntegral;
 import net.zgyejy.yudong.gloable.API;
 import net.zgyejy.yudong.modle.Book;
-import net.zgyejy.yudong.modle.Video;
 import net.zgyejy.yudong.modle.VideoVip;
 import net.zgyejy.yudong.util.CommonUtil;
 import net.zgyejy.yudong.util.VolleySingleton;
@@ -61,7 +60,7 @@ public class VideoFragment extends Fragment {
     PullToRefreshListView lvVideoFree, lvVideoVip;
 
     private GridViewAdapter_51Book adapter51Book;//五个一教材列表适配器
-    private ListViewAdapter_Free adapterListFree;
+    private ListViewAdapter_51 adapterListFree;
     private ListViewAdapter_Vip adapterListVip;
 
     @BindColor(R.color.white)
@@ -69,7 +68,7 @@ public class VideoFragment extends Fragment {
     private int themeColor;//主题颜色
 
     private List<Book> listBook;//五个一教材列表
-    private List<Video> listVideoFree;
+    private List<VideoIntegral> listVideoIntegralFree;
     private List<VideoVip> listVideoVip;
 
     private int topGuideTag = 0;//当前页面标识
@@ -142,7 +141,7 @@ public class VideoFragment extends Fragment {
 
         //免费视频ListView
         frameLayout = (FrameLayout) getActivity().getLayoutInflater()
-                .inflate(R.layout.layout_video_list_free, null);
+                .inflate(R.layout.layout_video_list_integral, null);
         lvVideoFree = (PullToRefreshListView) frameLayout.findViewById(R.id.lv_video_free);
         initLvRefresh(lvVideoFree);
         lvVideoFree.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
@@ -275,14 +274,14 @@ public class VideoFragment extends Fragment {
      * 显示免费视频数据
      */
     private void showVideoFree() {
-        Video video = new Video(51,"视频名称","视频链接");
-        if (listVideoFree == null) {
-            listVideoFree = new ArrayList<>();
+        VideoIntegral videoIntegral = new VideoIntegral(51,"视频名称","视频链接");
+        if (listVideoIntegralFree == null) {
+            listVideoIntegralFree = new ArrayList<>();
             for (int i = 0; i < 6; i++) {
-                listVideoFree.add(video);//测试添加数据
+                listVideoIntegralFree.add(videoIntegral);//测试添加数据
             }
         }
-        adapterListFree.appendDataed(listVideoFree, true);
+        adapterListFree.appendDataed(listVideoIntegralFree, true);
         adapterListFree.updateAdapter();
     }
 
@@ -301,6 +300,10 @@ public class VideoFragment extends Fragment {
         adapter51Book.updateAdapter();
     }
 
+    /**
+     * 设置每册书的课程列表接口
+     * @param i
+     */
     private void setBook(int i) {
         int image;
         Book book = listBook.get(i);
@@ -343,7 +346,7 @@ public class VideoFragment extends Fragment {
         gvVideo51.setAdapter(adapter51Book);
 
         if (adapterListFree == null)
-            adapterListFree = new ListViewAdapter_Free(getActivity());
+            adapterListFree = new ListViewAdapter_51(getActivity());
         lvVideoFree.setAdapter(adapterListFree);
 
         if (adapterListVip == null)

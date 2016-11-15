@@ -3,8 +3,8 @@ package net.zgyejy.yudong.modle.parser;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import net.zgyejy.yudong.bean.VideoIntegral;
 import net.zgyejy.yudong.modle.BaseEntity;
-import net.zgyejy.yudong.modle.Video;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -16,17 +16,17 @@ import java.util.List;
 
 public class ParserVideoList {
     /**
-     * 得到文章列表的方法
+     * 得到视频列表的方法
      * @param json
      * @return
      */
-    public static List<Video> getVideoList(String json) {
+    public static List<VideoIntegral> getVideoList(String json) {
         json = json.replace("\r\n", "");
         Gson gson = new Gson();
-        Type type = new TypeToken<BaseEntity<List<Video>>>() {
+        Type type = new TypeToken<BaseEntity<List<VideoIntegral>>>() {
         }.getType();
-        BaseEntity<List<Video>> baseEntity = gson.fromJson(json,type);
-        List<Video> list = baseEntity.getData();
+        BaseEntity<List<VideoIntegral>> baseEntity = gson.fromJson(json,type);
+        List<VideoIntegral> list = baseEntity.getData();
         return list;
     }
 }

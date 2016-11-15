@@ -17,6 +17,7 @@
     <color name="green">#00FF00</color>
     <color name="blue">#0000FF</color>
     <color name="yellow">#FFFF00</color>
+    <color name="purple">#6215CD</color>
 
     <!-- 半透明色 -->
     <color name="translucentWhite">#55FFFFFF</color>

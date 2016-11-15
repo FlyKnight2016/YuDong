@@ -161,6 +161,7 @@
                     android:textSize="36px"/>
             </LinearLayout>
             <RelativeLayout
+                android:id="@+id/rl_tableTop_act"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20px">
@@ -168,14 +169,14 @@
                     android:id="@+id/iv_tableTop_act"
                     android:layout_width="200px"
                     android:layout_height="200px"
-                    android:background="@color/lightGray"/>
+                    android:background="@drawable/act_now"/>
                 <TextView
                     android:id="@+id/tv_tableTop_act_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/iv_tableTop_act"
                     android:layout_marginLeft="30px"
-                    android:text="活动标题"
+                    android:text="2017招生密码"
                     android:textSize="36px"
                     android:textStyle="bold"
                     android:maxLines="1"/>
@@ -186,7 +187,7 @@
                     android:layout_alignLeft="@id/tv_tableTop_act_title"
                     android:layout_below="@id/tv_tableTop_act_title"
                     android:layout_marginTop="10px"
-                    android:text="2016-08-01 - 2016-08-31"
+                    android:text="2016-11-16 20:00 - 21：00"
                     android:textColor="@color/deepOrange"/>
                 <TextView
                     android:id="@+id/tv_tableTop_act_content"
@@ -195,7 +196,7 @@
                     android:layout_alignLeft="@id/tv_tableTop_act_date"
                     android:layout_below="@id/tv_tableTop_act_date"
                     android:layout_marginTop="10px"
-                    android:text="选手要求：不限年龄、不限性别、不限身份、不限国籍、不限人数..."
+                    android:text="YY直播，房间号：67733637"
                     android:maxLines="3"/>
             </RelativeLayout>
 

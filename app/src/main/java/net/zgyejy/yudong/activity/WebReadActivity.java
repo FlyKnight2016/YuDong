@@ -10,8 +10,7 @@ import android.widget.ProgressBar;
 
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.base.MyBaseActivity;
-import net.zgyejy.yudong.gloable.API;
-import net.zgyejy.yudong.modle.Article;
+import net.zgyejy.yudong.bean.Article;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

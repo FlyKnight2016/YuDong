@@ -15,38 +15,63 @@
             android:textSize="40px"/>
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:orientation="vertical"
-        android:background="@drawable/userback"
-        android:gravity="center">
-        <FrameLayout
-            android:layout_width="220px"
-            android:layout_height="220px">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/image_view_back_circle_white"/>
-
-            <net.zgyejy.yudong.view.XCRoundRectImageView
-                android:id="@+id/iv_userPortrait"
-                android:layout_marginTop="10px"
-                android:layout_marginLeft="10px"
-                android:layout_width="200px"
-                android:layout_height="200px"
-                android:src="@drawable/icon"/>
-        </FrameLayout>
-        <TextView
-            android:id="@+id/tv_userName"
+        android:background="@drawable/userback">
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="用户名"
-            android:textColor="@color/white"
-            android:layout_marginTop="20px"
-            android:textSize="36px"/>
-    </LinearLayout>
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+            <FrameLayout
+                android:id="@+id/fl_portrait"
+                android:layout_width="200px"
+                android:layout_height="200px">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/image_view_back_circle_white"/>
+
+                <net.zgyejy.yudong.view.XCRoundRectImageView
+                    android:id="@+id/iv_userPortrait"
+                    android:layout_marginTop="10px"
+                    android:layout_marginLeft="10px"
+                    android:layout_width="180px"
+                    android:layout_height="180px"
+                    android:src="@drawable/user_normal"/>
+            </FrameLayout>
+            <TextView
+                android:id="@+id/tv_userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点击登录"
+                android:textColor="@color/white"
+                android:layout_marginTop="20px"
+                android:textSize="36px"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20px"
+            android:layout_marginBottom="20px"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前版本:"/>
+            <TextView
+                android:id="@+id/tv_version_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.0 beta"/>
+        </LinearLayout>
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

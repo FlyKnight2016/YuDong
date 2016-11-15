@@ -3,7 +3,7 @@ package net.zgyejy.yudong.modle.parser;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import net.zgyejy.yudong.modle.Article;
+import net.zgyejy.yudong.bean.Article;
 
 import java.lang.reflect.Type;
 import java.util.List;

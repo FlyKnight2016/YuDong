@@ -6,15 +6,37 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.adapter.MyPagerAdapter;
 import net.zgyejy.yudong.base.MyBaseActivity;
+import net.zgyejy.yudong.gloable.API;
+import net.zgyejy.yudong.gloable.Contacts;
+import net.zgyejy.yudong.modle.BaseEntity;
+import net.zgyejy.yudong.modle.Token;
+import net.zgyejy.yudong.modle.Version;
+import net.zgyejy.yudong.modle.parser.ParserBaseEntity;
+import net.zgyejy.yudong.modle.parser.ParserCourseInfo;
 import net.zgyejy.yudong.util.SharedUtil;
+import net.zgyejy.yudong.util.UpdateManager;
+import net.zgyejy.yudong.util.VolleySingleton;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LeadActivity extends MyBaseActivity {
-    boolean isFromAboutUs;//是否是从关于我们界面点进来的
-    ViewPager vpLeadPicture;
-    TextView tvLeadSkip;//点击进入
+    private RequestQueue requestQueue;//volley接口对象
+    private boolean isFromAboutUs;//是否是从关于我们界面点进来的
+    private ViewPager vpLeadPicture;
+    private TextView tvLeadSkip;//点击进入
     private MyPagerAdapter adapter;
     private ImageView[] imageViews = new ImageView[4];
     private boolean isFirstRunning;
@@ -22,18 +44,62 @@ public class LeadActivity extends MyBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isFirstRunning = SharedUtil.getBoolean(this, "isFirst", true);
-        if (isFirstRunning) {
-            isFirstRunning = false;
-            savePreferences();
-            setContentView(R.layout.activity_lead);
-            initView();
-            init();
-            initData();
-        } else {
-            openActivity(TableTopActivity.class);
-            finish();
-        }
+
+        //检查更新
+        checkUpdate();
+
+
+    }
+
+    /**
+     * 检查更新
+     */
+    private void checkUpdate() {
+        if (requestQueue == null)
+            requestQueue = VolleySingleton.getVolleySingleton(this).getRequestQueue();
+        showToast("正在检查版本，请稍候！");
+        String urlUpdate = API.APP_POST_UPDATE;
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, urlUpdate,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        BaseEntity<Version> baseEntity = ParserBaseEntity.getBaseEntityOfVersion(response);
+                        if (baseEntity.getCode() == 201||baseEntity.getCode() ==200) {//201强制更新，200非强制更新
+                            //得到最新下载包链接
+                            String url = API.APP_SERVER_IP + baseEntity.getData().getVersionUrl();
+                            UpdateManager updateManager = new UpdateManager(getBaseContext(), url);
+                            updateManager.checkUpdateInfo(LeadActivity.this);
+                        }else {
+                            isFirstRunning = SharedUtil.getBoolean(getBaseContext(), "isFirst", true);
+                            if (isFirstRunning) {
+                                isFirstRunning = false;
+                                savePreferences();
+                                setContentView(R.layout.activity_lead);
+                                initView();
+                                init();
+                                initData();
+                            } else {
+                                openActivity(TableTopActivity.class);
+                                finish();
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                //在这里设置需要post的参数
+                Map<String, String> params = new HashMap();
+                params.put("app", "android");
+                params.put("versionCode", Contacts.VER);
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
     }
 
     /**

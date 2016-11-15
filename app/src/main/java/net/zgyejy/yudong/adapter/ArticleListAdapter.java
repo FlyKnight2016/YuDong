@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.base.MyBaseAdapter;
-import net.zgyejy.yudong.modle.Article;
+import net.zgyejy.yudong.bean.Article;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

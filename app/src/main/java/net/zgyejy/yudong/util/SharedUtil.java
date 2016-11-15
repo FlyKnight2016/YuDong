@@ -3,6 +3,8 @@ package net.zgyejy.yudong.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import static net.zgyejy.yudong.R.drawable.phone;
+
 /**
  * Created by Administrator on 2016/9/5.
  */
@@ -11,116 +13,121 @@ public class SharedUtil {
     private static final String SHARED_PATH_REGISTER = "register";
     private static final String SHARED_PATH_USER = "user";
 
+    /**
+     * app数据缓存
+     * @param context
+     * @return
+     */
     public static SharedPreferences getDefaultSharedPreferences(Context context) {
         return context.getSharedPreferences(SHARED_PATH, Context.MODE_PRIVATE);
     }
 
-    public static SharedPreferences getDefaultSharedPreferences_register(Context context) {
-        return context.getSharedPreferences(SHARED_PATH_REGISTER, Context.MODE_PRIVATE);
-    }
-
+    /**
+     * 用户数据缓存
+     * @param context
+     * @return
+     */
     public static SharedPreferences getDefaultSharedPreferences_user(Context context) {
         return context.getSharedPreferences(SHARED_PATH_USER, Context.MODE_PRIVATE);
     }
 
     /**
-     * 清空用户注册和登录信息
+     * 清空用户信息
      */
     public static void clearAllInfos(Context context) {
         SharedPreferences userSharedPreferences = getDefaultSharedPreferences_user(context);
         SharedPreferences.Editor userEditor = userSharedPreferences.edit();
         userEditor.clear();
         userEditor.commit();
-
-        SharedPreferences registerSharedPreferences = getDefaultSharedPreferences_register(context);
-        SharedPreferences.Editor registerEditor = registerSharedPreferences.edit();
-        registerEditor.clear();
-        registerEditor.commit();
     }
 
     /**
-     * 保存用户的基本信息
-     */
-    /*public static void saveUserInfo(Context context,User user) {
-        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("uid", user.getUid());
-        editor.putString("portrait",user.getPortrait());
-        editor.commit();
-    }*/
-
-    public static void saveUserName(Context context,String userName) {
-        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("uid", userName);
-        editor.commit();
-    }
-
-    public static void saveUserIcon(Context context,String userIcon) {
-        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("portrait",userIcon);
-        editor.commit();
-    }
-
-    /**
-     * 保存是否第三方登录的信息
+     * 保存用户手机号
      * @param context
-     * @param isThirdPartyLogin
+     * @param phone
      */
-    public static void saveIsThirdPartyLogin(Context context,Boolean isThirdPartyLogin) {
+    public static void saveUserPhone(Context context,String phone) {
         SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("isThirdPartyLogin",isThirdPartyLogin);
-        editor.commit();
+        editor.putString("phone", phone);
+        editor.apply();
     }
 
-    /**；；；；
-     * 得到是否第三方登录的信息
+    /**
+     * 获取用户手机号
      * @param context
      * @return
      */
-    public static Boolean getIsThirdPartyLogin(Context context) {
+    public static String getUserPhone(Context context) {
         SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
-        return sharedPreferences.getBoolean("isThirdPartyLogin",false);
+        return sharedPreferences.getString("phone",null);
     }
 
     /**
-     * 得到已登录的用户名
+     * 保存是否记住密码
      * @param context
-     * @return
+     * @param isRememberPsw
      */
-    public static String getUserUid(Context context) {
+    public static void saveIsRememberPsw(Context context,Boolean isRememberPsw) {
         SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
-        return sharedPreferences.getString("uid",null);
-    }
-
-    /**
-     * 得到已登录的用户头像地址
-     * @param context
-     * @return
-     */
-    public static String getUserPortrait(Context context) {
-        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
-        return sharedPreferences.getString("portrait",null);
-    }
-
-    /**
-     * 保存用户的注册信息
-     *
-     * @param baseRegister
-     * @param context
-     */
-    /*public static void saveRegisterInfo(BaseEntity<Register> baseRegister, Context context) {
-        SharedPreferences sharedPreferences = getDefaultSharedPreferences_register(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("isLogined", true);
-        Register register = baseRegister.getData();
-        editor.putInt("result", register.getResult());
-        editor.putString("explain", register.getExplain());
-        editor.putString("token", register.getToken());
-        editor.commit();
-    }*/
+        editor.putBoolean("isRememberPsw",isRememberPsw);
+        editor.apply();
+    }
+
+    /**
+     * 获取是否记住密码
+     * @param context
+     * @return
+     */
+    public static Boolean getIsRememberPsw(Context context) {
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
+        return sharedPreferences.getBoolean("isRememberPsw",false);
+    }
+
+    /**
+     * 保存用户密码
+     * @param context
+     * @param phone
+     */
+    public static void saveUserPsw(Context context,String phone) {
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("psw", phone);
+        editor.apply();
+    }
+
+    /**
+     * 获取用户密码
+     * @param context
+     * @return
+     */
+    public static String getUserPsw(Context context) {
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
+        return sharedPreferences.getString("psw",null);
+    }
+
+    /**
+     * 保存是否自动登录
+     * @param context
+     * @param isRememberPsw
+     */
+    public static void saveIsAutoLogin(Context context,Boolean isRememberPsw) {
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isAutoLogin",isRememberPsw);
+        editor.apply();
+    }
+
+    /**
+     * 获取是否自动登录
+     * @param context
+     * @return
+     */
+    public static Boolean getIsAutoLogin(Context context) {
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
+        return sharedPreferences.getBoolean("isAutoLogin",false);
+    }
 
     /**
      * 获得用户是否已登录的信息
@@ -128,7 +135,7 @@ public class SharedUtil {
      * @return
      */
     public static boolean getIsLogined(Context context) {
-        SharedPreferences sharedPreferences = getDefaultSharedPreferences_register(context);
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
         return sharedPreferences.getBoolean("isLogined",false);
     }
 
@@ -136,28 +143,39 @@ public class SharedUtil {
      * 储存用户是否已登录的信息
      */
     public static void setIsLogined(Context context,boolean isLogined) {
-        SharedPreferences sharedPreferences = getDefaultSharedPreferences_register(context);
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("isLogined", isLogined);
-        editor.commit();
+        editor.apply();
     }
 
     /**
-     * 获得用户注册后的Tokey信息
+     * 存储用户Token
      * @param context
-     * @param key
+     * @param token
+     */
+    public static void saveToken(Context context, String token) {
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("token", token);
+        editor.apply();
+    }
+
+    /**
+     * 获得存储的Token信息
+     * @param context
      * @return
      */
-    public static String getTokey(Context context, String key) {
-        SharedPreferences sharedPreferences = getDefaultSharedPreferences_register(context);
-        return sharedPreferences.getString(key,null);
+    public static String getToken(Context context) {
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
+        return sharedPreferences.getString("token",null);
     }
 
     public static void putInt(Context context, String key, int value) {
         SharedPreferences sharedPreferences = getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(key, value);
-        editor.commit();
+        editor.apply();
 
     }
 
@@ -170,7 +188,7 @@ public class SharedUtil {
         SharedPreferences sharedPreferences = getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     public static String getString(Context context, String key) {
@@ -182,7 +200,7 @@ public class SharedUtil {
         SharedPreferences sharedPreferences = getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     public static boolean getBoolean(Context context, String key, boolean defaultValue) {
