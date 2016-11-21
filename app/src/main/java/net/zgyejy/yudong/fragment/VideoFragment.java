@@ -28,9 +28,10 @@ import net.zgyejy.yudong.adapter.ListViewAdapter_Vip;
 import net.zgyejy.yudong.adapter.MyPagerAdapter;
 import net.zgyejy.yudong.bean.VideoIntegral;
 import net.zgyejy.yudong.gloable.API;
-import net.zgyejy.yudong.modle.Book;
 import net.zgyejy.yudong.modle.VideoVip;
 import net.zgyejy.yudong.util.CommonUtil;
+import net.zgyejy.yudong.util.DbService;
+import net.zgyejy.yudong.util.SharedUtil;
 import net.zgyejy.yudong.util.VolleySingleton;
 
 import java.util.ArrayList;
@@ -40,9 +41,12 @@ import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.yejy.greendao.Book;
 
 public class VideoFragment extends Fragment {
-    Bundle bundle;
+    private boolean isFirstRunning;//是否第一次运行
+    private Bundle bundle;
+    private DbService dbService;//数据库管理工具
 
     @BindView(R.id.tv_video_51)
     TextView tvVideo51;
@@ -57,7 +61,7 @@ public class VideoFragment extends Fragment {
     private MyPagerAdapter viewPagerAdapter;
 
     GridView gvVideo51;//五个一教材列表
-    PullToRefreshListView lvVideoFree, lvVideoVip;
+    PullToRefreshListView lvVideoIntegral, lvVideoVip;
 
     private GridViewAdapter_51Book adapter51Book;//五个一教材列表适配器
     private ListViewAdapter_51 adapterListFree;
@@ -78,6 +82,9 @@ public class VideoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (dbService == null)
+            dbService = DbService.getInstance(getContext());
+        isFirstRunning = SharedUtil.getBoolean(getContext(), "isFirstRunning", true);
     }
 
     @Override
@@ -133,18 +140,18 @@ public class VideoFragment extends Fragment {
                 //打开课程列表界面
                 if (bundle == null)
                     bundle = new Bundle();
-                bundle.putString("courses",listBook.get(position).getUrl());
+                bundle.putString("courses",listBook.get(position).getUrl());//将得到课程列表的url传入
                 ((HomeActivity) getActivity()).openActivity(CourseList51Activity.class,bundle);
             }
         });
         viewPagerAdapter.addToAdapterView(frameLayout);
 
-        //免费视频ListView
+        //积分视频ListView
         frameLayout = (FrameLayout) getActivity().getLayoutInflater()
                 .inflate(R.layout.layout_video_list_integral, null);
-        lvVideoFree = (PullToRefreshListView) frameLayout.findViewById(R.id.lv_video_free);
-        initLvRefresh(lvVideoFree);
-        lvVideoFree.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+        lvVideoIntegral = (PullToRefreshListView) frameLayout.findViewById(R.id.lv_video_integral);
+        initLvRefresh(lvVideoIntegral);
+        lvVideoIntegral.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 //下拉刷新数据
@@ -155,7 +162,7 @@ public class VideoFragment extends Fragment {
                 //上拉加载数据
             }
         });
-        lvVideoFree.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvVideoIntegral.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ((HomeActivity) getActivity()).openActivity(VideoPlayActivity.class);
@@ -291,22 +298,29 @@ public class VideoFragment extends Fragment {
     private void showVideo51() {
         if (listBook == null)
             listBook = new ArrayList<>();
-        listBook.clear();
-        for (int i = 0; i < 6; i++) {
-            listBook.add(new Book("七巧板智力阅读\n第" + (i+1) + "册"));
-            setBook(i);
+        if (isFirstRunning) {//若是第一次运行，将数据存储如数据库中
+            for (int i=0; i<6; i++) {
+                Book book = new Book((long)(i+1));
+                book.setBookName("七巧板智力阅读\n第" + (i+1) + "册");
+                setBookInfo(book,i);
+                dbService.saveBook(book);//存储到数据库中
+                listBook.add(book);//添加到当前集合中
+            }
+            isFirstRunning = false;
+            SharedUtil.putBoolean(getContext(), "isFirstRunning", isFirstRunning);
+        }else {//否则从数据库中获取数据
+            listBook = dbService.loadAllBook();
         }
         adapter51Book.appendDataed(listBook, true);
         adapter51Book.updateAdapter();
     }
 
     /**
-     * 设置每册书的课程列表接口
+     * 设置每册书的图片和获取课程列表的接口
      * @param i
      */
-    private void setBook(int i) {
+    private void setBookInfo(Book book,int i) {
         int image;
-        Book book = listBook.get(i);
         switch (i) {
             case 0:
                 image = R.drawable.volume1;
@@ -347,7 +361,7 @@ public class VideoFragment extends Fragment {
 
         if (adapterListFree == null)
             adapterListFree = new ListViewAdapter_51(getActivity());
-        lvVideoFree.setAdapter(adapterListFree);
+        lvVideoIntegral.setAdapter(adapterListFree);
 
         if (adapterListVip == null)
             adapterListVip = new ListViewAdapter_Vip(getActivity());

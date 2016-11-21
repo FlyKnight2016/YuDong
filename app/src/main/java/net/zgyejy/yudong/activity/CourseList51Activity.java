@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -12,6 +13,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.adapter.ListCourseAdapter;
 import net.zgyejy.yudong.base.MyBaseActivity;
@@ -26,6 +28,7 @@ import org.json.JSONObject;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -34,10 +37,9 @@ import butterknife.OnClick;
  * 七巧板智力阅读一册课程列表
  */
 public class CourseList51Activity extends MyBaseActivity {
-
     private Bundle bundle;
     private RequestQueue requestQueue;//volley接口对象
-    private List<Course> listCourse;//一册的课程列表
+    private List<Course> listCourses;//一册的课程列表
     private ListCourseAdapter adapter;//课程列表适配器
     private String urlCourses;//课程列表的链接
 
@@ -76,8 +78,8 @@ public class CourseList51Activity extends MyBaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (bundle == null)
                     bundle = new Bundle();
-                bundle.putString("result",API.VIDEO_51_BOOK_LIST + adapter.getItem(position-1).getId());
-                openActivity(Video51Activity.class,bundle);
+                bundle.putString("result", API.VIDEO_51_BOOK_LIST + adapter.getItem(position - 1).getId());
+                openActivity(Video51Activity.class, bundle);
             }
         });
     }
@@ -114,12 +116,9 @@ public class CourseList51Activity extends MyBaseActivity {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject jsonObject) {
-                            listCourse = ParserCourseList.getCourseList(jsonObject.toString());
-
-                            //对课程列表进行排序整理的方法
-                            sort(listCourse);
-
-                            adapter.appendDataed(listCourse, true);
+                            listCourses = ParserCourseList.getCourseList(jsonObject.toString());
+                            sort(listCourses);
+                            adapter.appendDataed(listCourses, true);
                             adapter.updateAdapter();
                             lvCourse.onRefreshComplete();
                             cancelDialog();
@@ -137,10 +136,11 @@ public class CourseList51Activity extends MyBaseActivity {
 
     /**
      * 整理排序课程列表
-     * @param courses
+     *
+     * @param course
      */
-    private void sort(List<Course> courses) {
-        Collections.sort(courses, new Comparator<Course>() {
+    private void sort(List<Course> course) {
+        Collections.sort(course, new Comparator<Course>() {
             /**
              * 返回负数表示o1小于o2
              * 返回0表示o1等于o2
@@ -154,8 +154,8 @@ public class CourseList51Activity extends MyBaseActivity {
                 String str1 = o1.getName();
                 String str2 = o2.getName();
 
-                String num1 = str1.substring(str1.indexOf("册 第")+1,str1.indexOf("课"));
-                String num2 = str2.substring(str1.indexOf("册 第")+1,str1.indexOf("课"));
+                String num1 = str1.substring(str1.indexOf("册 第") + 1, str1.indexOf("课"));
+                String num2 = str2.substring(str1.indexOf("册 第") + 1, str1.indexOf("课"));
 
                 return num1.compareTo(num2);
             }

@@ -1,5 +1,8 @@
 package net.zgyejy.yudong.fragment;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -12,6 +15,7 @@ import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.activity.ArticleReadActivity;
 import net.zgyejy.yudong.activity.HomeActivity;
 import net.zgyejy.yudong.activity.WebReadActivity;
+import net.zgyejy.yudong.util.CommonUtil;
 
 import org.wlf.filedownloader.DownloadFileInfo;
 import org.wlf.filedownloader.FileDownloader;
@@ -30,6 +34,7 @@ public class ActFragment extends Fragment {
     private String url;
     private String newFileDir;
     private String newFileName;
+    private Dialog noticeDialog;
 
     @BindView(R.id.btn_download_text)
     TextView btnDownloadText;
@@ -53,6 +58,7 @@ public class ActFragment extends Fragment {
         public void onFileDownloadStatusCompleted(DownloadFileInfo downloadFileInfo) {
             // 下载完成（整个文件已经全部下载完成）
             showToast("下载完成！");
+            showNoticeDialog();
         }
 
         @Override
@@ -112,9 +118,26 @@ public class ActFragment extends Fragment {
         }
     }
 
+    /**
+     * 显示提示小窗口
+     */
+    private void showNoticeDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("小提示！");
+        builder.setMessage("文档存储路径：手机内置内存/FileDownloader/2017招生密码，或者您也可以在文档管理器中搜索“2017招生密码”快速找到该文档。");
+        builder.setNegativeButton("知道了", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        noticeDialog = builder.create();
+        noticeDialog.show();
+    }
+
     private void downLoadFile() {
         showToast("开始下载！");
-        url = "http://api.zgyejy.net/uploads/video/text/20161115/d60ddeb983f72232cf30383841388491.doc";
+        url = "http://api.zgyejy.net/uploads/video/text/20161116/b9dcc86d45bc109616354dcaaeafffbf.doc";
         FileDownloader.detect(url, new OnDetectBigUrlFileListener() {
             @Override
             public void onDetectNewDownloadFile(String url, String fileName, String saveDir, long fileSize) {

@@ -11,6 +11,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 
 import net.zgyejy.yudong.R;
@@ -21,6 +22,8 @@ import net.zgyejy.yudong.modle.Token;
 import net.zgyejy.yudong.modle.parser.ParserBaseEntity;
 import net.zgyejy.yudong.util.SharedUtil;
 import net.zgyejy.yudong.util.VolleySingleton;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -106,8 +109,8 @@ public class LoginActivity extends MyBaseActivity {
                 if (bundle == null)
                     bundle = new Bundle();
                 bundle.putInt("rOrF",0);//添加目的为注册（0为注册）
-                openActivity(RegisterActivity.class,bundle);
-                finish();
+                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivityForResult(intent,0,bundle);
                 break;
             case R.id.btn_login:
                 login();
@@ -182,14 +185,13 @@ public class LoginActivity extends MyBaseActivity {
                             token = baseEntity.getData().getToken();
 
                             //将已登录信息和用户令牌存储到本地
-                            SharedUtil.setIsLogined(LoginActivity.this,true);
-                            SharedUtil.saveToken(LoginActivity.this,token);
+                            SharedUtil.setIsLogined(getBaseContext(),true);
+                            SharedUtil.saveToken(getBaseContext(),token);
 
                             Bundle bundle = new Bundle();
                             bundle.putString("isTo", "UserFragment");
                             openActivity(HomeActivity.class,bundle);
                             finish();
-
                         }else {
                             showToast(baseEntity.getMessage());
                         }

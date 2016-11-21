@@ -35,7 +35,7 @@
             android:id="@+id/tv_video_free"
             style="@style/Style_VideoGuideText"
             android:background="@drawable/text_view_border_free"
-            android:text="免费"
+            android:text="积分"
             android:textColor="@color/white"/>
 
         <TextView

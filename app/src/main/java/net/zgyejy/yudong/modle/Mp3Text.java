@@ -14,6 +14,11 @@ public class Mp3Text {
     private String text_price;//文档价格
     private int music_style;//mp3类型
     private int text_style;//文档类型
+    /*private String music_jifen;
+    private String text_jifen;
+    private String music_name;
+    private String text_name;
+    private String cate_name;*/
 
     public Mp3Text(String music, String text, int music_style, int text_style,
                    String music_price, String text_price) {

@@ -8,12 +8,10 @@ import android.widget.TextView;
 
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.base.MyBaseAdapter;
-import net.zgyejy.yudong.gloable.API;
-import net.zgyejy.yudong.modle.Book;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import it.sephiroth.android.library.picasso.Picasso;
+import me.yejy.greendao.Book;
 
 /**
  * Created by FlyKnight on 2016/10/14.

@@ -3,6 +3,11 @@ package net.zgyejy.yudong.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import net.zgyejy.yudong.modle.UserBaseInfo;
+
+import java.text.DateFormat;
+import java.util.Date;
+
 import static net.zgyejy.yudong.R.drawable.phone;
 
 /**
@@ -10,7 +15,6 @@ import static net.zgyejy.yudong.R.drawable.phone;
  */
 public class SharedUtil {
     private static final String SHARED_PATH = "app_share";
-    private static final String SHARED_PATH_REGISTER = "register";
     private static final String SHARED_PATH_USER = "user";
 
     /**
@@ -34,7 +38,7 @@ public class SharedUtil {
     /**
      * 清空用户信息
      */
-    public static void clearAllInfos(Context context) {
+    public static void clearAllInfo(Context context) {
         SharedPreferences userSharedPreferences = getDefaultSharedPreferences_user(context);
         SharedPreferences.Editor userEditor = userSharedPreferences.edit();
         userEditor.clear();
@@ -170,6 +174,51 @@ public class SharedUtil {
         SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
         return sharedPreferences.getString("token",null);
     }
+
+    /**
+     * 保存用户名、头像、积分等基本信息
+     * @param context
+     * @param userBaseInfo
+     */
+    public static void saveUserBaseInfo(Context context, UserBaseInfo userBaseInfo) {
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("username", userBaseInfo.getUsername());
+        editor.putString("image",userBaseInfo.getImage());
+        editor.putString("integral",userBaseInfo.getIntegralcount());
+        editor.apply();
+    }
+
+    /**
+     * 获取传入key对应的用户基本信息
+     * @param context
+     * @param key
+     * @return
+     */
+    public static String getUserBaseInfo(Context context, String key) {
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
+        return sharedPreferences.getString(key,null);
+    }
+
+    /**
+     * 存储签到时间
+     */
+    public static void saveSignInDate(Context context,String signInDate) {
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("signInDate", signInDate);//存储签到时间
+        editor.apply();
+    }
+
+    /**
+     * 获取签到时间
+     * @return
+     */
+    public static String getSignInDate(Context context) {
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
+        return sharedPreferences.getString("signInDate",null);
+    }
+
 
     public static void putInt(Context context, String key, int value) {
         SharedPreferences sharedPreferences = getDefaultSharedPreferences(context);

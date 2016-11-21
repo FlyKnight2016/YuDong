@@ -52,6 +52,14 @@
                 android:layout_marginTop="20px"
                 android:textSize="36px"/>
         </LinearLayout>
+        <TextView
+            android:id="@+id/tv_user_signIn"
+            android:layout_width="120px"
+            android:layout_height="120px"
+            android:background="@drawable/signin"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20px"
+            android:layout_marginRight="20px"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -136,130 +144,143 @@
                 android:textSize="30px"/>
         </LinearLayout>
     </LinearLayout>
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
-        android:orientation="vertical"
-        android:layout_marginTop="40px"
-        android:layout_marginLeft="40px"
-        android:layout_marginRight="40px">
+        android:layout_weight="3">
         <LinearLayout
-            android:id="@+id/ll_user_myOrders"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="30px">
-            <ImageView
-                android:layout_width="70px"
-                android:layout_height="70px"
-                android:background="@drawable/userorder"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginTop="40px"
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="40px">
+            <LinearLayout
+                android:id="@+id/ll_user_myOrders"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="我的订单"
-                android:layout_marginLeft="10dp"/>
-            <ImageView
-                android:layout_width="50px"
-                android:layout_height="40px"
-                android:layout_gravity="right"
-                android:background="@drawable/useropen"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/ll_user_myCollect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-            <ImageView
-                android:layout_width="70px"
-                android:layout_height="70px"
-                android:background="@drawable/usercollect"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="30px">
+                <ImageView
+                    android:layout_width="70px"
+                    android:layout_height="70px"
+                    android:background="@drawable/userorder"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="我的订单"
+                    android:layout_marginLeft="10dp"/>
+                <ImageView
+                    android:layout_width="50px"
+                    android:layout_height="40px"
+                    android:layout_gravity="right"
+                    android:background="@drawable/useropen"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_user_myCollect"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="我的收藏"
-                android:layout_marginLeft="10dp"/>
-            <ImageView
-                android:layout_width="50px"
-                android:layout_height="40px"
-                android:layout_gravity="right"
-                android:background="@drawable/useropen"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/ll_user_integralMall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-            <ImageView
-                android:layout_width="70px"
-                android:layout_height="70px"
-                android:background="@drawable/userpoints"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="70px"
+                    android:layout_height="70px"
+                    android:background="@drawable/usercollect"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="我的收藏"
+                    android:layout_marginLeft="10dp"/>
+                <ImageView
+                    android:layout_width="50px"
+                    android:layout_height="40px"
+                    android:layout_gravity="right"
+                    android:background="@drawable/useropen"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_user_integralMall"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="积分商城"
-                android:layout_marginLeft="20px"/>
-            <ImageView
-                android:layout_width="50px"
-                android:layout_height="40px"
-                android:layout_gravity="right"
-                android:background="@drawable/useropen"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/ll_user_normalProblem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="30px">
-            <ImageView
-                android:layout_width="70px"
-                android:layout_height="70px"
-                android:background="@drawable/userquestion"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="70px"
+                    android:layout_height="70px"
+                    android:background="@drawable/userpoints"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="积分商城"
+                    android:layout_marginLeft="20px"/>
+                <ImageView
+                    android:layout_width="50px"
+                    android:layout_height="40px"
+                    android:layout_gravity="right"
+                    android:background="@drawable/useropen"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_user_normalProblem"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="常见问题"
-                android:layout_marginLeft="20px"/>
-            <ImageView
-                android:layout_width="50px"
-                android:layout_height="40px"
-                android:layout_gravity="right"
-                android:background="@drawable/useropen"/>
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="30px">
+                <ImageView
+                    android:layout_width="70px"
+                    android:layout_height="70px"
+                    android:background="@drawable/userquestion"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="常见问题"
+                    android:layout_marginLeft="20px"/>
+                <ImageView
+                    android:layout_width="50px"
+                    android:layout_height="40px"
+                    android:layout_gravity="right"
+                    android:background="@drawable/useropen"/>
+            </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/ll_user_aboutUs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="10px">
-            <ImageView
-                android:layout_width="60px"
-                android:layout_height="60px"
-                android:layout_marginRight="10px"
-                android:background="@drawable/aboutus"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+            <LinearLayout
+                android:id="@+id/ll_user_aboutUs"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="关于我们"
-                android:layout_marginLeft="20px"/>
-            <ImageView
-                android:layout_width="50px"
-                android:layout_height="40px"
-                android:layout_gravity="right"
-                android:background="@drawable/useropen"/>
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10px">
+                <ImageView
+                    android:layout_width="60px"
+                    android:layout_height="60px"
+                    android:layout_marginRight="10px"
+                    android:background="@drawable/aboutus"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="关于我们"
+                    android:layout_marginLeft="20px"/>
+                <ImageView
+                    android:layout_width="50px"
+                    android:layout_height="40px"
+                    android:layout_gravity="right"
+                    android:background="@drawable/useropen"/>
+            </LinearLayout>
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:gravity="center_horizontal"
+                android:text="客服电话：60167227\nAPP运营部QQ：1559546706"
+                android:textColor="@color/midGray"/>
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>

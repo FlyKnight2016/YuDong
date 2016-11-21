@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <net.zgyejy.yudong.view.XCRoundRectImageView
             android:id="@+id/iv_commentList_portrait"
             android:layout_width="80px"
             android:layout_height="80px"
-            android:background="@drawable/icon"
-            android:layout_margin="20px"/>
+            android:layout_margin="20px"
+            android:src="@drawable/icon" />
+
         <TextView
             android:id="@+id/tv_commentList_userName"
             android:layout_width="wrap_content"
@@ -20,20 +23,30 @@
             android:layout_toRightOf="@id/iv_commentList_portrait"
             android:text="用户名"
             android:textColor="#AA000000"
-            android:textSize="32px"/>
+            android:textSize="34px" />
+
         <TextView
             android:id="@+id/tv_commentList_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/iv_commentList_portrait"
             android:layout_toRightOf="@id/iv_commentList_portrait"
-            android:text="2015-10-25 09:48"/>
+            android:text="2015-10-25 09:48"
+            android:textSize="28px"/>
 
     </RelativeLayout>
+
     <TextView
         android:id="@+id/tv_commentList_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20px"
-        android:text="评论内容()...................."/>
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
+        android:padding="10px"
+        android:layout_marginBottom="10px"
+        android:text="评论内容()...................." />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lightGray"/>
 </LinearLayout>

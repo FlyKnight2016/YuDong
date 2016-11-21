@@ -196,7 +196,7 @@
                     android:layout_alignLeft="@id/tv_tableTop_act_date"
                     android:layout_below="@id/tv_tableTop_act_date"
                     android:layout_marginTop="10px"
-                    android:text="YY直播，房间号：67733637"
+                    android:text="水滴直播，台号：1889"
                     android:maxLines="3"/>
             </RelativeLayout>
 

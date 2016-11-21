@@ -8,6 +8,7 @@
     <color name="transparent">#0000</color>
 
     <!-- 主题颜色 -->
+    <color name="darkThemeColor">#20aa7a</color>
     <color name="themeColor">#26C88F</color>
 
     <!-- 基本颜色 -->

@@ -23,21 +23,38 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.adapter.CommentListAdapter;
 import net.zgyejy.yudong.base.MyBaseActivity;
 import net.zgyejy.yudong.bean.VideoIntegral;
 import net.zgyejy.yudong.gloable.API;
+import net.zgyejy.yudong.modle.BaseEntity;
 import net.zgyejy.yudong.modle.Comment;
+import net.zgyejy.yudong.modle.parser.ParserBaseEntity;
+import net.zgyejy.yudong.modle.parser.ParserComment;
 import net.zgyejy.yudong.util.MediaController;
+import net.zgyejy.yudong.util.SharedUtil;
+import net.zgyejy.yudong.util.VolleySingleton;
 import net.zgyejy.yudong.view.VideoView;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 
 
 public class VideoPlayActivity extends MyBaseActivity implements
@@ -45,6 +62,7 @@ public class VideoPlayActivity extends MyBaseActivity implements
         MediaPlayer.OnPreparedListener,
         MediaPlayer.OnErrorListener,
         MediaPlayer.OnCompletionListener {
+    private String token;
     private List<View> otherViews;
     private MediaController mMediaController;
     private boolean fullscreen = false;
@@ -53,6 +71,7 @@ public class VideoPlayActivity extends MyBaseActivity implements
     private CommentListAdapter commentListAdapter;
     private VideoIntegral videoIntegral;
     private List<Comment> comments;
+    private RequestQueue requestQueue;//volley接口对象
 
     private View mVolumeBrightnessLayout;
     private ImageView mOperationBg;
@@ -100,8 +119,8 @@ public class VideoPlayActivity extends MyBaseActivity implements
     EditText etPlayCommentContent;
     @BindView(R.id.lv_play_comments)
     ListView lvPlayComments;
-    @BindView(R.id.sv_play_commentAbout)
-    ScrollView svPlayCommentAbout;
+    @BindView(R.id.ll_play_commentAbout)
+    LinearLayout llPlayCommentAbout;
     @BindView(R.id.tv_play_noComment)
     TextView tvPlayNoComment;
 
@@ -111,6 +130,8 @@ public class VideoPlayActivity extends MyBaseActivity implements
         setContentView(R.layout.activity_video_play);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ButterKnife.bind(this);
+
+        token = SharedUtil.getToken(this);
 
         getPathAndTitle();
 
@@ -329,11 +350,36 @@ public class VideoPlayActivity extends MyBaseActivity implements
      */
     private void refreshListData() {
         //发送请求，得到返回数据
+        if (requestQueue == null)
+            requestQueue = VolleySingleton.getVolleySingleton(this).getRequestQueue();
+        String urlGetCommentList = API.VIDEO_GET_COMMENTLIST + "id=" + videoIntegral.getId();//获取评论列表的接口
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlGetCommentList,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+                        BaseEntity<List<Comment>> baseEntity = ParserComment.
+                                getBaseCommentList(jsonObject.toString());
+                        if (200 == baseEntity.getCode()) {
+                            //返回评论列表信息成功
+                            comments = baseEntity.getData();
 
-        commentListAdapter.appendDataed(comments, true);
-        commentListAdapter.updateAdapter();
+                            commentListAdapter.appendDataed(comments, true);
+                            commentListAdapter.updateAdapter();
 
-        showHint();
+                            showHint();
+                        } else {
+                            showToast(baseEntity.getMessage());
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                    }
+                }
+        );
+        requestQueue.add(jsonObjectRequest);
     }
 
     /**
@@ -356,7 +402,7 @@ public class VideoPlayActivity extends MyBaseActivity implements
         otherViews.clear();
         otherViews.add(llPlayTitle);
         otherViews.add(llPlayVideoAbout);
-        otherViews.add(svPlayCommentAbout);
+        otherViews.add(llPlayCommentAbout);
     }
 
     /**
@@ -423,15 +469,68 @@ public class VideoPlayActivity extends MyBaseActivity implements
             case R.id.iv_play_collect:
             case R.id.tv_play_collectNum:
                 //收藏和取消收藏的方法
+                collectVideo();
                 break;
             case R.id.iv_play_menu:
                 //点击弹出菜单的方法
                 break;
             case R.id.btn_play_sendComment:
                 //获取品论内容，发送评论的方法
-                refreshListData();
+                if (token == null) {
+                    showToast("请先登录！");
+                }else if (etPlayCommentContent.getText() == null) {
+                    showToast("评论内容不能为空！");
+                }else {
+                    sendComment();
+                }
                 break;
         }
+    }
+
+    /**
+     * 发送评论的方法
+     */
+    private void sendComment() {
+        if (requestQueue == null)
+            requestQueue = VolleySingleton.getVolleySingleton(this).getRequestQueue();
+        String urlSendComment = API.VIDEO_POST_COMMENT + "id=" + videoIntegral.getId() +
+                "&token=" + token;
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, urlSendComment,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        BaseEntity<List> baseEntity = ParserBaseEntity.getBaseEntityList(response);
+                        if (baseEntity.getCode() == 200) {
+                            showToast(baseEntity.getMessage());
+
+                            //刷新评论列表
+                            refreshListData();
+                        }else {
+                            showToast(baseEntity.getMessage());
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                //在这里设置需要post的参数
+                Map<String, String> params = new HashMap();
+                params.put("content", etPlayCommentContent.getText().toString());
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
+    }
+
+    /**
+     * 收藏视频的方法
+     */
+    private void collectVideo() {
+
     }
 
     @Override

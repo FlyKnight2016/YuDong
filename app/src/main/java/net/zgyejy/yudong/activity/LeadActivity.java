@@ -45,9 +45,21 @@ public class LeadActivity extends MyBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //检查更新
-        checkUpdate();
+        /*//检查更新
+        checkUpdate();*/
 
+        isFirstRunning = SharedUtil.getBoolean(getBaseContext(), "isFirst", true);
+        if (isFirstRunning) {
+            isFirstRunning = false;
+            savePreferences();
+            setContentView(R.layout.activity_lead);
+            initView();
+            init();
+            initData();
+        } else {
+            openActivity(TableTopActivity.class);
+            finish();
+        }
 
     }
 
@@ -70,6 +82,7 @@ public class LeadActivity extends MyBaseActivity {
                             UpdateManager updateManager = new UpdateManager(getBaseContext(), url);
                             updateManager.checkUpdateInfo(LeadActivity.this);
                         }else {
+                            showToast("已是最新版本！");
                             isFirstRunning = SharedUtil.getBoolean(getBaseContext(), "isFirst", true);
                             if (isFirstRunning) {
                                 isFirstRunning = false;

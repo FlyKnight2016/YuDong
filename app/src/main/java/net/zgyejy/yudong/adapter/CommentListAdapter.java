@@ -7,11 +7,16 @@ import android.widget.TextView;
 
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.base.MyBaseAdapter;
+import net.zgyejy.yudong.gloable.API;
 import net.zgyejy.yudong.modle.Comment;
+import net.zgyejy.yudong.util.CommonUtil;
 import net.zgyejy.yudong.view.XCRoundRectImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import it.sephiroth.android.library.picasso.Picasso;
+
+import static net.zgyejy.yudong.R.drawable.phone;
 
 /**
  * Created by FlyKnight on 2016/10/21.
@@ -34,6 +39,21 @@ public class CommentListAdapter extends MyBaseAdapter<Comment> {
         }
 
         //适配数据...
+        Comment comment = getItem(myList.size()-i-1);//评论反序
+        if (comment.getUserImage()!=null) {
+            //使用Picasso第三方库加载图片
+            Picasso.with(context)
+                    .load(API.APP_SERVER_IP + comment.getUserImage())//加载地址
+                    .placeholder(R.drawable.loadingphoto)//占位图（加载中）
+                    .error(R.drawable.nophoto)//加载失败
+                    .into(vh.ivCommentListPortrait);//加载到的ImageView
+        }else {
+            vh.ivCommentListPortrait.setImageResource(R.drawable.user_selected);
+        }
+        String name = comment.getPhone();
+        vh.tvCommentListUserName.setText("用户" + name.substring(0, 3) + "****" + name.substring(7));
+        vh.tvCommentListDate.setText(CommonUtil.getStrTime(Long.parseLong(comment.getAddtime())));//转化评论时间
+        vh.tvCommentListContent.setText("    " + comment.getContent());
 
         return view;
     }

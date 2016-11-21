@@ -1,21 +1,34 @@
 package net.zgyejy.yudong;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.Environment;
+import android.provider.SyncStateContract;
+
+import net.zgyejy.yudong.gloable.Contacts;
 
 import org.wlf.filedownloader.FileDownloadConfiguration;
 import org.wlf.filedownloader.FileDownloader;
 
 import java.io.File;
 
+import me.yejy.greendao.DaoMaster;
+import me.yejy.greendao.DaoSession;
+
 /**
  * Created by Administrator on 2016/11/10 0010.
  */
 
 public class MyApplication extends Application{
+    private static MyApplication mInstance;
+    private static DaoMaster daoMaster;
+    private static DaoSession daoSession;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        if(mInstance == null)
+            mInstance = this;
 
         //初始化FileDownloader
         initFileDownloader();
@@ -27,6 +40,36 @@ public class MyApplication extends Application{
         
         //释放FileDownloader
         releaseFileDownloader();
+    }
+
+    /**
+     * 取得DaoMaster
+     *
+     * @param context
+     * @return
+     */
+    public static DaoMaster getDaoMaster(Context context) {
+        if (daoMaster == null) {
+            DaoMaster.OpenHelper helper = new DaoMaster.DevOpenHelper(context, Contacts.DB_NAME, null);
+            daoMaster = new DaoMaster(helper.getWritableDatabase());
+        }
+        return daoMaster;
+    }
+
+    /**
+     * 取得DaoSession
+     *
+     * @param context
+     * @return
+     */
+    public static DaoSession getDaoSession(Context context) {
+        if (daoSession == null) {
+            if (daoMaster == null) {
+                daoMaster = getDaoMaster(context);
+            }
+            daoSession = daoMaster.newSession();
+        }
+        return daoSession;
     }
 
     /**

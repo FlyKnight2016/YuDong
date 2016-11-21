@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -15,6 +16,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.adapter.ListViewAdapter_51;
 import net.zgyejy.yudong.adapter.MyPagerAdapter;
@@ -26,6 +28,7 @@ import net.zgyejy.yudong.util.CommonUtil;
 import net.zgyejy.yudong.util.VolleySingleton;
 
 import org.json.JSONObject;
+
 import java.util.List;
 
 import butterknife.BindColor;
@@ -93,7 +96,7 @@ public class Video51Activity extends MyBaseActivity {
 
         //加载MP3页面
         linearLayout = (LinearLayout) getLayoutInflater()
-                .inflate(R.layout.layout_video51_mp3,null);
+                .inflate(R.layout.layout_video51_mp3, null);
 
         //（加载MP3数据）..................
 
@@ -101,7 +104,7 @@ public class Video51Activity extends MyBaseActivity {
 
         //加载文档页面
         linearLayout = (LinearLayout) getLayoutInflater()
-                .inflate(R.layout.layout_video51_text,null);
+                .inflate(R.layout.layout_video51_text, null);
 
         //（加载文档数据）...................
 
@@ -259,8 +262,21 @@ public class Video51Activity extends MyBaseActivity {
         }
     }
 
-    @OnClick(R.id.iv_video51_return)
-    public void onClick() {
-        finish();
+    @OnClick({R.id.tv_video51_video, R.id.tv_video51_mp3, R.id.tv_video51_text,R.id.iv_video51_return})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_video51_video:
+                vpVideo51Vmt.setCurrentItem(0);
+                break;
+            case R.id.tv_video51_mp3:
+                vpVideo51Vmt.setCurrentItem(1);
+                break;
+            case R.id.tv_video51_text:
+                vpVideo51Vmt.setCurrentItem(2);
+                break;
+            case R.id.iv_video51_return:
+                finish();
+                break;
+        }
     }
 }

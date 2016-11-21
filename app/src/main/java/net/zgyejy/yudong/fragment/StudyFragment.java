@@ -397,34 +397,40 @@ public class StudyFragment extends Fragment {
      * 请求、添加园长学习列表的数据
      */
     private void showStudyPrincipal() {
-        showLoadingDialog();
-        String url = API.STUDY_ARTICLE_PRINCIPAL + "&page=" + PageNumPrincipal;
+        if (!CommonUtil.isNetworkAvailable(getActivity())) {//无网络链接状态下
+            ((HomeActivity)getActivity()).showToast("当前无网络连接！");
+        }else {//有网络状态下，直接从网络上获取数据
+            showLoadingDialog();
+            String url = API.STUDY_ARTICLE_PRINCIPAL + "&page=" + PageNumPrincipal;
 
-        JsonArrayRequest req = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                try {
-                    List<Article> list = ParserArticleLists.getArticleList(response.toString());
-                    if (principalArticles == null)
-                        principalArticles = new ArrayList<>();
-                    if (PageNumPrincipal == 1)
-                        principalArticles.clear();
-                    principalArticles.addAll(list);
-                    lvPrincipalAdapter.appendDataed(principalArticles, true);
-                    lvPrincipalAdapter.updateAdapter();
-                    lvStudyPrincipal.onRefreshComplete();
-                    cancelDialog();
-                } catch (Exception e) {
-                    e.printStackTrace();
+            JsonArrayRequest req = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    try {
+                        List<Article> list = ParserArticleLists.getArticleList(response.toString());
+                        if (principalArticles == null)
+                            principalArticles = new ArrayList<>();
+                        if (PageNumPrincipal == 1)
+                            principalArticles.clear();
+                        principalArticles.addAll(list);//将获取到的页面的数据添加到集合中
+
+                        //适配数据，刷新界面
+                        lvPrincipalAdapter.appendDataed(principalArticles, true);
+                        lvPrincipalAdapter.updateAdapter();
+                        lvStudyPrincipal.onRefreshComplete();
+                        cancelDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.e("Error: ", error.getMessage());
-            }
-        });
-        requestQueue.add(req);
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.e("Error: ", error.getMessage());
+                }
+            });
+            requestQueue.add(req);
+        }
     }
 
     /**

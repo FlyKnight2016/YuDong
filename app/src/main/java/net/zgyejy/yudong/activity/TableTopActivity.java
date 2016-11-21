@@ -26,7 +26,8 @@ import butterknife.OnClick;
 import it.sephiroth.android.library.picasso.Picasso;
 
 public class TableTopActivity extends MyBaseActivity {
-    Bundle bundle;
+    private Bundle bundle;
+    private boolean isLogined;
 
     @BindView(R.id.table_cycleView)
     ImageCycleView imageCycleView;
@@ -52,6 +53,7 @@ public class TableTopActivity extends MyBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_top);
         ButterKnife.bind(this);
+        isLogined = SharedUtil.getIsLogined(this);
 
         loadAdvData();
     }
@@ -134,6 +136,7 @@ public class TableTopActivity extends MyBaseActivity {
             R.id.tv_tableTop_toParentsStudy, R.id.tv_tableTop_toKidStudy, R.id.tv_tabletop_toAct,
             R.id.tv_tableTop_toShow, R.id.iv_tableTop_toHomeWeb, R.id.rl_tableTop_act})
     public void onClick(View view) {
+        isLogined = SharedUtil.getIsLogined(getBaseContext());
         if (bundle == null)
             bundle = new Bundle();
         switch (view.getId()) {
@@ -147,15 +150,30 @@ public class TableTopActivity extends MyBaseActivity {
                 break;
             case R.id.tv_tableTop_toVideo:
             case R.id.tv_tableTop_to51Video:
-                openActivity(HomeActivity.class);
+                if (isLogined) {
+                    openActivity(HomeActivity.class);
+                }else {
+                    showToast("还未登录，请先登录！");
+                    openActivity(LoginActivity.class);
+                }
                 break;
             case R.id.tv_tableTop_toFreeVideo:
-                bundle.putString("isTo", "FreeVideo");
-                openActivity(HomeActivity.class, bundle);
+                if (isLogined) {
+                    bundle.putString("isTo", "FreeVideo");
+                    openActivity(HomeActivity.class, bundle);
+                }else {
+                    showToast("还未登录，请先登录！");
+                    openActivity(LoginActivity.class);
+                }
                 break;
             case R.id.tv_tableTop_toVipVideo:
-                bundle.putString("isTo", "VipVideo");
-                openActivity(HomeActivity.class, bundle);
+                if (isLogined) {
+                    bundle.putString("isTo", "VipVideo");
+                    openActivity(HomeActivity.class, bundle);
+                }else {
+                    showToast("还未登录，请先登录！");
+                    openActivity(LoginActivity.class);
+                }
                 break;
             case R.id.tv_tableTop_toStudy:
                 bundle.putString("isTo", "StudyFragment");

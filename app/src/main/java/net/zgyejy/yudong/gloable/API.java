@@ -50,8 +50,8 @@ public class API {
     public static final String VIDEO_GET_VIDEOCOLLECT = APP_SERVER_IP +
             "/index.php/home/home/videoCollect?";
 
-    //评论接口，参数：id=38&token=jDeVZKPSx$2JHoEnwMBR
-    public static final String VIDEO_GET_COMMENT = APP_SERVER_IP +
+    //评论接口，参数：id=38&token=jDeVZKPSx$2JHoEnwMBR  content
+    public static final String VIDEO_POST_COMMENT = APP_SERVER_IP +
             "/index.php/home/home/comment?";
 
     //查看评论，参数：id=60
@@ -68,7 +68,7 @@ public class API {
 
     //积分增加接口，参数：flag=1&token=jDeVZKPSx$2JHoEnwMBR  flag = 1 登录、flag=2 分享
     public static final String USER_GET_INTEGRAL = APP_SERVER_IP +
-            "/index.php/home/home/integral?flag=1&token=jDeVZKPSx$2JHoEnwMBR";
+            "/index.php/home/home/integral?";
 
     /**
      * APP相关
