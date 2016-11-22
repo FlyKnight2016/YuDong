@@ -14,21 +14,11 @@ public class Mp3Text {
     private String text_price;//文档价格
     private int music_style;//mp3类型
     private int text_style;//文档类型
-    /*private String music_jifen;
-    private String text_jifen;
-    private String music_name;
-    private String text_name;
-    private String cate_name;*/
-
-    public Mp3Text(String music, String text, int music_style, int text_style,
-                   String music_price, String text_price) {
-        this.music = music;
-        this.text = text;
-        this.music_style = music_style;
-        this.text_style = text_style;
-        this.music_price = music_price;
-        this.text_price = text_price;
-    }
+    private String music_jifen;//mp3积分
+    private String text_jifen;//文档积分
+    private String music_name;//mp3名字
+    private String text_name;//文档名字
+    private String cate_name;//父目录名字
 
     public int getId() {
         return id;
@@ -94,6 +84,46 @@ public class Mp3Text {
         this.text_style = text_style;
     }
 
+    public String getMusic_jifen() {
+        return music_jifen;
+    }
+
+    public void setMusic_jifen(String music_jifen) {
+        this.music_jifen = music_jifen;
+    }
+
+    public String getText_jifen() {
+        return text_jifen;
+    }
+
+    public void setText_jifen(String text_jifen) {
+        this.text_jifen = text_jifen;
+    }
+
+    public String getMusic_name() {
+        return music_name;
+    }
+
+    public void setMusic_name(String music_name) {
+        this.music_name = music_name;
+    }
+
+    public String getText_name() {
+        return text_name;
+    }
+
+    public void setText_name(String text_name) {
+        this.text_name = text_name;
+    }
+
+    public String getCate_name() {
+        return cate_name;
+    }
+
+    public void setCate_name(String cate_name) {
+        this.cate_name = cate_name;
+    }
+
     @Override
     public String toString() {
         return "Mp3Text{" +
@@ -105,6 +135,11 @@ public class Mp3Text {
                 ", text_price='" + text_price + '\'' +
                 ", music_style=" + music_style +
                 ", text_style=" + text_style +
+                ", music_jifen='" + music_jifen + '\'' +
+                ", text_jifen='" + text_jifen + '\'' +
+                ", music_name='" + music_name + '\'' +
+                ", text_name='" + text_name + '\'' +
+                ", cate_name='" + cate_name + '\'' +
                 '}';
     }
 }

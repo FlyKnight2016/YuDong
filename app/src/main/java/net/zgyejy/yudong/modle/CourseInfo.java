@@ -2,6 +2,7 @@ package net.zgyejy.yudong.modle;
 
 import net.zgyejy.yudong.bean.VideoIntegral;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * Created by Administrator on 2016/11/14 0014.
  */
 
-public class CourseInfo {
+public class CourseInfo implements Serializable{
     private List<VideoIntegral> video;//视频列表
     private List<Mp3Text> mp3text;//mp3/文档列表
 
