@@ -33,6 +33,20 @@ public class ParserBaseEntity{
         return baseEntity;
     }
 
+    /**
+     * 得到BaseEntity对象
+     * @param json
+     * @return
+     */
+    public static BaseEntity<Object> getBaseEntityObject(String json) {
+        json = json.replace("\r\n", "");
+        Gson gson = new Gson();
+        Type type = new TypeToken<BaseEntity<Object>>() {
+        }.getType();
+        BaseEntity<Object> baseEntity = gson.fromJson(json,type);
+        return baseEntity;
+    }
+
     public static BaseEntity<Token> getBaseEntityOfToken(String json) {
         json = json.replace("\r\n", "");
         Gson gson = new Gson();

@@ -1,24 +1,23 @@
 package net.zgyejy.yudong.fragment;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.activity.AboutUsActivity;
+import net.zgyejy.yudong.activity.EditUserInfoActivity;
 import net.zgyejy.yudong.activity.HomeActivity;
 import net.zgyejy.yudong.activity.LoginActivity;
 import net.zgyejy.yudong.gloable.API;
@@ -29,16 +28,16 @@ import net.zgyejy.yudong.modle.UserBaseInfo;
 import net.zgyejy.yudong.modle.parser.ParserBaseEntity;
 import net.zgyejy.yudong.modle.parser.ParserUserBaseInfo;
 import net.zgyejy.yudong.util.CommonUtil;
+import net.zgyejy.yudong.util.DbService;
 import net.zgyejy.yudong.util.SharedUtil;
 import net.zgyejy.yudong.util.VolleySingleton;
 import net.zgyejy.yudong.view.XCRoundRectImageView;
-
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -52,11 +51,12 @@ public class UserFragment extends Fragment {
     private RequestQueue requestQueue;//volley接口对象
     private UserBaseInfo userBaseInfo;
 
+    private DbService dbService;
     private String userName;//用户昵称
     private String userPortrait;//用户头像
     private String userPoints;//用户积分
-    private int[] payVideos;//已付费视频id
-    private int[] collectVideos;//已收藏视频id
+    private long[] payVideos;//已付费视频id
+    private long[] collectVideos;//已收藏视频id
     private List<Coupon> coupons;//优惠券
 
     @BindView(R.id.iv_userPortrait)
@@ -78,6 +78,8 @@ public class UserFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isLogined = SharedUtil.getIsLogined(getContext());
+        if (dbService == null)
+            dbService = DbService.getInstance(getContext());
     }
 
     @Override
@@ -98,7 +100,7 @@ public class UserFragment extends Fragment {
 
     @OnClick({R.id.iv_userPortrait, R.id.tv_userName, R.id.ll_user_myBalance, R.id.ll_user_myCoupons, R.id.ll_user_myPoints,
             R.id.ll_user_myOrders, R.id.ll_user_myCollect, R.id.ll_user_integralMall,
-            R.id.ll_user_normalProblem, R.id.ll_user_aboutUs, R.id.tv_user_signIn})
+            R.id.ll_user_normalProblem, R.id.ll_user_aboutUs, R.id.tv_user_signIn, R.id.tv_editData})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_userPortrait:
@@ -137,12 +139,18 @@ public class UserFragment extends Fragment {
             case R.id.ll_user_aboutUs:
                 ((HomeActivity) getActivity()).openActivity(AboutUsActivity.class);
                 break;
+            case R.id.tv_editData:
+                //编辑个人资料
+                ((HomeActivity) getActivity()).openActivity(EditUserInfoActivity.class);
+                break;
         }
     }
 
     private HomeActivity getMyActivity() {
         return (HomeActivity) getActivity();
     }
+
+    private static final String TAG = "UserFragment";
 
     /**
      * 发送网络请求，得到用户基本信息
@@ -155,29 +163,39 @@ public class UserFragment extends Fragment {
                 //实例化一个RequestQueue对象
                 requestQueue = VolleySingleton.getVolleySingleton(getContext()).getRequestQueue();
             String urlUser = API.USER_GET_USERINFO + "token=" + token;
+            Log.i(TAG, "getUserBaseInfo: +++++++++++++++++++++++++++++++" + urlUser);
             ((HomeActivity) getActivity()).showLoadingDialog(getContext(), "数据正在加载...", true);//显示加载动画
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlUser,
                     null,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject jsonObject) {
+
+                            Log.i(TAG, "onResponse: ===========" + jsonObject.toString());
+
                             //解析用户基本信息
                             userBaseInfo = ParserUserBaseInfo.getUserBaseInfo(jsonObject.toString());
 
+                            Log.i(TAG, "onResponse: +++++++++++" + userBaseInfo);
                             userName = userBaseInfo.getUsername();
                             userPortrait = userBaseInfo.getImage();
                             userPoints = userBaseInfo.getIntegralcount();
                             payVideos = userBaseInfo.getPayVideo();
+                            dbService.saveAllPayVideo(payVideos);
                             collectVideos = userBaseInfo.getCollectVideo();
+                            dbService.saveAllCollectVideo(collectVideos);
                             coupons = userBaseInfo.getCoupon();
 
                             //设置用户名
                             if (userName != null) {
                                 tvUserName.setText(userName);
+                                SharedUtil.saveUserName(getContext(),userName);//保存用户名
                             } else {
                                 String phone = SharedUtil.getUserPhone(getContext());
                                 tvUserName.setText(phone.substring(0, 3) + "****" + phone.substring(7));
                             }
+
+                            Log.i(TAG, "onResponse: ----------" + userPortrait);
 
                             //使用Picasso加载头像
                             Picasso.with(getContext())

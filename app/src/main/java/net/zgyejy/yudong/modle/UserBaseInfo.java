@@ -3,24 +3,26 @@ package net.zgyejy.yudong.modle;
 import java.util.Arrays;
 import java.util.List;
 
+import static io.rong.imlib.statistics.UserData.username;
+
 /**
  * Created by Administrator on 2016/11/11 0011.
  */
 
 public class UserBaseInfo {
-    private String username;//用户昵称
+    private String nickname;//用户昵称
     private String image;//用户头像
     private String integralcount;//积分数
-    private int[] payVideo;//已付费视频id列表
-    private int[] collectVideo;//已收藏视频id列表
+    private long[] payVideo;//已付费视频id列表
+    private long[] collectVideo;//已收藏视频id列表
     private List<Coupon> coupon;//优惠券列表
 
     public String getUsername() {
-        return username;
+        return nickname;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getImage() {
@@ -39,19 +41,19 @@ public class UserBaseInfo {
         this.integralcount = integralcount;
     }
 
-    public int[] getPayVideo() {
+    public long[] getPayVideo() {
         return payVideo;
     }
 
-    public void setPayVideo(int[] payVideo) {
+    public void setPayVideo(long[] payVideo) {
         this.payVideo = payVideo;
     }
 
-    public int[] getCollectVideo() {
+    public long[] getCollectVideo() {
         return collectVideo;
     }
 
-    public void setCollectVideo(int[] collectVideo) {
+    public void setCollectVideo(long[] collectVideo) {
         this.collectVideo = collectVideo;
     }
 
@@ -66,7 +68,7 @@ public class UserBaseInfo {
     @Override
     public String toString() {
         return "UserBaseInfo{" +
-                "username='" + username + '\'' +
+                "username='" + nickname + '\'' +
                 ", image='" + image + '\'' +
                 ", integralcount='" + integralcount + '\'' +
                 ", payVideo=" + Arrays.toString(payVideo) +

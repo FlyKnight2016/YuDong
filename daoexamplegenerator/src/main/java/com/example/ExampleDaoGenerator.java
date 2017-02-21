@@ -20,10 +20,55 @@ public class ExampleDaoGenerator {
         // 一旦你拥有了一个 Schema 对象后，你便可以使用它添加实体（Entities）了。
         //添加5个1书籍列表
         addBook(schema);
+        addVideoIntegral(schema);
+        addPayVideoIds(schema);
+        addCollectVideoIds(schema);
 
         // 最后我们将使用 DAOGenerator 类的 generateAll() 方法自动生成代码，此处你需要根据自己的情况更改输出目录（既之前创建的 java-gen)。
         // 其实，输出目录的路径可以在 build.gradle 中设置，有兴趣的朋友可以自行搜索，这里就不再详解。
         new DaoGenerator().generateAll(schema, "D:/EglishPath/MyApplications/YuDong/app/src/main/java-gen");
+    }
+
+    /**
+     * 添加已收藏视频id列表
+     * @param schema
+     */
+    private static void addCollectVideoIds(Schema schema) {
+        // 一个实体（类）就关联到数据库中的一张表，此处表名为「VideoIntegral」（既类名）
+        Entity collectVideoId = schema.addEntity("CollectVideoId");
+        collectVideoId.addIdProperty();
+    }
+
+    /**
+     * 添加已购买视频id列表
+     * @param schema
+     */
+    private static void addPayVideoIds(Schema schema) {
+        // 一个实体（类）就关联到数据库中的一张表，此处表名为「VideoIntegral」（既类名）
+        Entity payVideoId = schema.addEntity("PayVideoId");
+        payVideoId.addIdProperty();
+    }
+
+    /**
+     * 添加视频列表
+     * @param schema
+     */
+    private static void addVideoIntegral(Schema schema) {
+        // 一个实体（类）就关联到数据库中的一张表，此处表名为「VideoIntegral」（既类名）
+        Entity videoIntegral = schema.addEntity("VideoIntegral");
+        videoIntegral.addIdProperty();
+        videoIntegral.addStringProperty("video_name").notNull();
+        videoIntegral.addStringProperty("video_zip");
+        videoIntegral.addStringProperty("video_describe");
+        videoIntegral.addIntProperty("video_style");
+        videoIntegral.addStringProperty("video_price");
+        videoIntegral.addStringProperty("see_num");
+        videoIntegral.addStringProperty("evaluate_num");
+        videoIntegral.addStringProperty("collect_num");
+        videoIntegral.addStringProperty("video_url").notNull();
+        videoIntegral.addLongProperty("video_addtime");
+        videoIntegral.addIntProperty("cate_id");
+        videoIntegral.addStringProperty("video_jifen");
     }
 
     /**

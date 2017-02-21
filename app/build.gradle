@@ -8,8 +8,8 @@ android {
         applicationId "net.zgyejy.yudong"
         minSdkVersion 17
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode 6
+        versionName "1.06"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -18,9 +18,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions{
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
     sourceSets {
         main {
             java.srcDirs = ['src/main/java', 'src/main/java-gen']
+            jniLibs.srcDirs = ['libs']
         }
     }
 }
@@ -46,4 +53,10 @@ dependencies {
     compile 'it.sephiroth.android.library.picasso:picasso:2.5.2.4b'
     compile 'org.wlf:FileDownloader:0.3.1'
     compile 'de.greenrobot:greendao:1.3.7'
+    compile project(':vitamio')
+    compile files('libs/MobCommons-2016.1107.1809.jar')
+    compile files('libs/jcore-android_v1.0.0.jar')
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile 'com.qiniu:happy-dns:0.2.11'
+    compile project(':imlib')
 }

@@ -2,14 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/txtBack">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="文档阅读"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="文档下载"/>
-
+        android:layout_gravity="center_horizontal"
+        android:padding="20px"
+        android:text="文档预览"
+        android:textColor="@color/themeColor"
+        android:textSize="34px"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_txtShow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20px"
+                android:textSize="30px"/>
+        </ScrollView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="30px"
+            android:background="@drawable/text_view_back_button"
+            android:padding="20px"
+            android:text="文档\n下载"
+            android:textColor="@color/white"/>
+    </FrameLayout>
 </LinearLayout>

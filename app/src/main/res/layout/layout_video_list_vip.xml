@@ -2,21 +2,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
              android:layout_height="match_parent">
-    <TextView
+
+    <ListView
+        android:id="@+id/lv_vipCourses"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_margin="20px"
-        android:text="功能暂未开通，敬请期待！"/>
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/lv_video_vip"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        ptr:ptrDrawable="@drawable/default_ptr_flip"
-        ptr:ptrAnimationStyle="flip"
-        ptr:ptrHeaderBackground="@color/themeColor"
-        ptr:ptrHeaderTextColor="#FFFFFF">
-    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+        android:layout_height="match_parent"/>
 </FrameLayout>

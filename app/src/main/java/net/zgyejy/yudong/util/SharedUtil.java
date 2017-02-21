@@ -2,11 +2,15 @@ package net.zgyejy.yudong.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 
 import net.zgyejy.yudong.modle.UserBaseInfo;
+import net.zgyejy.yudong.modle.UserInfoMore;
 
 import java.text.DateFormat;
 import java.util.Date;
+
+import io.rong.imlib.model.UserInfo;
 
 import static net.zgyejy.yudong.R.drawable.phone;
 
@@ -176,28 +180,103 @@ public class SharedUtil {
     }
 
     /**
-     * 保存用户名、头像、积分等基本信息
-     * @param context
-     * @param userBaseInfo
+     * 保存用户头像
      */
-    public static void saveUserBaseInfo(Context context, UserBaseInfo userBaseInfo) {
+    public static void saveUserId(Context context, String userId) {
         SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("username", userBaseInfo.getUsername());
-        editor.putString("image",userBaseInfo.getImage());
-        editor.putString("integral",userBaseInfo.getIntegralcount());
+        editor.putString("id",userId);
+        editor.apply();
+    }
+
+    /**
+     * 保存用户头像
+     */
+    public static void saveUserName(Context context, String userName) {
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("name",userName);
+        editor.apply();
+    }
+
+    /**
+     * 保存用户头像
+     */
+    public static void saveUserIcon(Context context, String portraitUri) {
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("portraitUri",portraitUri);
         editor.apply();
     }
 
     /**
      * 获取传入key对应的用户基本信息
      * @param context
-     * @param key
      * @return
      */
-    public static String getUserBaseInfo(Context context, String key) {
+    public static UserInfo getUserInfo(Context context) {
         SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
-        return sharedPreferences.getString(key,null);
+        return new UserInfo(sharedPreferences.getString("id","01"),
+                sharedPreferences.getString("name","未命名用户"),
+                Uri.parse(sharedPreferences.getString("portraitUri","http://api.zgyejy.net/image/pic.jpg")));
+        //此处头像用户名为临时，接口改变后需修改
+    }
+
+    /**
+     * 得到用户名
+     * @param context
+     * @return
+     */
+    public static String getUserName(Context context) {
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
+        return sharedPreferences.getString("name","未命名用户");
+    }
+
+    /**
+     * 得到用户名
+     * @param context
+     * @return
+     */
+    public static String getUserIcon(Context context) {
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
+        return sharedPreferences.getString("portraitUri","http://api.zgyejy.net/image/pic.jpg");
+    }
+
+    /**
+     * 存储其他用户信息
+     * @param context
+     * @param userInfoMore
+     */
+    public static void saveUserInfoMore(Context context, UserInfoMore userInfoMore) {
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("nickname",userInfoMore.getNickname());
+        editor.putString("gender",userInfoMore.getGender());
+        editor.putString("identity",userInfoMore.getIdentity());
+        editor.putString("qq",userInfoMore.getQq());
+        editor.putString("weichat",userInfoMore.getWeichat());
+        editor.putString("kindergarten",userInfoMore.getKindergarten());
+        editor.putString("email",userInfoMore.getEmail());
+        editor.putString("signature",userInfoMore.getSignature());
+        editor.putString("image",userInfoMore.getImage());
+        editor.putInt("iid",userInfoMore.getIid());
+        editor.apply();
+    }
+
+    public static UserInfoMore getUserInfoMore(Context context) {
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences_user(context);
+        return new UserInfoMore(
+                sharedPreferences.getString("nickname","未知用户"),
+                sharedPreferences.getString("gender","1"),
+                sharedPreferences.getString("identity","1"),
+                sharedPreferences.getString("qq",""),
+                sharedPreferences.getString("weichat",""),
+                sharedPreferences.getString("kindergarten",""),
+                sharedPreferences.getString("email",""),
+                sharedPreferences.getString("signature",""),
+                sharedPreferences.getString("image",""),
+                sharedPreferences.getInt("iid",1)
+        );
     }
 
     /**

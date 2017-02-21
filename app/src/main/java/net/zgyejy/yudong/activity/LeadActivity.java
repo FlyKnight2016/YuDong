@@ -33,7 +33,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LeadActivity extends MyBaseActivity {
-    private RequestQueue requestQueue;//volley接口对象
     private boolean isFromAboutUs;//是否是从关于我们界面点进来的
     private ViewPager vpLeadPicture;
     private TextView tvLeadSkip;//点击进入
@@ -44,9 +43,6 @@ public class LeadActivity extends MyBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        /*//检查更新
-        checkUpdate();*/
 
         isFirstRunning = SharedUtil.getBoolean(getBaseContext(), "isFirst", true);
         if (isFirstRunning) {
@@ -61,58 +57,6 @@ public class LeadActivity extends MyBaseActivity {
             finish();
         }
 
-    }
-
-    /**
-     * 检查更新
-     */
-    private void checkUpdate() {
-        if (requestQueue == null)
-            requestQueue = VolleySingleton.getVolleySingleton(this).getRequestQueue();
-        showToast("正在检查版本，请稍候！");
-        String urlUpdate = API.APP_POST_UPDATE;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, urlUpdate,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        BaseEntity<Version> baseEntity = ParserBaseEntity.getBaseEntityOfVersion(response);
-                        if (baseEntity.getCode() == 201||baseEntity.getCode() ==200) {//201强制更新，200非强制更新
-                            //得到最新下载包链接
-                            String url = API.APP_SERVER_IP + baseEntity.getData().getVersionUrl();
-                            UpdateManager updateManager = new UpdateManager(getBaseContext(), url);
-                            updateManager.checkUpdateInfo(LeadActivity.this);
-                        }else {
-                            showToast("已是最新版本！");
-                            isFirstRunning = SharedUtil.getBoolean(getBaseContext(), "isFirst", true);
-                            if (isFirstRunning) {
-                                isFirstRunning = false;
-                                savePreferences();
-                                setContentView(R.layout.activity_lead);
-                                initView();
-                                init();
-                                initData();
-                            } else {
-                                openActivity(TableTopActivity.class);
-                                finish();
-                            }
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                //在这里设置需要post的参数
-                Map<String, String> params = new HashMap();
-                params.put("app", "android");
-                params.put("versionCode", Contacts.VER);
-                return params;
-            }
-        };
-        requestQueue.add(stringRequest);
     }
 
     /**

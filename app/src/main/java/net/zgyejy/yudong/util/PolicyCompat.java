@@ -25,7 +25,6 @@ public class PolicyCompat {
         try {
             /* Find class */
             Class<?> cls = Class.forName(PHONE_WINDOW_CLASS_NAME);
-
             /* Get constructor */
             Constructor c = cls.getConstructor(Context.class);
 

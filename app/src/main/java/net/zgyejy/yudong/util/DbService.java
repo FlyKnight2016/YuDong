@@ -8,7 +8,16 @@ import java.util.List;
 import de.greenrobot.dao.query.Query;
 import me.yejy.greendao.Book;
 import me.yejy.greendao.BookDao;
+import me.yejy.greendao.CollectVideoId;
+import me.yejy.greendao.CollectVideoIdDao;
 import me.yejy.greendao.DaoSession;
+import me.yejy.greendao.PayVideoId;
+import me.yejy.greendao.PayVideoIdDao;
+import me.yejy.greendao.VideoIntegral;
+import me.yejy.greendao.VideoIntegralDao;
+
+import static android.R.id.list;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 
 
 /**
@@ -21,6 +30,9 @@ public class DbService {
     private static Context appContext;
     private DaoSession mDaoSession;
     private BookDao bookDao;
+    private VideoIntegralDao videoIntegralDao;
+    private CollectVideoIdDao collectVideoIdDao;
+    private PayVideoIdDao payVideoIdDao;
 
     private DbService() {
     }
@@ -33,6 +45,9 @@ public class DbService {
             }
             instance.mDaoSession = MyApplication.getDaoSession(context);
             instance.bookDao = instance.mDaoSession.getBookDao();
+            instance.videoIntegralDao = instance.mDaoSession.getVideoIntegralDao();
+            instance.collectVideoIdDao = instance.mDaoSession.getCollectVideoIdDao();
+            instance.payVideoIdDao = instance.mDaoSession.getPayVideoIdDao();
         }
         return instance;
     }
@@ -44,6 +59,45 @@ public class DbService {
      */
     public Book loadBook(long id) {
         return bookDao.load(id);
+    }
+
+    /**
+    * 根据id得到积分视频对象
+     * @param id
+     * @return
+     */
+    public VideoIntegral loadVideoIntegral(long id) {
+        return videoIntegralDao.load(id);
+    }
+
+    /**
+     * 根据id判断是否已收藏
+     * @param id
+     * @return
+     */
+    public boolean isCollected(long id) {
+        if (collectVideoIdDao.load(id) == null) {
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    /**
+     * 根据id判断是否已付费
+     * @param id
+     * @return
+     */
+    public boolean isPayed(long id) {
+        if (payVideoIdDao.load(id) == null) {
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    public List<VideoIntegral> loadAllVideoIntegral() {
+        return videoIntegralDao.loadAll();
     }
 
     /**
@@ -78,6 +132,15 @@ public class DbService {
         return bookDao.insertOrReplace(book);
     }
 
+    /**
+     * 添加或更新积分视频
+     * insert or update note
+     * @param videoIntegral
+     * @return insert or update note id
+     */
+    public long saveVideoIntegral(VideoIntegral videoIntegral){
+        return videoIntegralDao.insertOrReplace(videoIntegral);
+    }
 
     /**
      * 添加或更新一批数据
@@ -94,6 +157,69 @@ public class DbService {
                 for(int i=0; i<list.size(); i++){
                     Book book = list.get(i);
                     bookDao.insertOrReplace(book);
+                }
+            }
+        });
+
+    }
+
+    /**
+     * 添加或更新一批积分视频
+     * insert or update noteList use transaction
+     * @param list
+     */
+    public void saveVideoIntegralList(final List<VideoIntegral> list){
+        if(list == null || list.isEmpty()){
+            return;
+        }
+        videoIntegralDao.getSession().runInTx(new Runnable() {
+            @Override
+            public void run() {
+                for(int i=0; i<list.size(); i++){
+                    VideoIntegral videoIntegral = list.get(i);
+                    videoIntegralDao.insertOrReplace(videoIntegral);
+                }
+            }
+        });
+
+    }
+
+    /**
+     * 添加或更新收藏视频列表
+     * insert or update noteList use transaction
+     * @param list
+     */
+    public void saveAllCollectVideo(final long[] list){
+        if(list == null || list.length == 0){
+            return;
+        }
+        bookDao.getSession().runInTx(new Runnable() {
+            @Override
+            public void run() {
+                for(int i=0; i<list.length; i++){
+                    CollectVideoId collectVideoId = new CollectVideoId(list[i]);
+                    collectVideoIdDao.insertOrReplace(collectVideoId);
+                }
+            }
+        });
+
+    }
+
+    /**
+     * 添加或更新已付视频列表
+     * insert or update noteList use transaction
+     * @param list
+     */
+    public void saveAllPayVideo(final long[] list){
+        if(list == null || list.length == 0){
+            return;
+        }
+        bookDao.getSession().runInTx(new Runnable() {
+            @Override
+            public void run() {
+                for(int i=0; i<list.length; i++){
+                    PayVideoId payVideoId = new PayVideoId(list[i]);
+                    payVideoIdDao.insertOrReplace(payVideoId);
                 }
             }
         });

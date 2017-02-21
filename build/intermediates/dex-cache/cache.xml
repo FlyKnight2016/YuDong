@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-24.2.1_ca94ccf7b6bb2651a7321cf0e3a9de88640b217d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\libs\ShareSDK-QQ-2.7.10.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="5d3ffc9c4c2743fcc83b3333f77fc252fb146889">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\ShareSDK-QQ-2.7.10_2170139cdd6f258014f08c080768bd6b46715f69.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\de.greenrobot\greendao\1.3.7\dda08161d004c4df96938da6909f1c2b96cd33c8\greendao-1.3.7.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="dda08161d004c4df96938da6909f1c2b96cd33c8">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\greendao-1.3.7_7f8c1aac3a5838d150b4ad3e91d5f8e4c02f92da.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp\okhttp\2.1.0\9b51f7d0c19f179b52beab7cb433f8ba5cf786a4\okhttp-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="9b51f7d0c19f179b52beab7cb433f8ba5cf786a4">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\okhttp-2.1.0_b6ca073afe34a3c7e61f2ab2568cf725eb1fc954.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp\okhttp-urlconnection\2.1.0\6025b7df8a6a4193138723ef120e7228b6a97024\okhttp-urlconnection-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="6025b7df8a6a4193138723ef120e7228b6a97024">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\okhttp-urlconnection-2.1.0_56a37dd2400723d8cf87caf55b617eaffd7e03aa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.jorge.circleview\circlelibrary\1.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="854482bd4f6bc51785fc6d7feced5a42f11f6120">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\com.jorge.circleview-circlelibrary-1.0.0_07f7c5f60b1ff074151e1fc3cc632997b4450001.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="65d086ee9daaf87b5af62ad24471edafa433354c">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-appindexing-8.4.0_80e82d0546b8dcb0c799f156185718b2be654482.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-utils-24.2.1_579bd8a12f0c9acec1c87badf87fc406edf32e8b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_b2fc310848796e18d8b82644e744c432f7aa2993.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_beb4cc37b2aa540e1ad9955bde31df6e56d4e814.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-24.2.1_dc57edcb78e8918fd1e06d8525c74b9e73386d9d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\libs\ShareSDK-SinaWeibo-2.7.10.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="52574245a489f42699687ba9038c8c803a8e8bcf">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\ShareSDK-SinaWeibo-2.7.10_eec041cfd3cd4cd92272553cb45008eededef875.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-24.2.1_5db188303ec0bf8db10229a3204e39e2707efce0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\sdk\extras\android\m2repository\com\android\support\support-annotations\24.2.1\support-annotations-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\support-annotations-24.2.1_3182c889687aca68f070e7fd586420321542638c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\libs\ShareSDK-Wechat-Favorite-2.7.10.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="f30192f55e1113b13b6ac5204bbcc19e203b4160">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\ShareSDK-Wechat-Favorite-2.7.10_f21101477f0c06987d9c785a4ded118fedb5e220.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\org.wlf\FileDownloader\0.3.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="94c28cb237ee6987b81d737a30e792eccca14ed2">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\org.wlf-FileDownloader-0.3.1_93347423233782bd5d688149d45523b613a8f86d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.qiniu\happy-dns\0.2.11\167d00c3da419367bdcc42f39a8fbf96c24fbbaf\happy-dns-0.2.11.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="167d00c3da419367bdcc42f39a8fbf96c24fbbaf">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\happy-dns-0.2.11_0db2b1743a8f9dc6535fd65998730c4b32c2f6e5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\com.android.support-support-compat-24.2.1_0fa36d98d01559015df0fd3bbdbe65458117982b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\eu.the4thfloor.volley\com.android.volley\2015.05.28\b0b08cc0ac897e596abe6b263a9507cba875b705\com.android.volley-2015.05.28.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="b0b08cc0ac897e596abe6b263a9507cba875b705">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\com.android.volley-2015.05.28_c6370b5044be90158f474fc6fb3579fca2216951.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.0.1\39eff75ddcb987ff65888361a29f489c178429a3\okio-1.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="39eff75ddcb987ff65888361a29f489c178429a3">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\okio-1.0.1_fe84f675bf558aec97bd5f97205d62dbd02e157a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\it.sephiroth.android.library.picasso\picasso\2.5.2.4b\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="9099e6b672d8e3e8577d6db64c4ab99f6243132c">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\it.sephiroth.android.library.picasso-picasso-2.5.2.4b_93fc717c9b8cf66c52cb8fd0938a6f2822842f39.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-basement-8.4.0_682535e6e4e325553eec32ff775ad58e52fb11f3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.7\751f548c85fa49f330cecbb1875893f971b33c4e\gson-2.7.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\gson-2.7_2e85dbf641c4a16c73925139bd4ff50ebb0450dd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="b95555c21fc34e99e7e079824375854295835321">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\instant-run-bootstrap_5bbda3e8950db2c8cc91170ab0e56e7ac53a3cd0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\AndroidStudio\gradle\m2repository\com\intellij\annotations\12.0\annotations-12.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="bbcf6448f6d40abe506e2c83b70a3e8bfd2b4539">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\annotations-12.0_2b0103f0e5e859d213ea93de57ae3f7c554c1c0c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_d3cca849e00785d4cef8f5a247c643c1877a4190.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-24.2.1_5055fbebf9b03a0d81afcc9b21b0195cd65b0e04.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\libs\ShareSDK-Wechat-Moments-2.7.10.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="a8357a3810c2e5bbb6274042a1508bac87759c5f">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\ShareSDK-Wechat-Moments-2.7.10_4ca2dec23a73a31c18de9b55070fc90b792c6979.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_ee23583df1dba1ddb29262e1e7719097ab7f7d7d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\libs\MobCommons-2016.1107.1809.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="978446ee83b82106e7d859832e4e3440101bda5a">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\MobCommons-2016.1107.1809_1f3807d7fc7dff57dffc41a2da2a0fba083dda57.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.android.support\design\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\com.android.support-design-24.2.1_098ef6b45980affcdbc70494517a3d73e7038cc2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\YuDong\imlib\unspecified\jars\libs\Rong_IMLib.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="76d97fb2c034a941290eacc249a1c1651dc34c7d">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\Rong_IMLib_c672a2d0d220344f9eb8cc9484a1ca912c7aa894.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="f31b3d1bec0f1cc779d0cd51918d3d37058beab6">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\instant-run_de2b7ab531964563bf97a2be8ac2a6169fa117a8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.jakewharton\butterknife-annotations\8.2.0\54af7c495f6c92e0eaba1e839bc03b85ff61fddb\butterknife-annotations-8.2.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="54af7c495f6c92e0eaba1e839bc03b85ff61fddb">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\butterknife-annotations-8.2.0_d23fa3441be34fa8bcab55852aa0aaea57fb447f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\im.quar\autolayout-annotations\1.0.4\35135ef460aff247273725e65bde91d3ff25806e\autolayout-annotations-1.0.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="35135ef460aff247273725e65bde91d3ff25806e">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\autolayout-annotations-1.0.4_1de54b56c5ef5e45beaf4ed298bbd00a024c967b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-24.2.1_78f5b6b0d6f11b52cc10efd0d994fc4011f3b572.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\libs\ShareSDK-Wechat-Core-2.7.10.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="a720ef31ac89904b603fb2a27c01bb21a951fcad">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\ShareSDK-Wechat-Core-2.7.10_ebae98de5da2d4f1e758df5726c3400526e9e240.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\com.android.support-support-media-compat-24.2.1_a611cd9ac5ce5b731d284d3d1fcd1ab5f3a008ed.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\libs\jpush-android_v3.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="80269b2947385e1e32eaab580a47d96a1e5a315c">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\jpush-android_v3.0.0_57ec533c2d9f8794018a0c70d1e6cb7ae800db96.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\libs\jcore-android_v1.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="106b4280f8f932065d75075b65bc7754411abc73">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\jcore-android_v1.0.0_e31e426a9834a7f42fc75f872c1de6bf110f1bfb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-24.2.1_c79d817cd1308aad1d5466b05dcd19096c523479.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-base-8.4.0_61ef35191414f8cc23e9afc9286117d1de143da0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.jakewharton\butterknife\8.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="db845b5a27edd9462518d02f9906aa19dd4b9718">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\com.jakewharton-butterknife-8.2.0_ed9f7fa9b98c01ed1a61fe2f7128c582bbdd2d1d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\com.android.support-support-fragment-24.2.1_94f96f9a0e899087e732308b890bac41c47a304c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_78e42a43382f25b0c60898019a88cc398cf90f7e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\libs\ShareSDK-Wechat-2.7.10.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="b9e12f2d8a6f01dce27c65ce3b93bccd46e7ffd4">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\ShareSDK-Wechat-2.7.10_67faa80f2a7c44c62f9442583a2ac6a7ba961b9a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\libs\MobTools-2016.1107.1809.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="51ab3d9199c3df198ba8fedb2916027f283676d6">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\MobTools-2016.1107.1809_da38ba371b12be4ec45d78aaec944454e05ce5b2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\libs\ShareSDK-Core-2.7.10.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="a7e5f9da3635eb8d89b8a9a22cd68cd64cca9104">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\ShareSDK-Core-2.7.10_ee0d1cccf8f9d5174bd6319c2f0d03cc589726d4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\YuDong\libzxing\unspecified\jars\libs\zxing.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="657431ffc6f0c763c22579b392e0bdfab26fc817">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\zxing_22a3b9c4717c41105d4221c546b4f2ea65815242.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\exploded-aar\im.quar\autolayout\1.0.4\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="3572c3ea3bdf1af9ecaf8a5244c7d16c6a6554f5">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\im.quar-autolayout-1.0.4_1b96fae6bed0f3e5b8ba47050e8721e7cbe7a5e2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\EglishPath\MyApplications\YuDong\app\libs\pldroid-player-1.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="6d6cdcb955173ff453453ab2e9342db8eddd4a6f">
+        <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\pldroid-player-1.4.0_da4d11b653d3581f80759ba48c2b8737fdb863fd.jar" />
+    </item>
+
+</items>

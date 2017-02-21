@@ -45,10 +45,16 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
+import com.pili.pldroid.player.IMediaController;
+
 import net.zgyejy.yudong.R;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.util.Formatter;
 import java.util.Locale;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * A view containing controls for a MediaPlayer. Typically contains the
@@ -65,23 +71,22 @@ import java.util.Locale;
  * <p>
  * Functions like show() and hide() have no effect when MediaController
  * is created in an xml layout.
- * 
+ * <p>
  * MediaController will hide and
  * show the buttons according to these rules:
  * <ul>
  * <li> The "previous" and "next" buttons are hidden until setPrevNextListeners()
- *   has been called
+ * has been called
  * <li> The "previous" and "next" buttons are visible but disabled if
- *   setPrevNextListeners() was called with null listeners
+ * setPrevNextListeners() was called with null listeners
  * <li> The "rewind" and "fastforward" buttons are shown unless requested
- *   otherwise by using the MediaController(Context, boolean) constructor
- *   with the boolean set to false
+ * otherwise by using the MediaController(Context, boolean) constructor
+ * with the boolean set to false
  * </ul>
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class MediaController extends FrameLayout {
-
-    private MediaPlayerControl  mPlayer;
+public class MediaController extends FrameLayout implements IMediaController {
+    private IMediaController.MediaPlayerControl mPlayer;
     private Context mContext;
     private View mAnchor;
     private View mRoot;
@@ -91,14 +96,14 @@ public class MediaController extends FrameLayout {
     private WindowManager.LayoutParams mDecorLayoutParams;
     private ProgressBar mProgress;
     private TextView mEndTime, mCurrentTime;
-    private boolean             mShowing;
-    private boolean             mDragging;
-    private static final int    sDefaultTimeout = 3000;
-    private static final int    FADE_OUT = 1;
-    private static final int    SHOW_PROGRESS = 2;
-    private boolean             mUseFastForward;
-    private boolean             mFromXml;
-	private boolean             mListenersSet;
+    private boolean mShowing;
+    private boolean mDragging;
+    private static final int sDefaultTimeout = 3000;
+    private static final int FADE_OUT = 1;
+    private static final int SHOW_PROGRESS = 2;
+    private boolean mUseFastForward;
+    private boolean mFromXml;
+    private boolean mListenersSet;
     private View.OnClickListener mNextListener, mPrevListener;
     onClickIsFullScreenListener clickIsFullScreenListener;
     StringBuilder mFormatBuilder;
@@ -116,6 +121,14 @@ public class MediaController extends FrameLayout {
         mUseFastForward = true;
         mFromXml = true;
     }
+
+    public MediaController(Context context, boolean useFastForward, boolean disableProgressBar) {
+        this(context);
+        mUseFastForward = useFastForward;
+        mDisableProgress = disableProgressBar;
+    }
+
+    private boolean mDisableProgress = false;
 
     @Override
     public void onFinishInflate() {
@@ -139,10 +152,24 @@ public class MediaController extends FrameLayout {
         mIsFullScreen.setBackgroundResource(drawableId);
     }
 
-	private void initFloatingWindow() {
-        mWindowManager = (WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE);
+    private void initFloatingWindow() {
+        mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         //�����ע���£�ʹ��PolicyCompat�滻ԭ����
-        mWindow = PolicyCompat.createWindow(mContext);
+        /*mWindow = PolicyCompat.createWindow(mContext);*/
+
+
+        try {
+            Class windowClass = null;
+            windowClass = Class.forName("com.android.internal.policy.impl.PhoneWindow");
+            Constructor<?> localConstructor = windowClass.getConstructor(Context.class);
+            mWindow = (Window) localConstructor.newInstance(mContext);//实例化Window，如果传的context不是Application的Context,就会奔溃
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Log.i(TAG, "initFloatingWindow: mWindow = " + mWindow);
+        Log.i(TAG, "initFloatingWindow: mWindowManager = " + mWindowManager);
+
         mWindow.setWindowManager(mWindowManager, null, null);
         mWindow.requestFeature(Window.FEATURE_NO_TITLE);
         mDecor = mWindow.getDecorView();
@@ -164,7 +191,7 @@ public class MediaController extends FrameLayout {
     // also call updateFloatingWindowLayout() to fill in the dynamic parts
     // (y and width) before mDecorLayoutParams can be used.
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void initFloatingWindowLayout() {
+    private void initFloatingWindowLayout() {
         mDecorLayoutParams = new WindowManager.LayoutParams();
         WindowManager.LayoutParams p = mDecorLayoutParams;
         p.gravity = Gravity.TOP | Gravity.LEFT;
@@ -182,7 +209,7 @@ public class MediaController extends FrameLayout {
     // Update the dynamic parts of mDecorLayoutParams
     // Must be called with mAnchor != NULL.
     private void updateFloatingWindowLayout() {
-        int [] anchorPos = new int[2];
+        int[] anchorPos = new int[2];
         mAnchor.getLocationOnScreen(anchorPos);
 
         // we need to know the size of the controller so we can properly position it
@@ -198,18 +225,18 @@ public class MediaController extends FrameLayout {
 
     // This is called whenever mAnchor's layout bound changes
     private OnLayoutChangeListener mLayoutChangeListener =
-    		(VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB) ?
-            new OnLayoutChangeListener() {
-		        public void onLayoutChange(View v, int left, int top, int right,
-                                           int bottom, int oldLeft, int oldTop, int oldRight,
-                                           int oldBottom) {
-		            updateFloatingWindowLayout();
-		            if (mShowing) {
-		                mWindowManager.updateViewLayout(mDecor, mDecorLayoutParams);
-		            }
-		        }
-		    } :
-    		null;
+            (VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB) ?
+                    new OnLayoutChangeListener() {
+                        public void onLayoutChange(View v, int left, int top, int right,
+                                                   int bottom, int oldLeft, int oldTop, int oldRight,
+                                                   int oldBottom) {
+                            updateFloatingWindowLayout();
+                            if (mShowing) {
+                                mWindowManager.updateViewLayout(mDecor, mDecorLayoutParams);
+                            }
+                        }
+                    } :
+                    null;
 
     private OnTouchListener mTouchListener = new OnTouchListener() {
         public boolean onTouch(View v, MotionEvent event) {
@@ -221,23 +248,19 @@ public class MediaController extends FrameLayout {
             return false;
         }
     };
-	private ImageButton mIsFullScreen;
-
-    public void setMediaPlayer(MediaPlayerControl player) {
-        mPlayer = player;
-        updatePausePlay();
-    }
+    private ImageButton mIsFullScreen;
 
     /**
      * Set the view that acts as the anchor for the control view.
      * This can for example be a VideoView, or your Activity's main view.
      * When VideoView calls this method, it will use the VideoView's parent
      * as the anchor.
+     *
      * @param view The view to which to anchor the controller when it is visible.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	public void setAnchorView(View view) {
-    	boolean hasOnLayoutChangeListener = (VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB);
+    public void setAnchorView(View view) {
+        boolean hasOnLayoutChangeListener = (VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB);
 
         if (hasOnLayoutChangeListener && mAnchor != null) {
             mAnchor.removeOnLayoutChangeListener(mLayoutChangeListener);
@@ -264,11 +287,12 @@ public class MediaController extends FrameLayout {
     /**
      * Create the view that holds the widgets that control playback.
      * Derived classes can override this to create their own.
+     *
      * @return The controller view.
      * @hide This doesn't work as advertised
      */
     protected View makeControllerView() {
-    	//MediaControllerd ����
+        //MediaControllerd ����
         LayoutInflater inflate = LayoutInflater.from(getContext());
         return inflate.inflate(R.layout.media_controller, null);
     }
@@ -313,6 +337,7 @@ public class MediaController extends FrameLayout {
                 seeker.setOnSeekBarChangeListener(mSeekListener);
             }
             mProgress.setMax(1000);
+            mProgress.setEnabled(!mDisableProgress);
         }
 
         mEndTime = (TextView) v.findViewById(R.id.time);
@@ -323,24 +348,32 @@ public class MediaController extends FrameLayout {
         mIsFullScreen = (ImageButton) v.findViewById(R.id.is_full_screen);
         mIsFullScreen.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				clickIsFullScreenListener.setOnClickIsFullScreen();
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                clickIsFullScreenListener.setOnClickIsFullScreen();
 
-			}
-		});
+            }
+        });
 
         installPrevNextListeners();
     }
 
     //ȫ�������л��ӿ�
-    public interface onClickIsFullScreenListener{
-    	public void setOnClickIsFullScreen();
+    public interface onClickIsFullScreenListener {
+        public void setOnClickIsFullScreen();
     }
-    public void setClickIsFullScreenListener(onClickIsFullScreenListener listener){
-    	this.clickIsFullScreenListener=listener;
+
+    public void setClickIsFullScreenListener(onClickIsFullScreenListener listener) {
+        this.clickIsFullScreenListener = listener;
     }
+
+    @Override
+    public void setMediaPlayer(IMediaController.MediaPlayerControl mediaPlayerControl) {
+        mPlayer = mediaPlayerControl;
+        updatePausePlay();
+    }
+
     /**
      * Show the controller on screen. It will go away
      * automatically after 3 seconds of inactivity.
@@ -375,8 +408,9 @@ public class MediaController extends FrameLayout {
     /**
      * Show the controller on screen. It will go away
      * automatically after 'timeout' milliseconds of inactivity.
+     *
      * @param timeout The timeout in milliseconds. Use 0 to show
-     * the controller until hide() is called.
+     *                the controller until hide() is called.
      */
     public void show(int timeout) {
         if (!mShowing && mAnchor != null) {
@@ -426,7 +460,7 @@ public class MediaController extends FrameLayout {
     }
 
     @SuppressLint("HandlerLeak")
-	private Handler mHandler = new Handler() {
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             int pos;
@@ -450,7 +484,7 @@ public class MediaController extends FrameLayout {
 
         int seconds = totalSeconds % 60;
         int minutes = (totalSeconds / 60) % 60;
-        int hours   = totalSeconds / 3600;
+        int hours = totalSeconds / 3600;
 
         mFormatBuilder.setLength(0);
         if (hours > 0) {
@@ -464,13 +498,13 @@ public class MediaController extends FrameLayout {
         if (mPlayer == null || mDragging) {
             return 0;
         }
-        int position = mPlayer.getCurrentPosition();
-        int duration = mPlayer.getDuration();
+        int position = (int) mPlayer.getCurrentPosition();
+        int duration = (int) mPlayer.getDuration();
         if (mProgress != null) {
             if (duration > 0) {
                 // use long to avoid overflow
                 long pos = 1000L * position / duration;
-                mProgress.setProgress( (int) pos);
+                mProgress.setProgress((int) pos);
 
             }
             int percent = mPlayer.getBufferPercentage();
@@ -514,7 +548,7 @@ public class MediaController extends FrameLayout {
         int keyCode = event.getKeyCode();
         final boolean uniqueDown = event.getRepeatCount() == 0
                 && event.getAction() == KeyEvent.ACTION_DOWN;
-        if (keyCode ==  KeyEvent.KEYCODE_HEADSETHOOK
+        if (keyCode == KeyEvent.KEYCODE_HEADSETHOOK
                 || keyCode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE
                 || keyCode == KeyEvent.KEYCODE_SPACE) {
             if (uniqueDown) {
@@ -611,7 +645,6 @@ public class MediaController extends FrameLayout {
             mHandler.removeMessages(SHOW_PROGRESS);
 
 
-
         }
 
         public void onProgressChanged(SeekBar bar, int progress, boolean fromuser) {
@@ -623,9 +656,9 @@ public class MediaController extends FrameLayout {
 
             long duration = mPlayer.getDuration();
             long newposition = (duration * progress) / 1000L;
-            mPlayer.seekTo( (int) newposition);
+            mPlayer.seekTo((int) newposition);
             if (mCurrentTime != null)
-                mCurrentTime.setText(stringForTime( (int) newposition));
+                mCurrentTime.setText(stringForTime((int) newposition));
         }
 
         public void onStopTrackingTouch(SeekBar bar) {
@@ -658,7 +691,7 @@ public class MediaController extends FrameLayout {
         if (mPrevButton != null) {
             mPrevButton.setEnabled(enabled && mPrevListener != null);
         }
-        if (mProgress != null) {
+        if (mProgress != null && !mDisableProgress) {
             mProgress.setEnabled(enabled);
         }
         disableUnsupportedButtons();
@@ -666,14 +699,14 @@ public class MediaController extends FrameLayout {
     }
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-	@Override
+    @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
         super.onInitializeAccessibilityEvent(event);
         event.setClassName(MediaController.class.getName());
     }
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-	@Override
+    @Override
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(MediaController.class.getName());
@@ -681,7 +714,7 @@ public class MediaController extends FrameLayout {
 
     private View.OnClickListener mRewListener = new View.OnClickListener() {
         public void onClick(View v) {
-            int pos = mPlayer.getCurrentPosition();
+            int pos = (int) mPlayer.getCurrentPosition();
             pos -= 5000; // milliseconds
             mPlayer.seekTo(pos);
             setProgress();
@@ -692,7 +725,7 @@ public class MediaController extends FrameLayout {
 
     private View.OnClickListener mFfwdListener = new View.OnClickListener() {
         public void onClick(View v) {
-            int pos = mPlayer.getCurrentPosition();
+            int pos = (int) mPlayer.getCurrentPosition();
             pos += 15000; // milliseconds
             mPlayer.seekTo(pos);
             setProgress();
@@ -720,7 +753,7 @@ public class MediaController extends FrameLayout {
 
         if (mRoot != null) {
             installPrevNextListeners();
-            
+
             if (mNextButton != null && !mFromXml) {
                 mNextButton.setVisibility(View.VISIBLE);
             }
@@ -728,25 +761,5 @@ public class MediaController extends FrameLayout {
                 mPrevButton.setVisibility(View.VISIBLE);
             }
         }
-    }
-
-    public interface MediaPlayerControl {
-        void    start();
-        void    pause();
-        int     getDuration();
-        int     getCurrentPosition();
-        void    seekTo(int pos);
-        boolean isPlaying();
-        int     getBufferPercentage();
-        boolean canPause();
-        boolean canSeekBackward();
-        boolean canSeekForward();
-
-        /**
-         * Get the audio session id for the player used by this VideoView. This can be used to
-         * apply audio effects to the audio track of a video.
-         * @return The audio session, or 0 if there was an error.
-         */
-        int     getAudioSessionId();
     }
 }

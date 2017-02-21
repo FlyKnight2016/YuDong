@@ -3,7 +3,6 @@ package net.zgyejy.yudong.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +15,7 @@ import com.xys.libzxing.zxing.activity.CaptureActivity;
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.base.MyBaseActivity;
 import net.zgyejy.yudong.gloable.API;
+import net.zgyejy.yudong.live.ui.LiveActivity;
 import net.zgyejy.yudong.util.SharedUtil;
 
 import java.util.ArrayList;
@@ -134,7 +134,7 @@ public class TableTopActivity extends MyBaseActivity {
             R.id.tv_tableTop_toFreeVideo, R.id.tv_tableTop_toVipVideo, R.id.tv_tableTop_toStudy,
             R.id.tv_tableTop_toPrincipalStudy, R.id.tv_tableTop_toTeacherStudy,
             R.id.tv_tableTop_toParentsStudy, R.id.tv_tableTop_toKidStudy, R.id.tv_tabletop_toAct,
-            R.id.tv_tableTop_toShow, R.id.iv_tableTop_toHomeWeb, R.id.rl_tableTop_act})
+            R.id.tv_tableTop_toShow, R.id.iv_tableTop_toHomeWeb, R.id.rl_tableTop_act, R.id.iv_toDownLoad})
     public void onClick(View view) {
         isLogined = SharedUtil.getIsLogined(getBaseContext());
         if (bundle == null)
@@ -152,7 +152,7 @@ public class TableTopActivity extends MyBaseActivity {
             case R.id.tv_tableTop_to51Video:
                 if (isLogined) {
                     openActivity(HomeActivity.class);
-                }else {
+                } else {
                     showToast("还未登录，请先登录！");
                     openActivity(LoginActivity.class);
                 }
@@ -161,7 +161,7 @@ public class TableTopActivity extends MyBaseActivity {
                 if (isLogined) {
                     bundle.putString("isTo", "FreeVideo");
                     openActivity(HomeActivity.class, bundle);
-                }else {
+                } else {
                     showToast("还未登录，请先登录！");
                     openActivity(LoginActivity.class);
                 }
@@ -170,7 +170,7 @@ public class TableTopActivity extends MyBaseActivity {
                 if (isLogined) {
                     bundle.putString("isTo", "VipVideo");
                     openActivity(HomeActivity.class, bundle);
-                }else {
+                } else {
                     showToast("还未登录，请先登录！");
                     openActivity(LoginActivity.class);
                 }
@@ -197,8 +197,12 @@ public class TableTopActivity extends MyBaseActivity {
                 break;
             case R.id.rl_tableTop_act:
             case R.id.tv_tabletop_toAct:
-                bundle.putString("isTo", "Act");
-                openActivity(HomeActivity.class, bundle);
+                if (isLogined) {
+                    openActivity(LiveActivity.class);
+                } else {
+                    showToast("还未登录，请先登录！");
+                    openActivity(LoginActivity.class);
+                }
                 break;
             case R.id.tv_tableTop_toShow:
                 bundle.putString("isTo", "Show");
@@ -209,8 +213,12 @@ public class TableTopActivity extends MyBaseActivity {
                 bundle.putString("url", API.ZgyejyNetIP);
                 openActivity(WebReadActivity.class, bundle);
                 break;
+            case R.id.iv_toDownLoad:
+
+                break;
         }
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -228,8 +236,8 @@ public class TableTopActivity extends MyBaseActivity {
     @Override
     protected void onDestroy() {
         //添加退出登录的方法，或者用户选择不自动登录的话，销毁本地缓存的数据
-        SharedUtil.setIsLogined(this, false);
-        if (SharedUtil.getIsAutoLogin(this)) {
+        if (!SharedUtil.getIsAutoLogin(this)) {
+            SharedUtil.setIsLogined(this, false);
             SharedUtil.saveToken(this, null);
         }
         super.onDestroy();

@@ -99,10 +99,6 @@ public class LoginActivity extends MyBaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_login_back:
-                if (bundle == null)
-                    bundle = new Bundle();
-                bundle.putString("isTo", "UserFragment");
-                openActivity(HomeActivity.class,bundle);
                 finish();
                 break;
             case R.id.tv_login_register:
@@ -188,9 +184,6 @@ public class LoginActivity extends MyBaseActivity {
                             SharedUtil.setIsLogined(getBaseContext(),true);
                             SharedUtil.saveToken(getBaseContext(),token);
 
-                            Bundle bundle = new Bundle();
-                            bundle.putString("isTo", "UserFragment");
-                            openActivity(HomeActivity.class,bundle);
                             finish();
                         }else {
                             showToast(baseEntity.getMessage());

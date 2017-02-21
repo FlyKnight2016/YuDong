@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,49 +18,49 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.adapter.CommentListAdapter;
 import net.zgyejy.yudong.base.MyBaseActivity;
-import net.zgyejy.yudong.bean.VideoIntegral;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
+import io.vov.vitamio.Vitamio;
+import io.vov.vitamio.widget.MediaController;
+import io.vov.vitamio.widget.VideoView;
+import me.yejy.greendao.VideoIntegral;
 import net.zgyejy.yudong.gloable.API;
 import net.zgyejy.yudong.modle.BaseEntity;
 import net.zgyejy.yudong.modle.Comment;
 import net.zgyejy.yudong.modle.parser.ParserBaseEntity;
 import net.zgyejy.yudong.modle.parser.ParserComment;
-import net.zgyejy.yudong.util.MediaController;
 import net.zgyejy.yudong.util.SharedUtil;
 import net.zgyejy.yudong.util.VolleySingleton;
-import net.zgyejy.yudong.view.VideoView;
-
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
+import static io.vov.vitamio.MediaPlayer.MEDIA_INFO_BUFFERING_END;
+import static io.vov.vitamio.MediaPlayer.MEDIA_INFO_BUFFERING_START;
+import static io.vov.vitamio.MediaPlayer.MEDIA_INFO_DOWNLOAD_RATE_CHANGED;
+import static io.vov.vitamio.MediaPlayer.VIDEOQUALITY_LOW;
 
 
 public class VideoPlayActivity extends MyBaseActivity implements
-        net.zgyejy.yudong.util.MediaController.onClickIsFullScreenListener,
-        MediaPlayer.OnPreparedListener,
-        MediaPlayer.OnErrorListener,
-        MediaPlayer.OnCompletionListener {
+        io.vov.vitamio.MediaPlayer.OnPreparedListener,
+        io.vov.vitamio.MediaPlayer.OnErrorListener,
+        io.vov.vitamio.MediaPlayer.OnCompletionListener {
     private String token;
     private List<View> otherViews;
     private MediaController mMediaController;
@@ -77,6 +76,8 @@ public class VideoPlayActivity extends MyBaseActivity implements
     private ImageView mOperationBg;
     private ImageView mOperationPercent;
     private AudioManager mAudioManager;
+
+    private PopupWindow popupWindow;//菜单
     /**
      * 最大声音
      */
@@ -99,7 +100,7 @@ public class VideoPlayActivity extends MyBaseActivity implements
     TextView tvPlayTitle;
     @BindView(R.id.ll_play_title)
     RelativeLayout llPlayTitle;
-    @BindView(R.id.videoView)
+    @BindView(R.id.play_videoView)
     VideoView mVideoView;
     @BindView(R.id.tv_play_browse)
     TextView tvPlayBrowse;
@@ -123,11 +124,17 @@ public class VideoPlayActivity extends MyBaseActivity implements
     LinearLayout llPlayCommentAbout;
     @BindView(R.id.tv_play_noComment)
     TextView tvPlayNoComment;
+    @BindView(R.id.mLoadingView)
+    TextView mLoadingView;
+    @BindView(R.id.iv_play_menu)
+    ImageView iv_play_menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Vitamio.isInitialized(this);
         setContentView(R.layout.activity_video_play);
+        ShareSDK.initSDK(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ButterKnife.bind(this);
 
@@ -135,7 +142,6 @@ public class VideoPlayActivity extends MyBaseActivity implements
 
         getPathAndTitle();
 
-        showLoadingDialog(this, "视频正在准备中\n请稍等...", true);//显示加载动画
         mVolumeBrightnessLayout = findViewById(R.id.operation_volume_brightness);
         mOperationBg = (ImageView) findViewById(R.id.operation_bg);
         mOperationPercent = (ImageView) findViewById(R.id.operation_percent);
@@ -155,19 +161,57 @@ public class VideoPlayActivity extends MyBaseActivity implements
         matchViewToOrientation();
 
         mMediaController = new MediaController(this);//实例化控制器
-        mMediaController.setClickIsFullScreenListener(this);
-        mMediaController.show(5000);//控制器显示5s后自动隐藏
+        /*mMediaController.setClickIsFullScreenListener(this);*/
+        mMediaController.show(3000);//控制器显示3s后自动隐藏
 
         mVideoView.setMediaController(mMediaController);//绑定控制器
         mVideoView.setVideoURI(Uri.parse(path));//设置播放地址
+        mVideoView.setVideoQuality(VIDEOQUALITY_LOW);
+        mVideoView.setBufferSize(512 * 1024);
+        mVideoView.setOnInfoListener(new io.vov.vitamio.MediaPlayer.OnInfoListener() {
+            @Override
+            public boolean onInfo(io.vov.vitamio.MediaPlayer mp, int what, int extra) {
+                switch (what) {
+                    case MEDIA_INFO_BUFFERING_START:
+                        //开始缓存，暂停播放
+                        if (mVideoView.isPlaying()) {
+                            mVideoView.pause();
+                            needResume = true;
+                        }
+                        mLoadingView.setVisibility(View.VISIBLE);
+                        break;
+                    case MEDIA_INFO_BUFFERING_END:
+                        //缓存完成，继续播放
+                        if (needResume) {
+                            mVideoView.start();
+                            needResume = false;
+                        }
+                        mLoadingView.setVisibility(View.GONE);
+                        break;
+                    case MEDIA_INFO_DOWNLOAD_RATE_CHANGED:
+                        //显示 下载速度
+                        if (needResume) {
+                            showToast("下载速度:" + extra + "kb/s");
+                        }
+                        break;
+                }
+                return true;
+            }
+        });
         mVideoView.requestFocus();//取得焦点
 
         mGestureDetector = new GestureDetector(this, new MyGestureListener());
 
-
         //加载评论列表数据
         initListData();
+
+        showPopupWindow();
     }
+
+    /**
+     * 是否需要自动恢复播放，用于自动暂停，恢复播放
+     */
+    private boolean needResume;
 
     /**
      * 得到视频资源地址
@@ -178,7 +222,7 @@ public class VideoPlayActivity extends MyBaseActivity implements
         if (videoIntegral != null) {
             path = API.APP_SERVER_IP + videoIntegral.getVideo_url();
             String video_name = videoIntegral.getVideo_name();
-            title = video_name.substring(video_name.indexOf("课 ")+1,video_name.length());
+            title = video_name.substring(video_name.indexOf("课 ") + 1, video_name.length());
         }
 
     }
@@ -220,6 +264,24 @@ public class VideoPlayActivity extends MyBaseActivity implements
         }
     };
 
+
+    @Override
+    public void onCompletion(io.vov.vitamio.MediaPlayer mp) {
+        showToast("视频已播放完毕！");
+    }
+
+    @Override
+    public boolean onError(io.vov.vitamio.MediaPlayer mp, int what, int extra) {
+        showToast("Error");
+        return true;
+    }
+
+    @Override
+    public void onPrepared(io.vov.vitamio.MediaPlayer mp) {
+        tvPlayTitle.setText(title);
+        mVideoView.start();
+    }
+
     private class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
 
         /**
@@ -229,10 +291,10 @@ public class VideoPlayActivity extends MyBaseActivity implements
         public boolean onDoubleTap(MotionEvent e) {
             if (!fullscreen) {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                mMediaController.setFullScreenButton(R.drawable.esc_full_screen);
+                /*mMediaController.setFullScreenButton(R.drawable.esc_full_screen);*/
             } else {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                mMediaController.setFullScreenButton(R.drawable.full_screen);
+                /*mMediaController.setFullScreenButton(R.drawable.full_screen);*/
             }
             return true;
         }
@@ -429,9 +491,11 @@ public class VideoPlayActivity extends MyBaseActivity implements
     private void changeVideoView() {
         if (!fullscreen) {//设置RelativeLayout的全屏模式
             setOtherViewsGone();
+            mVideoView.setVideoLayout(VideoView.VIDEO_LAYOUT_SCALE, 0);
             fullscreen = true;//改变全屏/窗口的标记
         } else {//设置RelativeLayout的窗口模式
             setOtherViewsVisible();
+            mVideoView.setVideoLayout(VideoView.VIDEO_LAYOUT_SCALE, 0);
             fullscreen = false;//改变全屏/窗口的标记
         }
     }
@@ -473,14 +537,19 @@ public class VideoPlayActivity extends MyBaseActivity implements
                 break;
             case R.id.iv_play_menu:
                 //点击弹出菜单的方法
+                if (popupWindow.isShowing()) {
+                    popupWindow.dismiss();
+                } else if (popupWindow != null) {
+                    popupWindow.showAsDropDown(iv_play_menu, 0, 5);
+                }
                 break;
             case R.id.btn_play_sendComment:
                 //获取品论内容，发送评论的方法
                 if (token == null) {
                     showToast("请先登录！");
-                }else if (etPlayCommentContent.getText() == null) {
+                } else if (etPlayCommentContent.getText() == null) {
                     showToast("评论内容不能为空！");
-                }else {
+                } else {
                     sendComment();
                 }
                 break;
@@ -505,7 +574,7 @@ public class VideoPlayActivity extends MyBaseActivity implements
 
                             //刷新评论列表
                             refreshListData();
-                        }else {
+                        } else {
                             showToast(baseEntity.getMessage());
                         }
                     }
@@ -533,34 +602,58 @@ public class VideoPlayActivity extends MyBaseActivity implements
 
     }
 
-    @Override
+    private void showPopupWindow() {
+        View view = getLayoutInflater().inflate(R.layout.layout_video_menu, null);
+        LinearLayout ll_video_share = (LinearLayout) view.findViewById(R.id.ll_video_share);
+        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        ll_video_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //分享的方法
+                showShare();
+            }
+        });
+    }
+
+    private void showShare() {
+        ShareSDK.initSDK(this);
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+
+        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间等使用
+        oks.setTitle(videoIntegral.getVideo_name());
+        // titleUrl是标题的网络链接，QQ和QQ空间等使用
+        oks.setTitleUrl("http://api.zgyejy.net/index.php/admin/code/versionQrcodes?app=1");
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText(videoIntegral.getVideo_describe());
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        // url仅在微信（包括好友和朋友圈）中使用
+        oks.setImageUrl(API.APP_SERVER_IP + videoIntegral.getVideo_zip());
+        oks.setVideoUrl(API.SHARE_VIDEO + videoIntegral.getId());
+        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        oks.setComment("给大家分享个视频！");
+        // site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSite(getString(R.string.app_name));
+        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("http://www.zgyejy.net/");
+
+        // 启动分享GUI
+        oks.show(this);
+    }
+
+    /*@Override
     public void setOnClickIsFullScreen() {
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            mMediaController.setFullScreenButton(R.drawable.esc_full_screen);
+            *//*mMediaController.setFullScreenButton(R.drawable.esc_full_screen);*//*
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            mMediaController.setFullScreenButton(R.drawable.full_screen);
+            *//*mMediaController.setFullScreenButton(R.drawable.full_screen);*//*
         }
-    }
+    }*/
 
-    @Override
-    public void onCompletion(MediaPlayer mp) {
-        showToast("视频播放完成");
 
-    }
-
-    @Override
-    public boolean onError(MediaPlayer mp, int what, int extra) {
-        showToast("Error");
-        return true;
-    }
-
-    @Override
-    public void onPrepared(MediaPlayer mp) {
-        cancelDialog();
-        showToast("视频准备好了");
-        tvPlayTitle.setText(title);
-        mVideoView.start();
-    }
 }

@@ -13,6 +13,7 @@ import net.zgyejy.yudong.fragment.ShowFragment;
 import net.zgyejy.yudong.fragment.StudyFragment;
 import net.zgyejy.yudong.fragment.UserFragment;
 import net.zgyejy.yudong.fragment.VideoFragment;
+import net.zgyejy.yudong.util.SharedUtil;
 
 import butterknife.BindColor;
 import butterknife.BindView;
@@ -95,7 +96,13 @@ public class HomeActivity extends MyBaseActivity {
                 showStudyFragment();
                 break;
             case R.id.rl_home_video:
-                showVideoFragment();
+                if (SharedUtil.getIsLogined(this)) {
+                    showVideoFragment();
+                }else {
+                    showToast("当前未登录，请先登录！");
+                    openActivity(LoginActivity.class);
+                    finish();
+                }
                 break;
             case R.id.rl_home_act:
                 showActFragment();

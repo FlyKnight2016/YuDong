@@ -16,16 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.base.MyBaseActivity;
-import net.zgyejy.yudong.bean.VideoIntegral;
 import net.zgyejy.yudong.gloable.API;
-import net.zgyejy.yudong.util.MediaController;
-import net.zgyejy.yudong.view.VideoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +32,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.yejy.greendao.VideoIntegral;
 
 public class Video51TrialPlayActivity extends MyBaseActivity implements
-        MediaController.onClickIsFullScreenListener,
         MediaPlayer.OnPreparedListener,
         MediaPlayer.OnErrorListener,
         MediaPlayer.OnCompletionListener {
@@ -106,7 +105,7 @@ public class Video51TrialPlayActivity extends MyBaseActivity implements
         matchViewToOrientation();
 
         mMediaController = new MediaController(this);//实例化控制器
-        mMediaController.setClickIsFullScreenListener(this);
+        /*mMediaController.setClickIsFullScreenListener(this);*/
         mMediaController.show(5000);//控制器显示5s后自动隐藏
 
         mVideoView.setMediaController(mMediaController);//绑定控制器
@@ -191,10 +190,10 @@ public class Video51TrialPlayActivity extends MyBaseActivity implements
         public boolean onDoubleTap(MotionEvent e) {
             if (!fullscreen) {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                mMediaController.setFullScreenButton(R.drawable.esc_full_screen);
+                /*mMediaController.setFullScreenButton(R.drawable.esc_full_screen);*/
             } else {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                mMediaController.setFullScreenButton(R.drawable.full_screen);
+                /*mMediaController.setFullScreenButton(R.drawable.full_screen);*/
             }
             return true;
         }
@@ -350,17 +349,6 @@ public class Video51TrialPlayActivity extends MyBaseActivity implements
             //竖屏
             setOtherViewsVisible();
             fullscreen = false;
-        }
-    }
-
-    @Override
-    public void setOnClickIsFullScreen() {
-        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            mMediaController.setFullScreenButton(R.drawable.esc_full_screen);
-        } else {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            mMediaController.setFullScreenButton(R.drawable.full_screen);
         }
     }
 

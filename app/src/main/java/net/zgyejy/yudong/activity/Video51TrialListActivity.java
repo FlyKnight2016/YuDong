@@ -1,24 +1,16 @@
 package net.zgyejy.yudong.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
-
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.adapter.ListViewAdapter_51;
 import net.zgyejy.yudong.base.MyBaseActivity;
-import net.zgyejy.yudong.bean.Course;
-import net.zgyejy.yudong.bean.VideoIntegral;
+import me.yejy.greendao.VideoIntegral;
 import net.zgyejy.yudong.modle.CourseInfo;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

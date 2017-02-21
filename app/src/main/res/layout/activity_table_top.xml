@@ -37,59 +37,51 @@
             android:layout_marginRight="20px"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
-    <com.jorge.circlelibrary.ImageCycleView
-        android:id="@+id/table_cycleView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0">
-
-    </com.jorge.circlelibrary.ImageCycleView>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20px"
         android:layout_weight="1">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <com.jorge.circlelibrary.ImageCycleView
+                android:id="@+id/table_cycleView"
+                android:layout_width="match_parent"
+                android:layout_height="150px"
+                android:layout_weight="0"
+                android:background="@color/littleGray">
+
+            </com.jorge.circlelibrary.ImageCycleView>
+
             <LinearLayout
+                android:id="@+id/ll_topTo51"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="20px">
                 <ImageView
                     android:layout_width="20px"
                     android:layout_height="match_parent"
                     android:background="@color/themeColor"/>
                 <TextView
-                    android:id="@+id/tv_tableTop_toVideo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5px"
                     android:layout_marginLeft="20px"
-                    android:text="教学视频"
+                    android:text="五个一教学视频"
                     android:textColor="@color/themeColor"
                     android:textSize="36px"/>
             </LinearLayout>
-            <LinearLayout
+
+            <ImageView
+                android:id="@+id/iv_topTo51"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/tv_tableTop_to51Video"
-                    style="@style/Style_TableTopClickableText"
-                    android:background="@drawable/table_51"/>
-                <TextView
-                    android:id="@+id/tv_tableTop_toFreeVideo"
-                    style="@style/Style_TableTopClickableText"
-                    android:background="@drawable/table_free"/>
-                <TextView
-                    android:id="@+id/tv_tableTop_toVipVideo"
-                    style="@style/Style_TableTopClickableText"
-                    android:layout_marginRight="20px"
-                    android:background="@drawable/table_vip"/>
-            </LinearLayout>
+                android:src="@drawable/topto51"
+                android:adjustViewBounds="true"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -135,11 +127,38 @@
                     android:background="@drawable/table_kid"/>
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/iv_tableTop_toHomeWeb"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="90px"
-                android:background="@drawable/table_yejynet"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20px">
+                <ImageView
+                    android:layout_width="20px"
+                    android:layout_height="match_parent"
+                    android:background="@color/themeColor"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5px"
+                    android:layout_marginLeft="20px"
+                    android:text="免费视频"
+                    android:textColor="@color/themeColor"
+                    android:textSize="36px"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/tv_topToFree"
+                    style="@style/Style_TableTopToVideo"
+                    android:src="@drawable/toptofree"/>
+                <ImageView
+                    android:id="@+id/tv_tableTop_toVipVideo"
+                    style="@style/Style_TableTopToVideo"
+                    android:layout_marginRight="20px"
+                    android:src="@drawable/toptoact"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -151,54 +170,108 @@
                     android:layout_height="match_parent"
                     android:background="@color/themeColor"/>
                 <TextView
-                    android:id="@+id/tv_tabletop_toAct"
+                    android:id="@+id/tv_topToQuality"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5px"
                     android:layout_marginLeft="20px"
-                    android:text="活动中心"
+                    android:text="精品课程"
                     android:textColor="@color/themeColor"
                     android:textSize="36px"/>
             </LinearLayout>
-            <RelativeLayout
-                android:id="@+id/rl_tableTop_act"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20px">
+                android:layout_marginTop="20px"
+                android:orientation="horizontal">
                 <ImageView
-                    android:id="@+id/iv_tableTop_act"
+                    android:layout_width="20px"
+                    android:layout_height="match_parent"
+                    android:background="@color/themeColor"/>
+                <TextView
+                    android:id="@+id/tv_topToLive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5px"
+                    android:layout_marginLeft="20px"
+                    android:text="云端直播"
+                    android:textColor="@color/themeColor"
+                    android:textSize="36px"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_topToLive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20px"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <ImageView
                     android:layout_width="200px"
-                    android:layout_height="200px"
-                    android:background="@drawable/act_now"/>
-                <TextView
-                    android:id="@+id/tv_tableTop_act_title"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/iv_tableTop_act"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/thumbnail"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
                     android:layout_marginLeft="30px"
-                    android:text="2017招生密码"
-                    android:textSize="36px"
-                    android:textStyle="bold"
-                    android:maxLines="1"/>
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="育栋云端会议室"
+                        android:textSize="36px"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10px"
+                        android:text="云端会议室，打造最专业的云端\n教育平台！"
+                        android:maxLines="3"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="20px"
+                    android:layout_height="match_parent"
+                    android:background="@color/themeColor"/>
                 <TextView
-                    android:id="@+id/tv_tableTop_act_date"
+                    android:id="@+id/tv_topToDownLoad"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@id/tv_tableTop_act_title"
-                    android:layout_below="@id/tv_tableTop_act_title"
-                    android:layout_marginTop="10px"
-                    android:text="2016-11-16 20:00 - 21：00"
-                    android:textColor="@color/deepOrange"/>
-                <TextView
-                    android:id="@+id/tv_tableTop_act_content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@id/tv_tableTop_act_date"
-                    android:layout_below="@id/tv_tableTop_act_date"
-                    android:layout_marginTop="10px"
-                    android:text="水滴直播，台号：1889"
-                    android:maxLines="3"/>
-            </RelativeLayout>
+                    android:padding="5px"
+                    android:layout_marginLeft="20px"
+                    android:text="资源下载"
+                    android:textColor="@color/themeColor"
+                    android:textSize="36px"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/tv_topToImageDownLoad"
+                    style="@style/Style_TableTopToVideo"
+                    android:src="@drawable/toptoimage"/>
+                <ImageView
+                    android:id="@+id/tv_topToTxtDownLoad"
+                    style="@style/Style_TableTopToVideo"
+                    android:layout_marginRight="20px"
+                    android:src="@drawable/toptotxt"/>
+                <ImageView
+                    android:id="@+id/tv_topToMp3DownLoad"
+                    style="@style/Style_TableTopToVideo"
+                    android:layout_marginRight="20px"
+                    android:src="@drawable/toptomp3"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -228,7 +301,7 @@
                     android:id="@+id/iv_tableTop_show"
                     android:layout_width="200px"
                     android:layout_height="200px"
-                    android:background="@color/lightGray"/>
+                    android:src="@drawable/babyshow"/>
                 <TextView
                     android:id="@+id/tv_tableTop_show_title"
                     android:layout_width="wrap_content"

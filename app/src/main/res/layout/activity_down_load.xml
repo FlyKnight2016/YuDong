@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_down_load"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:layout_weight="0"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@color/themeColor">
+
+        <ImageView
+            android:id="@+id/iv_download_return"
+            android:layout_width="wrap_content"
+            android:layout_height="70px"
+            android:layout_marginLeft="10px"
+            android:adjustViewBounds="true"
+            android:src="@drawable/return2"/>
+
+
+        <TextView
+            android:id="@+id/tv_download_video"
+            style="@style/Style_VideoGuideText"
+            android:layout_marginLeft="50px"
+            android:background="@drawable/text_view_back_51"
+            android:text="视频"/>
+
+        <TextView
+            android:id="@+id/tv_download_mp3"
+            style="@style/Style_VideoGuideText"
+            android:background="@drawable/text_view_border_free"
+            android:text="MP3"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/tv_download_image"
+            style="@style/Style_VideoGuideText"
+            android:background="@drawable/text_view_border_free"
+            android:text="图片"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/tv_download_txt"
+            style="@style/Style_VideoGuideText"
+            android:layout_marginRight="50px"
+            android:background="@drawable/text_view_border_vip"
+            android:text="文档"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="70px"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30px"
+            android:gravity="center"
+            android:text="资源\n下载"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_download"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

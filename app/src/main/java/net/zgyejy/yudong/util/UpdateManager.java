@@ -27,7 +27,6 @@ import java.net.URL;
  */
 public class UpdateManager {
     private Context context;
-    private Activity activity;
 
     private String updateMsg = "发现新版本，请下载更新！";//提示语
 
@@ -76,20 +75,14 @@ public class UpdateManager {
     /**
      * 外部接口，让主Acitivity调用
      */
-    public void checkUpdateInfo(Activity activity) {
-        this.activity = activity;
+    public void checkUpdateInfo() {
         showNoticeDialog();
     }
 
     private void showNoticeDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("软件版本更新");
-
-        if (CommonUtil.getIsWifi(activity)) {
-            builder.setMessage(updateMsg);
-        }else {
-            builder.setMessage("发现新版本，但当前网络环境非wifi，可能会产生流量，是否继续下载？");
-        }
+        builder.setMessage(updateMsg);
         builder.setPositiveButton("下载", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

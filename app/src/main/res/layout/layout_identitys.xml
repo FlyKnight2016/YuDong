@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_identity1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/color_blue_light"
+        android:padding="10px"
+        android:text="园长"
+        android:textSize="35px"/>
+    <TextView
+        android:id="@+id/tv_identity2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:gravity="center"
+        android:background="@color/color_blue_light"
+        android:padding="10px"
+        android:text="老师"
+        android:textSize="35px"/>
+    <TextView
+        android:id="@+id/tv_identity3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:gravity="center"
+        android:background="@color/color_blue_light"
+        android:padding="10px"
+        android:text="家长"
+        android:textSize="35px"/>
+
+</LinearLayout>

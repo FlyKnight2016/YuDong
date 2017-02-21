@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.base.MyBaseAdapter;
-import net.zgyejy.yudong.bean.VideoIntegral;
+import me.yejy.greendao.VideoIntegral;
 import net.zgyejy.yudong.gloable.API;
 
 import butterknife.BindView;

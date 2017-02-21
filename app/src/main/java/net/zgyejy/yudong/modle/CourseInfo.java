@@ -1,9 +1,10 @@
 package net.zgyejy.yudong.modle;
 
-import net.zgyejy.yudong.bean.VideoIntegral;
 
 import java.io.Serializable;
 import java.util.List;
+
+import me.yejy.greendao.VideoIntegral;
 
 /**
  * 课程详细信息（视频列表、mp3、文档）

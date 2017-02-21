@@ -19,6 +19,11 @@ public class API {
     public static final String STUDY_ARTICLE_TEACHER = STUDY_ARTICLE + "&tid=1";//幼师之路
 
     /**
+     * 分享
+     */
+    public static final String SHARE_VIDEO="http://api.zgyejy.net/index.php/index/index/videoin.html?id=";
+
+    /**
      * 七巧板课程列表
      */
     public static final String VIDEO_51_BOOK_LIST = APP_SERVER_IP +
@@ -45,6 +50,12 @@ public class API {
     public static final String VIDEO_GET_VIDEOLIST = APP_SERVER_IP +
             "/index.php/home/home/videoList?";//获取视频列表的接口（page=2&pageSize=6&videoStyle=1）
         // videoStyle=1：免费视频（基本不用）2:付费视频 3：积分视频 4：收藏的视频（不需要）
+
+    /**
+     * 视频目录接口，参数：目录id
+     */
+    public static final String VIDEO_GET_COURSES = APP_SERVER_IP +
+            "/index.php/admin/admin/videoCates?id=";
 
     //视频收藏接口，参数：id=38&token=jDeVZKPSx$2JHoEnwMBR
     public static final String VIDEO_GET_VIDEOCOLLECT = APP_SERVER_IP +
@@ -78,9 +89,31 @@ public class API {
     public static final String APP_GET_ACTIVES = APP_SERVER_IP +
             "/index.php/home/home/actives";
 
+    /**
+     * 获取正在直播的信息
+     */
+    public static final String APP_GET_LIVEING = APP_SERVER_IP +
+            "/index.php/home/home/liveing";
+
     //版本更新，参数：
             //客户端类型app=android
             //版本号versionCode=1.0
     public static final String APP_POST_UPDATE = APP_SERVER_IP +
             "/index.php/home/home/version";
+
+    //获取融云token的接口，参数：token=jDeVZKPSx$2JHoEnwMBR
+    public static final String APP_GET_RONGYUNTOKEN = APP_SERVER_IP +
+            "/index.php/chat/chatapi/gettoken?";
+    //加入聊天室,参数：同上
+    public static final String APP_GET_JOINCHATROOM = APP_SERVER_IP +
+            "/index.php/chat/chatapi/joinChatRoom?";
+    //查询聊天室成员信息
+    public static final String APP_GET_QUERYUSERS = APP_SERVER_IP +
+            "/index.php/chat/chatapi/queryUser";
+
+    //获取用户头像和其他信息
+    public static final String APP_GET_PORTRAITANDINFOS = APP_SERVER_IP +
+            "/index.php/home/home/showUserInfo?";
+    public static final String APP_EDIT_USERINFOS = APP_SERVER_IP +
+            "/index.php/home/home/editUserinfo?";
 }

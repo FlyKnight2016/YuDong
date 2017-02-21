@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="FileDownloader-0.3.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/org.wlf/FileDownloader/0.3.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/org.wlf/FileDownloader/0.3.1/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.wlf/FileDownloader/0.3.1/b371c2343f79f1d1aae320106cdcae4c06d6a3a0/FileDownloader-0.3.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

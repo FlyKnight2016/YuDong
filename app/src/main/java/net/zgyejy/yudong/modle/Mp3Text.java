@@ -1,11 +1,13 @@
 package net.zgyejy.yudong.modle;
 
+import java.io.Serializable;
+
 /**
  * mp3text抽象类
  * Created by Administrator on 2016/11/14 0014.
  */
 
-public class Mp3Text {
+public class Mp3Text implements Serializable{
     private int id;
     private String music;//mp3地址
     private String text;//文档地址

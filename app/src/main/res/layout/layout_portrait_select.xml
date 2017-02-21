@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/littleGray">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="头像选择："
+        android:padding="10px"
+        android:textColor="@color/white"
+        android:textSize="30px"/>
+    <GridView
+        android:id="@+id/gv_portrait"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="20px"
+        android:horizontalSpacing="20px"
+        android:numColumns="4"
+        android:verticalSpacing="16px"/>
+
+</LinearLayout>

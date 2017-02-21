@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="autolayout-1.0.4">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/im.quar/autolayout/1.0.4/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/im.quar/autolayout/1.0.4/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/im.quar/autolayout/1.0.4/9cb7e07812bd856f954d0c5fe43ff6616ccb5c7b/autolayout-1.0.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

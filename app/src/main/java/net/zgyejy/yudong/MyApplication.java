@@ -3,15 +3,13 @@ package net.zgyejy.yudong;
 import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
-import android.provider.SyncStateContract;
-
 import net.zgyejy.yudong.gloable.Contacts;
-
+import net.zgyejy.yudong.live.LiveKit;
+import net.zgyejy.yudong.live.fakeserver.FakeServer;
 import org.wlf.filedownloader.FileDownloadConfiguration;
 import org.wlf.filedownloader.FileDownloader;
-
 import java.io.File;
-
+import cn.jpush.android.api.JPushInterface;
 import me.yejy.greendao.DaoMaster;
 import me.yejy.greendao.DaoSession;
 
@@ -24,14 +22,27 @@ public class MyApplication extends Application{
     private static DaoMaster daoMaster;
     private static DaoSession daoSession;
 
+    private static Context context;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        context = this;
+
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
         if(mInstance == null)
             mInstance = this;
 
         //初始化FileDownloader
         initFileDownloader();
+
+        //初始化融云
+        LiveKit.init(context, FakeServer.getAppKey());
+    }
+
+    public static Context getContext() {
+        return context;
     }
 
     @Override

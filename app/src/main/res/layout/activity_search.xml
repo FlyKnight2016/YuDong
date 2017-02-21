@@ -14,7 +14,8 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="80px"
+            android:id="@+id/iv_search_back"
+            android:layout_width="70px"
             android:layout_height="70px"
             android:layout_marginLeft="20px"
             android:layout_centerVertical="true"

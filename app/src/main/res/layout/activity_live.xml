@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_live"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="@color/themeColor">
+
+        <ImageView
+            android:id="@+id/iv_live_back"
+            android:layout_width="70px"
+            android:layout_height="70px"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10px"
+            android:background="@drawable/return2" />
+
+        <TextView
+            android:id="@+id/tv_live_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="育栋云端会议室"
+            android:textColor="@color/white"
+            android:textSize="36px" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <io.vov.vitamio.widget.VideoView
+            android:id="@+id/liveVideoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
+
+        <FrameLayout
+            android:id="@+id/operation_volume_brightness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#00000000"
+            android:orientation="horizontal"
+            android:padding="0dip"
+            android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/operation_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/video_volume_bg" />
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:paddingBottom="25dip">
+
+                <ImageView
+                    android:id="@+id/operation_full"
+                    android:layout_width="94dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:src="@drawable/video_num_bg" />
+
+                <ImageView
+                    android:id="@+id/operation_percent"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:scaleType="matrix"
+                    android:src="@drawable/video_num_front" />
+
+            </FrameLayout>
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/CoverView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="#000000"
+            android:src="@drawable/thumbnail" />
+
+        <LinearLayout
+            android:id="@+id/LoadingView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:layout_width="60px"
+                android:layout_height="60px"
+                android:layout_marginRight="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="数据缓冲中..."
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_chatRoom"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:background="@color/lightGray">
+
+        <TextView
+            android:id="@+id/usersNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="在线人数(点击刷新)：0"
+            android:padding="10px"/>
+
+        <net.zgyejy.yudong.live.ui.widget.ChatListView
+            android:id="@+id/chat_listview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@null"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="none"
+            android:transcriptMode="alwaysScroll"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="@color/white">
+
+            <ImageButton
+                android:id="@+id/btn_yuyin"
+                android:layout_width="70px"
+                android:layout_height="70px"
+                android:background="@drawable/yuyin" />
+
+            <ImageButton
+                android:id="@+id/btn_wenzi"
+                android:layout_width="70px"
+                android:layout_height="70px"
+                android:background="@drawable/wenzi"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/et_chatContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5px"
+                android:layout_marginRight="5px"
+                android:layout_weight="1"
+                android:hint="请输入聊天内容" />
+
+            <net.zgyejy.yudong.live.ui.widget.AudioRecordButton
+                android:id="@+id/btn_sendYuyin"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5px"
+                android:layout_weight="1"
+                android:background="@drawable/button_recordnormal"
+                android:gravity="center"
+                android:text="按住 说话"
+                android:textColor="#727272"
+                android:visibility="gone"/>
+
+            <ImageButton
+                android:id="@+id/btn_zan"
+                android:layout_width="70px"
+                android:layout_height="70px"
+                android:background="@drawable/zan" />
+
+            <ImageButton
+                android:id="@+id/btn_jushou"
+                android:layout_width="70px"
+                android:layout_height="70px"
+                android:background="@drawable/jushou" />
+
+            <Button
+                android:id="@+id/btn_sendMsg"
+                android:layout_width="140px"
+                android:layout_height="70px"
+                android:background="@drawable/text_view_back_button"
+                android:text="发送"
+                android:textColor="@color/white"
+                android:textSize="32px"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

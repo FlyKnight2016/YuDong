@@ -5,14 +5,16 @@
       <GradleProjectSettings>
         <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="D:\EglishPath\AndroidStudio\gradle\gradle-2.14.1" />
+        <option name="gradleHome" value="D:\EnglishPath\Android\Android Studio\gradle\gradle-2.14.1" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/daoexamplegenerator" />
+            <option value="$PROJECT_DIR$/imlib" />
             <option value="$PROJECT_DIR$/libzxing" />
             <option value="$PROJECT_DIR$/pullToRefresh" />
+            <option value="$PROJECT_DIR$/vitamio" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

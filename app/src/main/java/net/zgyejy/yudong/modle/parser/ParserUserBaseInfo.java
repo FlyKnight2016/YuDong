@@ -5,7 +5,9 @@ import com.google.gson.reflect.TypeToken;
 
 import net.zgyejy.yudong.modle.BaseEntity;
 import net.zgyejy.yudong.modle.CourseInfo;
+import net.zgyejy.yudong.modle.PortraitAndInfos;
 import net.zgyejy.yudong.modle.UserBaseInfo;
+import net.zgyejy.yudong.modle.UserInfoMore;
 
 import java.lang.reflect.Type;
 
@@ -26,6 +28,15 @@ public class ParserUserBaseInfo {
         Type type = new TypeToken<BaseEntity<UserBaseInfo>>() {
         }.getType();
         BaseEntity<UserBaseInfo> baseEntity = gson.fromJson(json,type);
+        return baseEntity.getData();
+    }
+
+    public static PortraitAndInfos getPortraitAndInfos(String json) {
+        json = json.replace("\r\n", "");
+        Gson gson = new Gson();
+        Type type = new TypeToken<BaseEntity<PortraitAndInfos>>() {
+        }.getType();
+        BaseEntity<PortraitAndInfos> baseEntity = gson.fromJson(json,type);
         return baseEntity.getData();
     }
 }

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
         <LinearLayout
-            android:id="@+id/ll_51VideoTrial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10px"
@@ -22,33 +23,335 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20px"
+                android:layout_weight="1"
                 android:padding="5px"
                 android:text="五个一视频（试用版）"
                 android:textColor="@color/themeColor"
                 android:textSize="30px" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10px"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rl_c1_22"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/iv_c1_22"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/c1_22" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_c1_22"
+                    android:gravity="center_horizontal"
+                    android:text="第一册 第22课\n新年到" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_c3_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/iv_c3_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/c3_12" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_c3_12"
+                    android:gravity="center_horizontal"
+                    android:text="第3册 第12课\n好娃娃" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_c5_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/iv_c5_18"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/c5_18" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_c5_18"
+                    android:gravity="center_horizontal"
+                    android:text="第5册 第18课\n鹬蚌相争" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20px"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:background="@color/themeColor" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:layout_weight="1"
+                android:padding="5px"
+                android:text="我是超级演讲小明星"
+                android:textColor="@color/themeColor"
+                android:textSize="30px" /> />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10px"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rl_speech1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/iv_speech1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/speech" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_speech1"
+                    android:layout_marginTop="10px"
+                    android:gravity="center_horizontal"
+                    android:text="我是超级演讲\n小明星 初赛" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_speech2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/iv_speech2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/speech" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_speech2"
+                    android:layout_marginTop="10px"
+                    android:gravity="center_horizontal"
+                    android:text="我是超级演讲\n小明星 复赛" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_speech3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/iv_speech3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/speech" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_speech3"
+                    android:layout_marginTop="10px"
+                    android:gravity="center_horizontal"
+                    android:text="我是超级演讲\n小明星 总决赛" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20px"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:background="@color/themeColor" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:layout_weight="1"
+                android:padding="5px"
+                android:text="2016-元旦招生培训"
+                android:textColor="@color/themeColor"
+                android:textSize="30px" /> />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10px"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/getStudents"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/gs1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/getstudent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/gs1"
+                    android:layout_marginTop="10px"
+                    android:gravity="center_horizontal"
+                    android:text="2016-元旦\n招生培训" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:layout_weight="1">
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:layout_weight="1">
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20px"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:background="@color/themeColor" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:layout_weight="1"
+                android:padding="5px"
+                android:text="2016记忆力小明星"
+                android:textColor="@color/themeColor"
+                android:textSize="30px" />/>
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gv_memory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20px"
+            android:horizontalSpacing="20px"
+            android:numColumns="3"
+            android:verticalSpacing="16px"/>
+
+        <LinearLayout
+            android:id="@+id/ll_more"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10px"
+            android:layout_marginBottom="10px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20px"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:background="@color/themeColor" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:layout_weight="1"
+                android:padding="5px"
+                android:text="其他精彩活动视频"
+                android:textColor="@color/themeColor"
+                android:textSize="30px" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:text="更多"/>
+                android:text="更多" />
+
             <ImageView
                 android:layout_width="40px"
                 android:layout_height="40px"
                 android:layout_weight="0"
-                android:src="@drawable/useropen"/>
+                android:src="@drawable/useropen" />
         </LinearLayout>
 
         <GridView
-            android:id="@+id/gv_video_51_trial"
+            android:id="@+id/gv_more"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="20px"
             android:horizontalSpacing="20px"
             android:numColumns="3"
-            android:verticalSpacing="16px">
-        </GridView>
+            android:verticalSpacing="16px"/>
     </LinearLayout>
 </ScrollView>

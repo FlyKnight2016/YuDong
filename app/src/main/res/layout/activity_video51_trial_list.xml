@@ -16,7 +16,7 @@
             android:layout_width="70px"
             android:layout_height="70px"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="16px"
+            android:layout_marginLeft="10px"
             android:background="@drawable/return2" />
 
         <TextView
