@@ -32,18 +32,25 @@
             android:text="五个一"/>
 
         <TextView
-            android:id="@+id/tv_video_free"
+            android:id="@+id/tv_video_quality"
             style="@style/Style_VideoGuideText"
             android:background="@drawable/text_view_border_free"
-            android:text="积分"
+            android:text="精品"
             android:textColor="@color/white"/>
 
         <TextView
-            android:id="@+id/tv_video_vip"
+            android:id="@+id/tv_video_free"
             style="@style/Style_VideoGuideText"
-            android:layout_marginRight="50px"
+            android:background="@drawable/text_view_border_free"
+            android:text="免费"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/tv_video_act"
+            style="@style/Style_VideoGuideText"
             android:background="@drawable/text_view_border_vip"
-            android:text="VIP"
+            android:layout_marginRight="50px"
+            android:text="活动"
             android:textColor="@color/white"/>
 
         <ImageView
@@ -53,8 +60,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10px"
             android:adjustViewBounds="true"
-            android:src="@drawable/search1"/>
-
+            android:src="@drawable/search1"
+            android:visibility="invisible"/>
     </LinearLayout>
 
     <android.support.v4.view.ViewPager

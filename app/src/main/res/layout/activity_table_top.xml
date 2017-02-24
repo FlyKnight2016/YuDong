@@ -154,31 +154,53 @@
                     style="@style/Style_TableTopToVideo"
                     android:src="@drawable/toptofree"/>
                 <ImageView
-                    android:id="@+id/tv_tableTop_toVipVideo"
+                    android:id="@+id/tv_topToActVideo"
                     style="@style/Style_TableTopToVideo"
                     android:layout_marginRight="20px"
                     android:src="@drawable/toptoact"/>
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_topToQuality"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20px"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
                 <ImageView
                     android:layout_width="20px"
                     android:layout_height="match_parent"
                     android:background="@color/themeColor"/>
                 <TextView
-                    android:id="@+id/tv_topToQuality"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:padding="5px"
                     android:layout_marginLeft="20px"
                     android:text="精品课程"
                     android:textColor="@color/themeColor"
                     android:textSize="36px"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="更多"
+                    android:textColor="@color/themeColor"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:layout_width="40px"
+                    android:layout_height="40px"
+                    android:layout_marginRight="20px"
+                    android:layout_weight="0"
+                    android:src="@drawable/useropen" />
             </LinearLayout>
+
+            <ListView
+                android:id="@+id/lv_recommendCourse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20px"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

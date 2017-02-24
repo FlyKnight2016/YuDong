@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            style="@style/Style_vqLL">
+
+            <ImageView
+                style="@style/Style_vqIV" />
+
+            <TextView
+                style="@style/Style_vqTV"
+                android:text="精品推荐" />
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gv_video_recommend"
+            style="@style/Style_vqGV"/>
+
+        <LinearLayout
+            style="@style/Style_vqLL">
+
+            <ImageView
+                style="@style/Style_vqIV" />
+
+            <TextView
+                style="@style/Style_vqTV"
+                android:text="云端会议" />
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gv_video_cloudMeeting"
+            style="@style/Style_vqGV"/>
+
+        <LinearLayout
+            style="@style/Style_vqLL">
+
+            <ImageView
+                style="@style/Style_vqIV" />
+
+            <TextView
+                style="@style/Style_vqTV"
+                android:text="更多精品" />
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gv_video_moreQuality"
+            style="@style/Style_vqGV"/>
+
+    </LinearLayout>
+
+</ScrollView>

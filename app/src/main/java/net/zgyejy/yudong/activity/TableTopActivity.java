@@ -7,14 +7,13 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import com.jorge.circlelibrary.ImageCycleView;
 import com.xys.libzxing.zxing.activity.CaptureActivity;
 
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.base.MyBaseActivity;
-import net.zgyejy.yudong.gloable.API;
 import net.zgyejy.yudong.live.ui.LiveActivity;
 import net.zgyejy.yudong.util.SharedUtil;
 
@@ -26,10 +25,14 @@ import butterknife.OnClick;
 import it.sephiroth.android.library.picasso.Picasso;
 
 public class TableTopActivity extends MyBaseActivity {
+    @BindView(R.id.table_cycleView)
+    ImageCycleView tableCycleView;
+    @BindView(R.id.lv_recommendCourse)
+    ListView lvRecommendCourse;
     private Bundle bundle;
     private boolean isLogined;
 
-    @BindView(R.id.table_cycleView)
+    /*@BindView(R.id.table_cycleView)
     ImageCycleView imageCycleView;
     @BindView(R.id.iv_tableTop_act)
     ImageView ivTableTopAct;
@@ -38,7 +41,7 @@ public class TableTopActivity extends MyBaseActivity {
     @BindView(R.id.tv_tableTop_act_date)
     TextView tvTableTopActDate;
     @BindView(R.id.tv_tableTop_act_content)
-    TextView tvTableTopActContent;
+    TextView tvTableTopActContent;*/
 
     //装载数据的集合 文字描述
     ArrayList<String> imageDescList;
@@ -94,7 +97,7 @@ public class TableTopActivity extends MyBaseActivity {
      */
     private void initCarsuelView(ArrayList<String> imageDescList, ArrayList<String> urlList) {
         LinearLayout.LayoutParams cParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, getScreenHeight(TableTopActivity.this) * 3 / 10);
-        imageCycleView.setLayoutParams(cParams);
+        tableCycleView.setLayoutParams(cParams);
         ImageCycleView.ImageCycleViewListener mAdCycleViewListener = new ImageCycleView.ImageCycleViewListener() {
             @Override
             public void onImageClick(int position, View imageView) {
@@ -112,8 +115,8 @@ public class TableTopActivity extends MyBaseActivity {
             }
         };
 /**设置数据*/
-        imageCycleView.setImageResources(imageDescList, urlList, mAdCycleViewListener);
-        imageCycleView.startImageCycle();
+        tableCycleView.setImageResources(imageDescList, urlList, mAdCycleViewListener);
+        tableCycleView.startImageCycle();
     }
 
     /**
@@ -130,7 +133,7 @@ public class TableTopActivity extends MyBaseActivity {
         return dm.heightPixels;
     }
 
-    @OnClick({R.id.iv_scan, R.id.iv_tableTop_user, R.id.tv_tableTop_toVideo, R.id.tv_tableTop_to51Video,
+    /*@OnClick({R.id.iv_scan, R.id.iv_tableTop_user, R.id.tv_tableTop_toVideo, R.id.tv_tableTop_to51Video,
             R.id.tv_tableTop_toFreeVideo, R.id.tv_tableTop_toVipVideo, R.id.tv_tableTop_toStudy,
             R.id.tv_tableTop_toPrincipalStudy, R.id.tv_tableTop_toTeacherStudy,
             R.id.tv_tableTop_toParentsStudy, R.id.tv_tableTop_toKidStudy, R.id.tv_tabletop_toAct,
@@ -217,7 +220,7 @@ public class TableTopActivity extends MyBaseActivity {
 
                 break;
         }
-    }
+    }*/
 
 
     @Override
@@ -241,5 +244,89 @@ public class TableTopActivity extends MyBaseActivity {
             SharedUtil.saveToken(this, null);
         }
         super.onDestroy();
+    }
+
+    @OnClick({R.id.iv_scan, R.id.iv_tableTop_user, R.id.ll_topTo51,
+            R.id.iv_topTo51, R.id.tv_tableTop_toStudy, R.id.tv_tableTop_toPrincipalStudy,
+            R.id.tv_tableTop_toTeacherStudy, R.id.tv_tableTop_toParentsStudy,
+            R.id.tv_tableTop_toKidStudy, R.id.tv_topToFree, R.id.tv_topToActVideo,
+            R.id.ll_topToQuality, R.id.tv_topToLive, R.id.ll_topToLive, R.id.tv_topToDownLoad,
+            R.id.tv_topToImageDownLoad, R.id.tv_topToTxtDownLoad, R.id.tv_topToMp3DownLoad,
+            R.id.tv_tableTop_toShow})
+    public void onClick(View view) {
+        isLogined = SharedUtil.getIsLogined(getBaseContext());
+        if (isLogined) {
+            if (bundle == null)
+                bundle = new Bundle();
+            switch (view.getId()) {
+                case R.id.iv_scan:
+                    Intent intent = new Intent(TableTopActivity.this, CaptureActivity.class);
+                    startActivityForResult(intent, 0);
+                    break;
+                case R.id.iv_tableTop_user:
+                    bundle.putString("isTo", "UserFragment");
+                    openActivity(HomeActivity.class, bundle);
+                    break;
+                case R.id.ll_topTo51:
+                case R.id.iv_topTo51:
+                    //跳转到VideoFragment五个一视频
+                    openActivity(HomeActivity.class);
+                    break;
+                case R.id.tv_tableTop_toStudy:
+                    bundle.putString("isTo", "StudyFragment");
+                    openActivity(HomeActivity.class, bundle);
+                    break;
+                case R.id.tv_tableTop_toPrincipalStudy:
+                    bundle.putString("isTo", "Principal");
+                    openActivity(HomeActivity.class, bundle);
+                    break;
+                case R.id.tv_tableTop_toTeacherStudy:
+                    bundle.putString("isTo", "Teacher");
+                    openActivity(HomeActivity.class, bundle);
+                    break;
+                case R.id.tv_tableTop_toParentsStudy:
+                    bundle.putString("isTo", "Parents");
+                    openActivity(HomeActivity.class, bundle);
+                    break;
+                case R.id.tv_tableTop_toKidStudy:
+                    bundle.putString("isTo", "Kid");
+                    openActivity(HomeActivity.class, bundle);
+                    break;
+                case R.id.tv_topToFree:
+                    //跳转到VideoFragment免费课程
+                    bundle.putString("isTo","VideoFree");
+                    openActivity(HomeActivity.class, bundle);
+                    break;
+                case R.id.tv_topToActVideo:
+                    //跳转到VideoFragment往期活动
+                    bundle.putString("isTo","VideoAct");
+                    openActivity(HomeActivity.class, bundle);
+                    break;
+                case R.id.ll_topToQuality:
+                    //跳转到VideoFragment精品课程（收费课程）
+                    bundle.putString("isTo","VideoQuality");
+                    openActivity(HomeActivity.class, bundle);
+                    break;
+                case R.id.tv_topToLive:
+                case R.id.ll_topToLive:
+                    openActivity(LiveActivity.class);
+                    break;
+                case R.id.tv_topToDownLoad:
+                    break;
+                case R.id.tv_topToImageDownLoad:
+                    break;
+                case R.id.tv_topToTxtDownLoad:
+                    break;
+                case R.id.tv_topToMp3DownLoad:
+                    break;
+                case R.id.tv_tableTop_toShow:
+                    bundle.putString("isTo", "Show");
+                    openActivity(HomeActivity.class, bundle);
+                    break;
+            }
+        } else {
+            showToast("还未登录，请先登录！");
+            openActivity(LoginActivity.class);
+        }
     }
 }

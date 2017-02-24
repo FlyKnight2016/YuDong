@@ -1,6 +1,5 @@
 package net.zgyejy.yudong.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -11,33 +10,22 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import net.zgyejy.yudong.R;
 import net.zgyejy.yudong.activity.CourseList51Activity;
 import net.zgyejy.yudong.activity.HomeActivity;
-import net.zgyejy.yudong.activity.SearchActivity;
-import net.zgyejy.yudong.activity.Video51Activity;
+import net.zgyejy.yudong.activity.Video51TrialListActivity;
 import net.zgyejy.yudong.activity.VideoListActivity;
 import net.zgyejy.yudong.activity.VideoPlayActivity;
-import net.zgyejy.yudong.adapter.HListViewAdapter_Integral;
-import net.zgyejy.yudong.adapter.ListCourseAdapter;
+import net.zgyejy.yudong.adapter.GridViewAdapter_Video;
 import net.zgyejy.yudong.adapter.MyPagerAdapter;
 import me.yejy.greendao.VideoIntegral;
-
-import net.zgyejy.yudong.bean.Course;
-import net.zgyejy.yudong.gloable.API;
-import net.zgyejy.yudong.modle.CourseInfo;
 import net.zgyejy.yudong.modle.parser.ParserCourseInfo;
-import net.zgyejy.yudong.modle.parser.ParserCourseList;
 import net.zgyejy.yudong.util.CommonUtil;
 import net.zgyejy.yudong.util.DbService;
 import net.zgyejy.yudong.util.SharedUtil;
@@ -53,42 +41,65 @@ import static net.zgyejy.yudong.gloable.API.VIDEO_51_BOOK_LIST;
 public class VideoFragment extends Fragment {
     private static final String TAG = "VideoFragment";
     private boolean isFirstRunning;//是否第一次运行
+    private boolean isFirstResume = true;
     private Bundle bundle;
     private DbService dbService;//数据库管理工具
 
     @BindView(R.id.tv_video_51)
     TextView tvVideo51;
+    @BindView(R.id.tv_video_quality)
+    TextView tvVideoQuality;
     @BindView(R.id.tv_video_free)
     TextView tvVideoFree;
-    @BindView(R.id.tv_video_vip)
-    TextView tvVideoVip;
+    @BindView(R.id.tv_video_act)
+    TextView tvVideoAct;
 
     @BindView(R.id.vp_home_video)
     ViewPager vpHomeVideo;//左右滑动界面
-
+    //滑动界面适配器
     private MyPagerAdapter viewPagerAdapter;
 
-    private LinearLayout ll_volume1,ll_volume2,ll_volume3,
-            ll_volume4,ll_volume5,ll_volume6;//为1到6册的点击事件
 
-    //积分视频页面的控件
-    private LinearLayout more;//试用课程
-    private RelativeLayout c1_22, c3_12, c5_18, speech1, speech2, speech3,getStudents;
-    private GridView gvMemory, gvMore;//记忆力小明星列表,更多视频列表
-    private List<VideoIntegral> listMemory, listMore;
-    private HListViewAdapter_Integral adapterMemory, adapterMore;//适配器
-    private CourseInfo courseInfo;
+    //五个一视频
+    private LinearLayout ll_volume1, ll_volume2, ll_volume3,
+            ll_volume4, ll_volume5, ll_volume6;//1到6册的view
 
-    private ListView lvVipCourses;//收费视频课程列表
-    private ListCourseAdapter vipCoursesAdapter;//课程列表适配器
-    private List<Course> listCourses;//课程集合
+    //精品课程
+    private GridView videoRecommend, //推荐课程
+            videoCloudMeeting, //云端会议视频
+            videoMoreQuality; //更多精品课程
+    private GridViewAdapter_Video adapterRecommend,//相应适配器
+            adapterCloudMeeting,
+            adapterMoreQuality;
 
+    //免费课程
+    private LinearLayout ll51T_c1_22,//五个一视频试用版
+            ll51T_c3_12,
+            ll51T_c5_18;
+
+
+    //活动视频
+    private LinearLayout ll_speech1,//演讲初赛
+            ll_speech2,//演讲复赛
+            ll_speech3,//演讲决赛
+            ll_61Train,//61培训
+            ll_moreAct;//更多活动
+    private GridView videoMemory, //记忆力小明星
+            videoMoreAct; //更多精彩活动
+    private GridViewAdapter_Video adapterMemory,//相应适配器
+            adapterMoreAct;
+    private List<VideoIntegral> listMemory, //相应视频数据集合
+            listMoreAct;
+    private boolean isMemoryDataLoaded = false,isMoreActDataLoaded = false;
+
+
+    //界面切换相关
     @BindColor(R.color.white)
     int whiteColor;//白色
     private int themeColor;//主题颜色
-
     private int topGuideTag = 0;//当前页面标识
 
+    //网络请求相关
     private RequestQueue requestQueue;//volley接口对象
 
     @Override
@@ -104,14 +115,25 @@ public class VideoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_video, container, false);
         ButterKnife.bind(this, view);
-        initView();
-        initVideoAdapters();
-        loadDate();
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isFirstResume) {
+            initView();
+            initAdapters();
+            //初始化标题栏
+            topGuideTag = 0;
+            loadDate();
+            isFirstResume = false;
+        }
+    }
+
     /**
-     * 加载数据
+     * 根据传递过来的isTo数据加载数据
+     * 五个一数据固定，无需再加载
      */
     private void loadDate() {
         if (!CommonUtil.isNetworkAvailable(getActivity())) {
@@ -121,12 +143,12 @@ public class VideoFragment extends Fragment {
                 //实例化一个RequestQueue对象
                 requestQueue = VolleySingleton.getVolleySingleton(getContext()).getRequestQueue();
             String isTo = ((HomeActivity) getActivity()).getIsTo();
-            if (isTo != null && isTo.equals("51Video")) {
-                /*showVideo51();*/
-            } else if (isTo.equals("FreeVideo")) {
+            if ("VideoQuality".equals(isTo)) {
                 vpHomeVideo.setCurrentItem(1);
-            } else if (isTo.equals("VipVideo")) {
+            } else if ("VideoFree".equals(isTo)) {
                 vpHomeVideo.setCurrentItem(2);
+            } else if ("VideoAct".equals(isTo)) {
+                vpHomeVideo.setCurrentItem(3);
             }
         }
     }
@@ -135,14 +157,13 @@ public class VideoFragment extends Fragment {
      * 界面的初始化
      */
     private void initView() {
-
         viewPagerAdapter = new MyPagerAdapter(getActivity());
         vpHomeVideo.setAdapter(viewPagerAdapter);
         vpHomeVideo.setOnPageChangeListener(pageChangeListener);
 
         FrameLayout frameLayout;
 
-        //51视频GridView
+        //五个一视频
         frameLayout = (FrameLayout) getActivity().getLayoutInflater()
                 .inflate(R.layout.layout_video_list_51, null);
         ll_volume1 = (LinearLayout) frameLayout.findViewById(R.id.ll_51Volume1);
@@ -152,80 +173,74 @@ public class VideoFragment extends Fragment {
         ll_volume5 = (LinearLayout) frameLayout.findViewById(R.id.ll_51Volume5);
         ll_volume6 = (LinearLayout) frameLayout.findViewById(R.id.ll_51Volume6);
 
-        ll_volume1.setOnClickListener(onClickListener2);
-        ll_volume2.setOnClickListener(onClickListener2);
-        ll_volume3.setOnClickListener(onClickListener2);
-        ll_volume4.setOnClickListener(onClickListener2);
-        ll_volume5.setOnClickListener(onClickListener2);
-        ll_volume6.setOnClickListener(onClickListener2);
+        ll_volume1.setOnClickListener(onClickListener51);
+        ll_volume2.setOnClickListener(onClickListener51);
+        ll_volume3.setOnClickListener(onClickListener51);
+        ll_volume4.setOnClickListener(onClickListener51);
+        ll_volume5.setOnClickListener(onClickListener51);
+        ll_volume6.setOnClickListener(onClickListener51);
 
         viewPagerAdapter.addToAdapterView(frameLayout);
 
-        //积分视频
+        //精品课程
         frameLayout = (FrameLayout) getActivity().getLayoutInflater()
-                .inflate(R.layout.layout_video_list_integral, null);
-        c1_22 = (RelativeLayout) frameLayout.findViewById(R.id.rl_c1_22);
-        c3_12 = (RelativeLayout) frameLayout.findViewById(R.id.rl_c3_12);
-        c5_18 = (RelativeLayout) frameLayout.findViewById(R.id.rl_c5_18);
+                .inflate(R.layout.layout_video_quality, null);
+        videoRecommend = (GridView) frameLayout.findViewById(R.id.gv_video_recommend); //推荐课程
+        videoCloudMeeting = (GridView) frameLayout.findViewById(R.id.gv_video_cloudMeeting); //云端会议视频
+        videoMoreQuality = (GridView) frameLayout.findViewById(R.id.gv_video_moreQuality); //更多精品课程
 
-        speech1 = (RelativeLayout) frameLayout.findViewById(R.id.rl_speech1);
-        speech2 = (RelativeLayout) frameLayout.findViewById(R.id.rl_speech2);
-        speech3 = (RelativeLayout) frameLayout.findViewById(R.id.rl_speech3);
+        //设置ItemClickListener跳转到视频介绍界面
+        //设置适配器
 
-        getStudents = (RelativeLayout) frameLayout.findViewById(R.id.getStudents);
 
-        more = (LinearLayout) frameLayout.findViewById(R.id.ll_more);
+        viewPagerAdapter.addToAdapterView(frameLayout);
 
-        c1_22.setOnClickListener(onClickListener);
-        c3_12.setOnClickListener(onClickListener);
-        c5_18.setOnClickListener(onClickListener);
-        speech1.setOnClickListener(onClickListener);
-        speech2.setOnClickListener(onClickListener);
-        speech3.setOnClickListener(onClickListener);
-        getStudents.setOnClickListener(onClickListener);
-        more.setOnClickListener(onClickListener);
+        //免费课程
+        frameLayout = (FrameLayout) getActivity().getLayoutInflater()
+                .inflate(R.layout.layout_video_free, null);
+        ll51T_c1_22 = (LinearLayout) frameLayout.findViewById(R.id.ll_51T_c1_22);
+        ll51T_c3_12 = (LinearLayout) frameLayout.findViewById(R.id.ll_51T_c3_12);
+        ll51T_c5_18 = (LinearLayout) frameLayout.findViewById(R.id.ll_51T_c5_18);
+        ll51T_c1_22.setOnClickListener(onClickListener51T);
+        ll51T_c3_12.setOnClickListener(onClickListener51T);
+        ll51T_c5_18.setOnClickListener(onClickListener51T);
 
-        gvMemory = (GridView) frameLayout.findViewById(R.id.gv_memory);
-        gvMemory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        viewPagerAdapter.addToAdapterView(frameLayout);
+
+        //往期活动视频
+        frameLayout = (FrameLayout) getActivity().getLayoutInflater()
+                .inflate(R.layout.layout_video_act, null);
+        ll_speech1 = (LinearLayout) frameLayout.findViewById(R.id.ll_free_speech1);
+        ll_speech2 = (LinearLayout) frameLayout.findViewById(R.id.ll_free_speech2);
+        ll_speech3 = (LinearLayout) frameLayout.findViewById(R.id.ll_free_speech3);
+        ll_61Train = (LinearLayout) frameLayout.findViewById(R.id.ll_free_61train);
+        ll_moreAct = (LinearLayout) frameLayout.findViewById(R.id.ll_moreAct);
+        ll_speech1.setOnClickListener(onClickListener_VideoList);
+        ll_speech2.setOnClickListener(onClickListener_VideoList);
+        ll_speech3.setOnClickListener(onClickListener_VideoList);
+        ll_61Train.setOnClickListener(onClickListener_VideoList);
+        ll_moreAct.setOnClickListener(onClickListener_VideoList);
+
+        videoMemory = (GridView) frameLayout.findViewById(R.id.gv_video_memory);
+        videoMemory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //点击跳转到视频播放界面
                 if (bundle == null)
                     bundle = new Bundle();
                 VideoIntegral videoIntegral = adapterMemory.getItem(position);
                 bundle.putSerializable("videoIntegral", videoIntegral);
-                ((HomeActivity) getActivity()).openActivity(VideoPlayActivity.class, bundle);
+                getMyActivity().openActivity(VideoPlayActivity.class, bundle);
             }
         });
-
-        gvMore = (GridView) frameLayout.findViewById(R.id.gv_more);
-        gvMore.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        videoMoreAct = (GridView) frameLayout.findViewById(R.id.gv_video_moreAct);
+        videoMoreAct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //点击跳转到视频播放界面
                 if (bundle == null)
                     bundle = new Bundle();
-                VideoIntegral videoIntegral = adapterMore.getItem(position);
+                VideoIntegral videoIntegral = adapterMoreAct.getItem(position);
                 bundle.putSerializable("videoIntegral", videoIntegral);
-                ((HomeActivity) getActivity()).openActivity(VideoPlayActivity.class, bundle);
-            }
-        });
-
-        viewPagerAdapter.addToAdapterView(frameLayout);
-
-        //收费视频ListView
-        frameLayout = (FrameLayout) getActivity().getLayoutInflater()
-                .inflate(R.layout.layout_video_list_vip, null);
-        lvVipCourses = (ListView) frameLayout.findViewById(R.id.lv_vipCourses);
-        lvVipCourses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //点击跳转到收费视频列表界面
-                if (bundle == null)
-                    bundle = new Bundle();
-                bundle.putString("result", API.VIDEO_51_BOOK_LIST +
-                        vipCoursesAdapter.getItem(position).getId());
-                ((HomeActivity)getActivity()).openActivity(Video51Activity.class, bundle);
+                getMyActivity().openActivity(VideoPlayActivity.class, bundle);
             }
         });
 
@@ -235,41 +250,11 @@ public class VideoFragment extends Fragment {
         viewPagerAdapter.notifyDataSetChanged();
     }
 
-    private View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (bundle == null)
-                bundle = new Bundle();
-            switch (v.getId()) {
-                case R.id.rl_c1_22:
-                    bundle.putString("url", API.VIDEO_51_BOOK_LIST + 153);
-                    break;
-                case R.id.rl_c3_12:
-                    bundle.putString("url", API.VIDEO_51_BOOK_LIST + 168);
-                    break;
-                case R.id.rl_c5_18:
-                    bundle.putString("url", API.VIDEO_51_BOOK_LIST + 195);
-                    break;
-                case R.id.rl_speech1:
-                    bundle.putString("url", API.VIDEO_51_BOOK_LIST + 211);
-                    break;
-                case R.id.rl_speech2:
-                    bundle.putString("url", API.VIDEO_51_BOOK_LIST + 212);
-                    break;
-                case R.id.rl_speech3:
-                    bundle.putString("url", API.VIDEO_51_BOOK_LIST + 213);
-                    break;
-                case R.id.ll_more:
-                    bundle.putString("url", API.VIDEO_51_BOOK_LIST + 215);
-                    break;
-                case R.id.getStudents:
-                    bundle.putString("url", API.VIDEO_51_BOOK_LIST + 218);
-            }
-            getMyActivity().openActivity(VideoListActivity.class, bundle);
-        }
-    };
 
-    private View.OnClickListener onClickListener2 = new View.OnClickListener() {
+    /**
+     * 五个一视频书页的点击事件
+     */
+    private View.OnClickListener onClickListener51 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (bundle == null)
@@ -294,10 +279,67 @@ public class VideoFragment extends Fragment {
                     bundle.putString("courses", VIDEO_51_BOOK_LIST + 109);
                     break;
             }
-            openActivity(CourseList51Activity.class, bundle);
+            getMyActivity().openActivity(CourseList51Activity.class, bundle);
         }
     };
 
+    /**
+     * 五个一视频试用版的点击事件
+     */
+    private View.OnClickListener onClickListener51T = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (bundle == null)
+                bundle = new Bundle();
+            switch (v.getId()) {
+                case R.id.ll_51T_c1_22:
+                    bundle.putString("course", VIDEO_51_BOOK_LIST + 153);
+                    break;
+                case R.id.ll_51T_c3_12:
+                    bundle.putString("course", VIDEO_51_BOOK_LIST + 168);
+                    break;
+                case R.id.ll_51T_c5_18:
+                    bundle.putString("course", VIDEO_51_BOOK_LIST + 195);
+                    break;
+            }
+            getMyActivity().openActivity(Video51TrialListActivity.class, bundle);
+        }
+    };
+
+    /**
+     * 跳转到相应视频列表的点击事件
+     */
+    private View.OnClickListener onClickListener_VideoList = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (bundle == null)
+                bundle = new Bundle();
+            switch (v.getId()) {
+                case R.id.ll_free_speech1:
+                    bundle.putString("url", VIDEO_51_BOOK_LIST + 211);
+                    break;
+                case R.id.ll_free_speech2:
+                    bundle.putString("url", VIDEO_51_BOOK_LIST + 212);
+                    break;
+                case R.id.ll_free_speech3:
+                    bundle.putString("url", VIDEO_51_BOOK_LIST + 213);
+                    break;
+                case R.id.ll_free_61train:
+                    bundle.putString("url", VIDEO_51_BOOK_LIST + 218);
+                    break;
+                case R.id.ll_moreAct:
+                    bundle.putString("url", VIDEO_51_BOOK_LIST + 215);
+                    break;
+            }
+            getMyActivity().openActivity(VideoListActivity.class, bundle);
+        }
+    };
+
+    /**
+     * 获取当前Activity
+     *
+     * @return
+     */
     private HomeActivity getMyActivity() {
         return (HomeActivity) getActivity();
     }
@@ -328,87 +370,54 @@ public class VideoFragment extends Fragment {
      *
      * @param view
      */
-    @OnClick({R.id.tv_video_51, R.id.tv_video_free,
-            R.id.tv_video_vip, R.id.iv_search})
+    @OnClick({R.id.tv_video_51, R.id.tv_video_quality,
+            R.id.tv_video_free, R.id.tv_video_act})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_video_51:
                 vpHomeVideo.setCurrentItem(0);
                 break;
-            case R.id.tv_video_free:
+            case R.id.tv_video_quality:
                 vpHomeVideo.setCurrentItem(1);
                 break;
-            case R.id.tv_video_vip:
+            case R.id.tv_video_free:
                 vpHomeVideo.setCurrentItem(2);
                 break;
-            case R.id.iv_search:
-                ((HomeActivity) getActivity()).openActivity(SearchActivity.class);
+            case R.id.tv_video_act:
+                vpHomeVideo.setCurrentItem(3);
                 break;
         }
     }
 
     /**
-     * 跳转Activity
+     * 显示精品合成视频数据
      */
-    private void openActivity(Class<?> pClass) {
-        ((HomeActivity) getActivity()).openActivity(pClass);
+    private void showVideoQuality() {
+
     }
 
     /**
-     * 跳转Activity
+     * 显示往期活动视频数据
      */
-    private void openActivity(Class<?> pClass, Bundle bundle) {
-        ((HomeActivity) getActivity()).openActivity(pClass, bundle);
-    }
-
-    /**
-     * 显示vip视频数据
-     */
-    private void showVideoVip() {
-        if (!CommonUtil.isNetworkAvailable(getActivity())) {
-            ((HomeActivity) getActivity()).showToast("当前无网络连接，请连接网络!");
-        } else {
-            String urlCourses = API.VIDEO_GET_COURSES + 222;//所有收费课程列表
-            if (requestQueue == null)
-                requestQueue = VolleySingleton.getVolleySingleton(getContext()).getRequestQueue();
-            ((HomeActivity) getActivity()).showLoadingDialog(getContext(), "数据正在加载...", true);//显示加载动画
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlCourses,
-                    null,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject jsonObject) {
-                            listCourses = ParserCourseList.getCourseList(jsonObject.toString());
-                            vipCoursesAdapter.appendDataed(listCourses, true);
-                            vipCoursesAdapter.updateAdapter();
-                            ((HomeActivity) getActivity()).cancelDialog();
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
-                        }
-                    }
-            );
-            requestQueue.add(jsonObjectRequest);
-        }
-    }
-
-    /**
-     * 显示积分视频数据
-     */
-    private void showVideoFree() {
-        String urlMemory = API.VIDEO_51_BOOK_LIST + "214";
-        ((HomeActivity) getActivity()).showLoadingDialog(getContext(), "数据正在加载...", true);//显示加载动画
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlMemory,
+    private void showVideoAct() {
+        String urlMemory = VIDEO_51_BOOK_LIST + 214;
+        String urlMoreAct = VIDEO_51_BOOK_LIST + 215;
+        if (requestQueue == null)
+            //实例化一个RequestQueue对象
+            requestQueue = VolleySingleton.getVolleySingleton(getContext()).getRequestQueue();
+        getMyActivity().showLoadingDialog(getContext(), "数据正在加载...", true);//显示加载动画
+        JsonObjectRequest jsonObjectRequest1 = new JsonObjectRequest(Request.Method.GET, urlMemory,
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        courseInfo = ParserCourseInfo.getCourseInfo(jsonObject.toString());
-                        listMemory = courseInfo.getVideo();
-                        adapterMemory.appendDataed(listMemory, true);
-                        adapterMemory.updateAdapter();
-                        ((HomeActivity) getActivity()).cancelDialog();
+                        listMemory = ParserCourseInfo.getCourseInfo(jsonObject.toString())
+                                .getVideo();
+                        adapterMemory.appendDataed(listMemory,true);
+                        adapterMemory.notifyDataSetChanged();
+                        isMemoryDataLoaded = true;
+                        if (isMoreActDataLoaded)
+                            getMyActivity().cancelDialog();
                     }
                 },
                 new Response.ErrorListener() {
@@ -417,25 +426,26 @@ public class VideoFragment extends Fragment {
                     }
                 }
         );
-        requestQueue.add(jsonObjectRequest);
+        requestQueue.add(jsonObjectRequest1);
 
-        String urlMore = API.VIDEO_51_BOOK_LIST + "215";
-        JsonObjectRequest jsonObjectRequest2 = new JsonObjectRequest(Request.Method.GET, urlMore,
+        JsonObjectRequest jsonObjectRequest2 = new JsonObjectRequest(Request.Method.GET, urlMoreAct,
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        courseInfo = ParserCourseInfo.getCourseInfo(jsonObject.toString());
-                        listMore = courseInfo.getVideo();
-                        if (listMore.size() > 3) {
-                            adapterMore.appendDataed(listMore.get(listMore.size() - 1), true);
-                            adapterMore.appendDataed(listMore.get(listMore.size() - 2), false);
-                            adapterMore.appendDataed(listMore.get(listMore.size() - 3), false);
-                        } else {
-                            adapterMore.appendDataed(listMore, true);
+                        listMoreAct = ParserCourseInfo.getCourseInfo(jsonObject.toString())
+                                .getVideo();
+                        if (listMoreAct.size()>3) {
+                            adapterMoreAct.appendDataed(listMoreAct.get(listMoreAct.size()-1),true);
+                            adapterMoreAct.appendDataed(listMoreAct.get(listMoreAct.size()-2),false);
+                            adapterMoreAct.appendDataed(listMoreAct.get(listMoreAct.size()-3),false);
+                        }else {
+                            adapterMoreAct.appendDataed(listMoreAct,true);
                         }
-                        adapterMore.updateAdapter();
-                        ((HomeActivity) getActivity()).cancelDialog();
+                        adapterMoreAct.notifyDataSetChanged();
+                        isMoreActDataLoaded = true;
+                        if (isMemoryDataLoaded)
+                            getMyActivity().cancelDialog();
                     }
                 },
                 new Response.ErrorListener() {
@@ -451,24 +461,20 @@ public class VideoFragment extends Fragment {
     /**
      * 配置各列表适配器
      */
-    private void initVideoAdapters() {
+    private void initAdapters() {
+        /*//精品课程适配
+        setAdapter(videoRecommend, adapterRecommend);
+        setAdapter(videoCloudMeeting, adapterCloudMeeting);
+        setAdapter(videoMoreQuality, adapterMoreQuality);*/
 
-        //记忆力小明星适配器
+        //往期活动适配
         if (adapterMemory == null)
-            adapterMemory = new HListViewAdapter_Integral(getContext());
-        gvMemory.setAdapter(adapterMemory);
+            adapterMemory = new GridViewAdapter_Video(getContext());
+        videoMemory.setAdapter(adapterMemory);
 
-        //其他积分视频适配器
-        if (adapterMore == null)
-            adapterMore = new HListViewAdapter_Integral(getContext());
-        gvMore.setAdapter(adapterMore);
-
-        if (vipCoursesAdapter == null)
-            vipCoursesAdapter = new ListCourseAdapter(getActivity());
-        lvVipCourses.setAdapter(vipCoursesAdapter);
-
-        topGuideTag = 0;
-        setTopGuide();
+        if (adapterMoreAct == null)
+            adapterMoreAct = new GridViewAdapter_Video(getContext());
+        videoMoreAct.setAdapter(adapterMoreAct);
     }
 
     /**
@@ -478,12 +484,14 @@ public class VideoFragment extends Fragment {
         themeColor = ((HomeActivity) getActivity()).getThemeColor();
 
         tvVideo51.setBackgroundResource(R.drawable.text_view_border_51);
+        tvVideoQuality.setBackgroundResource(R.drawable.text_view_border_free);
         tvVideoFree.setBackgroundResource(R.drawable.text_view_border_free);
-        tvVideoVip.setBackgroundResource(R.drawable.text_view_border_vip);
+        tvVideoAct.setBackgroundResource(R.drawable.text_view_border_vip);
 
         tvVideo51.setTextColor(whiteColor);
+        tvVideoQuality.setTextColor(whiteColor);
         tvVideoFree.setTextColor(whiteColor);
-        tvVideoVip.setTextColor(whiteColor);
+        tvVideoAct.setTextColor(whiteColor);
     }
 
     //设置上标题和对应数据加载
@@ -495,14 +503,18 @@ public class VideoFragment extends Fragment {
                 tvVideo51.setTextColor(themeColor);
                 break;
             case 1:
-                tvVideoFree.setBackgroundResource(R.drawable.text_view_back_free);
-                tvVideoFree.setTextColor(themeColor);
-                showVideoFree();
+                tvVideoQuality.setBackgroundResource(R.drawable.text_view_back_free);
+                tvVideoQuality.setTextColor(themeColor);
+                showVideoQuality();
                 break;
             case 2:
-                tvVideoVip.setBackgroundResource(R.drawable.text_view_back_vip);
-                tvVideoVip.setTextColor(themeColor);
-                showVideoVip();
+                tvVideoFree.setBackgroundResource(R.drawable.text_view_back_free);
+                tvVideoFree.setTextColor(themeColor);
+                break;
+            case 3:
+                tvVideoAct.setBackgroundResource(R.drawable.text_view_back_vip);
+                tvVideoAct.setTextColor(themeColor);
+                showVideoAct();
                 break;
         }
     }

@@ -214,7 +214,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
-        sha1="b95555c21fc34e99e7e079824375854295835321">
+        sha1="ed182907e34cca2e77d7bd6ec7f139a9567ad611">
         <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\instant-run-bootstrap_5bbda3e8950db2c8cc91170ab0e56e7ac53a3cd0.jar" />
     </item>
     <item
@@ -295,7 +295,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
-        sha1="f31b3d1bec0f1cc779d0cd51918d3d37058beab6">
+        sha1="317906880f2ddadc712c0edf33f1abc39deaa2a1">
         <dex dex="D:\EglishPath\MyApplications\YuDong\app\build\intermediates\pre-dexed\debug\instant-run_de2b7ab531964563bf97a2be8ac2a6169fa117a8.jar" />
     </item>
     <item

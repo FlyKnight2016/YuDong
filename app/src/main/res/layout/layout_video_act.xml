@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            style="@style/Style_vqLL">
+
+            <ImageView
+                style="@style/Style_vqIV" />
+
+            <TextView
+                style="@style/Style_vqTV"
+                android:text="演讲小明星" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10px">
+            <LinearLayout
+                android:id="@+id/ll_free_speech1"
+                style="@style/Style_51TLl1">
+                <ImageView
+                    style="@style/Style_51TIV1"
+                    android:src="@drawable/speech"/>
+                <TextView
+                    style="@style/Style_51TTV1"
+                    android:text="我是超级演讲\n小明星 初赛" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_free_speech2"
+                style="@style/Style_51TLl1">
+                <ImageView
+                    style="@style/Style_51TIV1"
+                    android:src="@drawable/speech"/>
+                <TextView
+                    style="@style/Style_51TTV1"
+                    android:text="我是超级演讲\n小明星 复赛" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_free_speech3"
+                style="@style/Style_51TLl1">
+                <ImageView
+                    style="@style/Style_51TIV1"
+                    android:src="@drawable/speech"/>
+                <TextView
+                    style="@style/Style_51TTV1"
+                    android:text="我是超级演讲\n小明星 总决赛" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/Style_vqLL">
+
+            <ImageView
+                style="@style/Style_vqIV" />
+
+            <TextView
+                style="@style/Style_vqTV"
+                android:text="记忆力小明星" />
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gv_video_memory"
+            style="@style/Style_vqGV"/>
+
+        <LinearLayout
+            style="@style/Style_vqLL">
+
+            <ImageView
+                style="@style/Style_vqIV" />
+
+            <TextView
+                style="@style/Style_vqTV"
+                android:text="招生培训" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10px">
+            <LinearLayout
+                android:id="@+id/ll_free_61train"
+                style="@style/Style_51TLl1">
+                <ImageView
+                    style="@style/Style_51TIV1"
+                    android:src="@drawable/getstudent"/>
+                <TextView
+                    style="@style/Style_51TTV1"
+                    android:text="2016-元旦\n招生培训" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="invisible"
+                style="@style/Style_51TLl1">
+                <ImageView
+                    style="@style/Style_51TIV1"
+                    android:src="@drawable/speech"/>
+                <TextView
+                    style="@style/Style_51TTV1"
+                    android:text="我是超级演讲\n小明星 复赛" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="invisible"
+                style="@style/Style_51TLl1">
+                <ImageView
+                    style="@style/Style_51TIV1"
+                    android:src="@drawable/speech"/>
+                <TextView
+                    style="@style/Style_51TTV1"
+                    android:text="我是超级演讲\n小明星 总决赛" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_moreAct"
+            style="@style/Style_vqLL">
+
+            <ImageView
+                style="@style/Style_vqIV" />
+
+            <TextView
+                style="@style/Style_vqTV"
+                android:text="更多精彩活动" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="全部"
+                android:textColor="@color/themeColor"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_marginRight="20px"
+                android:layout_weight="0"
+                android:src="@drawable/useropen" />
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gv_video_moreAct"
+            style="@style/Style_vqGV"/>
+
+    </LinearLayout>
+</ScrollView>

@@ -1,23 +1,11 @@
 [
     {
-        "merged": "D:\\EnglishPath\\MyApps\\YuDong\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_flip.png",
-        "source": "D:\\EnglishPath\\MyApps\\YuDong\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_flip.png"
-    },
-    {
-        "merged": "D:\\EnglishPath\\MyApps\\YuDong\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\indicator_arrow.png",
-        "source": "D:\\EnglishPath\\MyApps\\YuDong\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\indicator_arrow.png"
-    },
-    {
         "merged": "D:\\EglishPath\\MyApplications\\YuDong\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_flip.png",
         "source": "D:\\EglishPath\\MyApplications\\YuDong\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_flip.png"
     },
     {
         "merged": "D:\\EglishPath\\MyApplications\\YuDong\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_rotate.png",
         "source": "D:\\EglishPath\\MyApplications\\YuDong\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_rotate.png"
-    },
-    {
-        "merged": "D:\\EnglishPath\\MyApps\\YuDong\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_rotate.png",
-        "source": "D:\\EnglishPath\\MyApps\\YuDong\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_rotate.png"
     },
     {
         "merged": "D:\\EglishPath\\MyApplications\\YuDong\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\indicator_arrow.png",

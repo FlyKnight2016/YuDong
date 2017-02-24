@@ -148,6 +148,14 @@ public class LiveActivity extends MyBaseActivity implements
         ButterKnife.bind(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//设置初始屏幕方向
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         token = SharedUtil.getToken(this);
 
         LiveKit.addEventHandler(handler);
@@ -163,12 +171,7 @@ public class LiveActivity extends MyBaseActivity implements
         getPathAndTitle();
 
         chatServerLogin();//登录聊天室
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
-
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {

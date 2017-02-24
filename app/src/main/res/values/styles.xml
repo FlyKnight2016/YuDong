@@ -87,6 +87,57 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <!--精品课程界面style-->
+    <style name="Style_vqLL">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10px</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="Style_vqIV">
+        <item name="android:layout_width">20px</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:background">@color/themeColor</item>
+    </style>
+    <style name="Style_vqTV">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">20px</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">5px</item>
+        <item name="android:textColor">@color/themeColor</item>
+        <item name="android:textSize">30px</item>
+    </style>
+
+    <style name="Style_vqGV">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">20px</item>
+        <item name="android:horizontalSpacing">20px</item>
+        <item name="android:numColumns">3</item>
+        <item name="android:verticalSpacing">16px</item>
+    </style>
+
+    <!--五个一试用视频界面style-->
+    <style name="Style_51TLl1">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="Style_51TIV1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10px</item>
+        <item name="android:adjustViewBounds">true</item>
+    </style>
+    <style name="Style_51TTV1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+    </style>
 
     <!-- GIF动画所用 -->
     <declare-styleable name="GifView">
